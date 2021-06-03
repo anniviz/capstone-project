@@ -17,6 +17,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "author": "Annemarie Wisbar <a.wisbar@gmail.com>",
   "eslintConfig": {
     "extends": [
       "react-app",
