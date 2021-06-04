@@ -1,14 +1,14 @@
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
-Card.propTypes = {
+MedicationGroup.propTypes = {
   time: PropTypes.node,
   meds: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.node, name: PropTypes.string })
   ),
 }
 
-export default function Card({ time, meds }) {
+export default function MedicationGroup({ time, meds }) {
   return (
     <Wrapper>
       <time dateTime={time}>{time} UHR</time>
