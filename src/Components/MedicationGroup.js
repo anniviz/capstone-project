@@ -11,7 +11,9 @@ MedicationGroup.propTypes = {
 export default function MedicationGroup({ time, meds }) {
   return (
     <Wrapper>
-      <Time dateTime={time}>{time} UHR</Time>
+      <Time role="time" dateTime={time}>
+        {time} UHR
+      </Time>
       <Meds>
         {meds.map(({ id, medName }) => (
           <li key={id}>{medName}</li>
