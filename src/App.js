@@ -4,6 +4,8 @@ import Header from './Components/Header'
 import MedicationGroup from './Components/MedicationGroup'
 
 export default function App() {
+  const currentDate = new Date()
+
   const medication = [
     {
       id: 1,
@@ -41,7 +43,7 @@ export default function App() {
 
   return (
     <Grid>
-      <Header>Header</Header>
+      <Header>{formatDate(currentDate)}</Header>
       <Flexbox>
         {medication.map(({ id, time, meds }) => (
           <MedicationGroup key={id} time={time} meds={meds} />
@@ -49,6 +51,39 @@ export default function App() {
       </Flexbox>
     </Grid>
   )
+
+  function formatDate(date) {
+    const days = [
+      'Sonntag',
+      'Montag',
+      'Dienstag',
+      'Mittwoch',
+      'Donnerstag',
+      'Freitag',
+      'Samstag',
+    ]
+
+    const months = [
+      'Januar',
+      'Februar',
+      'März',
+      'April',
+      'Mai',
+      'Juni',
+      'Juli',
+      'August',
+      'September',
+      'Oktober',
+      'November',
+      'Dezember',
+    ]
+
+    const formatedDate = `${days[
+      date.getDay()
+    ].toUpperCase()}, ${date.getDate()}. ${months[date.getMonth()]}`
+
+    return formatedDate
+  }
 }
 
 const Grid = styled.div`
