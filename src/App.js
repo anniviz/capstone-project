@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Header from './Components/Header'
 import MedicationGroup from './Components/MedicationGroup'
 
 export default function App() {
@@ -39,17 +40,27 @@ export default function App() {
   ]
 
   return (
-    <Flexbox>
-      {medication.map(({ id, time, meds }) => (
-        <MedicationGroup key={id} time={time} meds={meds} />
-      ))}
-    </Flexbox>
+    <Grid>
+      <Header>Header</Header>
+      <Flexbox>
+        {medication.map(({ id, time, meds }) => (
+          <MedicationGroup key={id} time={time} meds={meds} />
+        ))}
+      </Flexbox>
+    </Grid>
   )
 }
+
+const Grid = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+`
 
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 16px;
+  overflow-y: auto;
 `
