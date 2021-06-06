@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto',sans-serif;
 }
 
 input,
@@ -15,6 +15,6 @@ button,
 textarea {
   font-size: inherit;
 }
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
