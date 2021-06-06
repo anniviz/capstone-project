@@ -7,8 +7,8 @@ export default {
 
 const Template = args => <MedicationGroup {...args} />
 
-export const DefaultMedicationGroup = Template.bind({})
-DefaultMedicationGroup.args = {
+export const Default = Template.bind({})
+Default.args = {
   time: '8:00',
   meds: [
     { id: 1, medName: 'Spironolacton' },
