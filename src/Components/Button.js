@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 Button.propTypes = {
-  isActive: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node,
 }
@@ -12,16 +11,15 @@ export default function Button(props) {
 }
 
 const ButtonStyled = styled.button`
+  width: 100px;
   padding: 12px;
-  border: 2px solid grey;
+  border: 2px solid black;
   border-radius: 8px;
   background-color: white;
-  color: grey;
+  color: black;
 
-  ${props =>
-    props.isActive &&
-    css`
-      border: 2px solid black;
-      color: black;
-    `}
+  :disabled {
+    border: 2px solid grey;
+    color: grey;
+  }
 `
