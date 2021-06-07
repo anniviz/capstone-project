@@ -4,6 +4,6 @@ import Header from './Header'
 describe('Header', () => {
   it('renders the Header', () => {
     render(<Header>Header</Header>)
-    screen.getByRole('heading').toHaveTextContent('Header')
+    expect(screen.getByRole('heading')).toHaveTextContent('Header')
   })
 })
