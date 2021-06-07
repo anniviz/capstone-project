@@ -1,7 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import Header from './Components/Header'
-import MedicationGroup from './Components/MedicationGroup'
+import styled from 'styled-components/macro'
+import Header from './components/Header'
+import MedicationGroup from './components/MedicationGroup'
 
 export default function App() {
   const currentDate = new Date()
