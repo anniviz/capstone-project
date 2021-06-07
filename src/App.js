@@ -1,55 +1,44 @@
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import MedicationGroup from './components/MedicationGroup'
+import Form from './pages/FormPage'
 
 export default function App() {
   const currentDate = new Date()
 
-  const medication = [
-    {
-      id: 1,
-      time: '8:00',
-      meds: [
-        { id: 1, medName: 'Spironolacton' },
-        { id: 2, medName: 'Enalapril' },
-        { id: 3, medName: 'Prednisolon' },
-        { id: 4, medName: 'MMF' },
-        { id: 5, medName: 'Magnesium' },
-        { id: 6, medName: 'ASS' },
-      ],
-    },
-    { id: 2, time: '9:00', meds: [{ id: 1, medName: 'Tacrolimus' }] },
-    {
-      id: 3,
-      time: '13:00',
-      meds: [
-        { id: 1, medName: 'Magnesium' },
-        { id: 2, medName: 'MMF' },
-      ],
-    },
-    {
-      id: 4,
-      time: '18:00',
-      meds: [
-        { id: 1, medName: 'Magnesium' },
-        { id: 2, medName: 'MMF' },
-        { id: 3, medName: 'Enalapril' },
-        { id: 4, medName: 'Calcium' },
-      ],
-    },
-    { id: 5, time: '21:00', meds: [{ id: 1, medName: 'Tacrolimus' }] },
-  ]
+  const [medications, setMedications] = useState([])
+  const [activePage, setActivePage] = useState('form')
 
   return (
-    <Grid>
-      <Header>{formatDate(currentDate)}</Header>
-      <Flexbox>
-        {medication.map(({ id, time, meds }) => (
-          <MedicationGroup key={id} time={time} meds={meds} />
-        ))}
-      </Flexbox>
-    </Grid>
+    <>
+      {activePage === 'medication' && (
+        <Grid>
+          <Header>{formatDate(currentDate)}</Header>
+          <Flexbox>
+            {medications.map(({ id, time, meds }) => (
+              <MedicationGroup key={id} time={time} meds={meds} />
+            ))}
+          </Flexbox>
+        </Grid>
+      )}
+      {activePage === 'form' && (
+        <Form
+          onClick={handleActivePage}
+          setActivePage={setActivePage}
+          onSubmit={handleSubmit}
+        />
+      )}
+    </>
   )
+
+  function handleActivePage(page) {
+    setActivePage(page)
+  }
+
+  function handleSubmit(newMedication) {
+    setMedications([newMedication, ...medications])
+  }
 
   function formatDate(date) {
     const days = [
