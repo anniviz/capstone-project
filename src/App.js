@@ -1,25 +1,100 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components/macro'
+import Header from './components/Header'
+import MedicationGroup from './components/MedicationGroup'
 
-function App() {
+export default function App() {
+  const currentDate = new Date()
+
+  const medication = [
+    {
+      id: 1,
+      time: '8:00',
+      meds: [
+        { id: 1, medName: 'Spironolacton' },
+        { id: 2, medName: 'Enalapril' },
+        { id: 3, medName: 'Prednisolon' },
+        { id: 4, medName: 'MMF' },
+        { id: 5, medName: 'Magnesium' },
+        { id: 6, medName: 'ASS' },
+      ],
+    },
+    { id: 2, time: '9:00', meds: [{ id: 1, medName: 'Tacrolimus' }] },
+    {
+      id: 3,
+      time: '13:00',
+      meds: [
+        { id: 1, medName: 'Magnesium' },
+        { id: 2, medName: 'MMF' },
+      ],
+    },
+    {
+      id: 4,
+      time: '18:00',
+      meds: [
+        { id: 1, medName: 'Magnesium' },
+        { id: 2, medName: 'MMF' },
+        { id: 3, medName: 'Enalapril' },
+        { id: 4, medName: 'Calcium' },
+      ],
+    },
+    { id: 5, time: '21:00', meds: [{ id: 1, medName: 'Tacrolimus' }] },
+  ]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Grid>
+      <Header>{formatDate(currentDate)}</Header>
+      <Flexbox>
+        {medication.map(({ id, time, meds }) => (
+          <MedicationGroup key={id} time={time} meds={meds} />
+        ))}
+      </Flexbox>
+    </Grid>
+  )
+
+  function formatDate(date) {
+    const days = [
+      'Sonntag',
+      'Montag',
+      'Dienstag',
+      'Mittwoch',
+      'Donnerstag',
+      'Freitag',
+      'Samstag',
+    ]
+
+    const months = [
+      'Januar',
+      'Februar',
+      'März',
+      'April',
+      'Mai',
+      'Juni',
+      'Juli',
+      'August',
+      'September',
+      'Oktober',
+      'November',
+      'Dezember',
+    ]
+
+    const formatedDate = `${days[
+      date.getDay()
+    ].toUpperCase()}, ${date.getDate()}. ${months[date.getMonth()]}`
+
+    return formatedDate
+  }
 }
 
-export default App;
+const Grid = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+`
+
+const Flexbox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  overflow-y: auto;
+`
