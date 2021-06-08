@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { loadFromLocal, saveToLocal } from './utils/localStorage'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 
 export default function App() {
-  const [medications, setMedications] = useState([])
   const [activePage, setActivePage] = useState('medication')
+  const [medications, setMedications] = useState(
+    loadFromLocal('medications') ?? []
+  )
+  useEffect(() => {
+    saveToLocal('medications', medications)
+  }, [medications])
 
   return (
     <>
