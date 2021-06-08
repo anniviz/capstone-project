@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import styled from 'styled-components/macro'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
-import PropTypes from 'prop-types'
 import TextButton from '../components/TextButton'
 
 MedicationPage.propTypes = {
