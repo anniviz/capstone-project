@@ -24,9 +24,6 @@ export default function MedicationPage({ medications, setActivePage }) {
     return 0
   })
 
-  console.log(sortedMedications)
-  console.log(Date.parse('8:00'))
-
   return (
     <Grid>
       <Header>{formatDate(currentDate)}</Header>
@@ -44,6 +41,7 @@ export default function MedicationPage({ medications, setActivePage }) {
   function convertToMinutes(time) {
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
+    console.log(time + ': ' + minutes)
     return minutes
   }
 

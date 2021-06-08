@@ -12,6 +12,10 @@ export default function App() {
     saveToLocal('medications', medications)
   }, [medications])
 
+  useEffect(() => {
+    medications.length === 0 && setActivePage('form')
+  }, [])
+
   return (
     <>
       {activePage === 'medication' && (
