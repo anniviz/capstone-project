@@ -1,10 +1,31 @@
 import styled from 'styled-components'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
+import PropTypes from 'prop-types'
 import TextButton from '../components/TextButton'
+
+MedicationPage.propTypes = {
+  medications: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      time: PropTypes.node,
+      meds: PropTypes.arrayOf(
+        PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+      ),
+    })
+  ),
+}
 
 export default function MedicationPage({ medications, setActivePage }) {
   const currentDate = new Date()
+  const sortedMedications = medications.slice().sort(function (a, b) {
+    if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
+    if (convertToMinutes(a.time) < convertToMinutes(b.time)) return -1
+    return 0
+  })
+
+  console.log(sortedMedications)
+  console.log(Date.parse('8:00'))
 
   return (
     <Grid>
@@ -13,12 +34,18 @@ export default function MedicationPage({ medications, setActivePage }) {
         Hinzufügen
       </TextButton>
       <Flexbox>
-        {medications.map(({ id, time, meds }) => (
+        {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup key={id} time={time} meds={meds} />
         ))}
       </Flexbox>
     </Grid>
   )
+
+  function convertToMinutes(time) {
+    const timeArray = time.split(':')
+    const minutes = timeArray[0] * 60 + timeArray[1]
+    return minutes
+  }
 
   function formatDate(date) {
     const days = [

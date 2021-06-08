@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 MedicationGroup.propTypes = {
   time: PropTypes.node,
   meds: PropTypes.arrayOf(
-    PropTypes.shape({ id: PropTypes.node, name: PropTypes.string })
+    PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
   ),
 }
 
