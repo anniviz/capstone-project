@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Header from '../tempname/Header'
-import MedicationGroup from '../tempname/MedicationGroup'
+import Header from '../components/Header'
+import MedicationGroup from '../components/MedicationGroup'
 import PropTypes from 'prop-types'
-import TextButton from '../tempname/TextButton'
+import TextButton from '../components/TextButton'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
