@@ -42,7 +42,7 @@ export default function MedicationPage({ medications, setActivePage }) {
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
     console.log(time + ': ' + minutes)
-    return minutes
+    return Number(minutes)
   }
 
   function formatDate(date) {
