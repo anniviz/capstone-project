@@ -39,7 +39,6 @@ describe('FormPage', () => {
         setActivePage={jest.fn()}
       />
     )
-    const form = screen.getByRole('form')
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
     const meds = screen.getByRole('textbox', { name: 'Medikamente:' })
     userEvent.type(time, '8:00')
@@ -50,7 +49,8 @@ Metoprolol
 Magnesium`
     )
 
-    fireEvent.submit(form)
+    const button = screen.getByRole('button', { name: 'erstellen' })
+    userEvent.click(button)
 
     expect(handleSubmit).toHaveBeenCalled()
     expect(handleSubmit).toHaveBeenCalledWith({
@@ -74,8 +74,12 @@ Magnesium`
         setActivePage={jest.fn()}
       />
     )
+    const form = screen.getByRole('form')
+
     const button = screen.getByRole('button', { name: 'erstellen' })
-    userEvent.click(button)
+    expect(button).toBeDisabled()
+    fireEvent.submit(form)
+
     expect(handleSubmit).toHaveBeenCalledTimes(0)
   })
 })
