@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
-import Header from './components/Header'
-import MedicationGroup from './components/MedicationGroup'
+import Header from './tempname/Header'
+import MedicationGroup from './tempname/MedicationGroup'
 
 export default function App() {
   const currentDate = new Date()
