@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TextButton from './TextButton'
 
-describe('Button', () => {
+describe('TextButton', () => {
   it('contains a text', () => {
     render(<TextButton onClick={() => {}}>Click me</TextButton>)
 
