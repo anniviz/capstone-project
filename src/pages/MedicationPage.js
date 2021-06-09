@@ -1,7 +1,8 @@
-import styled from 'styled-components'
+
+import PropTypes from 'prop-types'
+import styled from 'styled-components/macro'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
-import PropTypes from 'prop-types'
 import TextButton from '../components/TextButton'
 
 MedicationPage.propTypes = {
@@ -24,9 +25,6 @@ export default function MedicationPage({ medications, setActivePage }) {
     return 0
   })
 
-  console.log(sortedMedications)
-  console.log(Date.parse('8:00'))
-
   return (
     <Grid>
       <Header>{formatDate(currentDate)}</Header>
@@ -44,38 +42,12 @@ export default function MedicationPage({ medications, setActivePage }) {
   function convertToMinutes(time) {
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
-    return minutes
+    return Number(minutes)
   }
 
   function formatDate(date) {
-    const days = [
-      'Sonntag',
-      'Montag',
-      'Dienstag',
-      'Mittwoch',
-      'Donnerstag',
-      'Freitag',
-      'Samstag',
-    ]
-
-    const months = [
-      'Januar',
-      'Februar',
-      'März',
-      'April',
-      'Mai',
-      'Juni',
-      'Juli',
-      'August',
-      'September',
-      'Oktober',
-      'November',
-      'Dezember',
-    ]
-
-    const formatedDate = `${days[
-      date.getDay()
-    ].toUpperCase()}, ${date.getDate()}. ${months[date.getMonth()]}`
+    const options = { weekday: 'long', month: 'long', day: 'numeric' }
+    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
 
     return formatedDate
   }
