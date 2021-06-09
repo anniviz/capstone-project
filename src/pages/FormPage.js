@@ -6,11 +6,11 @@ import Button from '../components/Button'
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
 }
 
-export default function Form({ onSubmit, onClick, setActivePage }) {
+export default function Form({ onSubmit, onNavigate, setActivePage }) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
   const [isTimeValid, setIsTimeValid] = useState(true)
@@ -53,7 +53,7 @@ Metoprolol (23,75mg)
         />
       </Label>
       <Grid>
-        <Button onClick={() => onClick('medication')} isActive type="button">
+        <Button onClick={() => onNavigate('medication')} type="button">
           zurück
         </Button>
         <Button disabled={isDisabled}>erstellen</Button>
@@ -65,18 +65,17 @@ Metoprolol (23,75mg)
     event.preventDefault()
     if (isDisabled) return
     const form = event.target
-    const time = form.elements.time.value
-    if (!validateTime(time)) {
+    const { time, meds } = form.elements
+    if (!validateTime(time.value)) {
       setIsTimeValid(false)
-      form.elements.time.focus()
+      time.focus()
       return
     }
-    const meds = form.elements.meds.value
-    const medsArrayWithId = meds
+    const medsArrayWithId = meds.value
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    onSubmit({ id: uuidv4(), time: time, meds: medsArrayWithId })
+    onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     setActivePage('medication')
   }
 
@@ -86,7 +85,7 @@ Metoprolol (23,75mg)
   }
 
   function validateTime(time) {
-    const timeFormat = /^\d{1,2}:\d{2}$/
+    const timeFormat = /^([0-9]|[0-1][0-9]|2[0-3]):([0-5][0-9])$/
 
     return time.match(timeFormat) ? true : false
   }

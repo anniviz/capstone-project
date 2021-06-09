@@ -26,7 +26,7 @@ export default function App() {
       )}
       {activePage === 'form' && (
         <FormPage
-          onClick={handleActivePage}
+          onNavigate={handleActivePage}
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
         />

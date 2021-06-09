@@ -41,39 +41,41 @@ export default function MedicationPage({ medications, setActivePage }) {
   function convertToMinutes(time) {
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
-    console.log(time + ': ' + minutes)
     return Number(minutes)
   }
 
   function formatDate(date) {
-    const days = [
-      'Sonntag',
-      'Montag',
-      'Dienstag',
-      'Mittwoch',
-      'Donnerstag',
-      'Freitag',
-      'Samstag',
-    ]
+    // const days = [
+    //   'Sonntag',
+    //   'Montag',
+    //   'Dienstag',
+    //   'Mittwoch',
+    //   'Donnerstag',
+    //   'Freitag',
+    //   'Samstag',
+    // ]
 
-    const months = [
-      'Januar',
-      'Februar',
-      'März',
-      'April',
-      'Mai',
-      'Juni',
-      'Juli',
-      'August',
-      'September',
-      'Oktober',
-      'November',
-      'Dezember',
-    ]
+    // const months = [
+    //   'Januar',
+    //   'Februar',
+    //   'März',
+    //   'April',
+    //   'Mai',
+    //   'Juni',
+    //   'Juli',
+    //   'August',
+    //   'September',
+    //   'Oktober',
+    //   'November',
+    //   'Dezember',
+    // ]
 
-    const formatedDate = `${days[
-      date.getDay()
-    ].toUpperCase()}, ${date.getDate()}. ${months[date.getMonth()]}`
+    // const formatedDate = `${days[
+    //   date.getDay()
+    // ].toUpperCase()}, ${date.getDate()}. ${months[date.getMonth()]}`
+
+    const options = { weekday: 'long', month: 'long', day: 'numeric' }
+    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
 
     return formatedDate
   }

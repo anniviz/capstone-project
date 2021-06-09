@@ -10,7 +10,7 @@ describe('FormPage', () => {
     render(
       <FormPage
         onSubmit={jest.fn()}
-        onClick={jest.fn()}
+        onNavigate={jest.fn()}
         setActivePage={jest.fn()}
       />
     )
@@ -35,7 +35,7 @@ describe('FormPage', () => {
     render(
       <FormPage
         onSubmit={handleSubmit}
-        onClick={jest.fn()}
+        onNavigate={jest.fn()}
         setActivePage={jest.fn()}
       />
     )
@@ -70,7 +70,7 @@ Magnesium`
     render(
       <FormPage
         onSubmit={jest.fn()}
-        onClick={jest.fn()}
+        onNavigate={jest.fn()}
         setActivePage={jest.fn()}
       />
     )

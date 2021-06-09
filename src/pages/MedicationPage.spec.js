@@ -30,7 +30,7 @@ describe('MedicationPage', () => {
     )
 
     const header = screen.getByRole('heading')
-    expect(header).toHaveTextContent('MONTAG, 7. Juni')
+    expect(header).toHaveTextContent('MONTAG, 7. JUNI')
 
     const button = screen.getByRole('button')
     expect(button).toHaveTextContent('Hinzufügen')
