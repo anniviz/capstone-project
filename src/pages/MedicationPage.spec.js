@@ -32,11 +32,11 @@ describe('MedicationPage', () => {
     const header = screen.getByRole('heading')
     expect(header).toHaveTextContent('MONTAG, 7. JUNI')
 
-    const button = screen.getByRole('button')
-    expect(button).toHaveTextContent('Hinzufügen')
+    const button = screen.getByRole('button', { name: 'Hinzufügen' })
+    expect(button).toBeInTheDocument()
 
-    const MedGoups = screen.getAllByRole('list')
-    expect(MedGoups).toHaveLength(2)
+    const MedGroups = screen.getAllByRole('list')
+    expect(MedGroups).toHaveLength(2)
 
     const allMeds = screen.getAllByRole('listitem')
     expect(allMeds).toHaveLength(4)

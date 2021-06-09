@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import SmallButton from './SmallButton'
 
 MedicationGroup.propTypes = {
   time: PropTypes.node,
@@ -19,6 +20,9 @@ export default function MedicationGroup({ time, meds }) {
           <li key={id}>{medName}</li>
         ))}
       </Meds>
+      <SmallButton right="10px" top="10px">
+        -
+      </SmallButton>
     </Wrapper>
   )
 }
@@ -32,6 +36,7 @@ const Wrapper = styled.section`
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0 8px 16px var(--color-shadow);
+  position: relative;
 `
 
 const Time = styled.time`
