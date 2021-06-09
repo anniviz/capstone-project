@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import SmallButton from './SmallButton'
 
 MedicationGroup.propTypes = {
+  id: PropTypes.node,
   time: PropTypes.node,
   meds: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
   ),
+  handleDeleteClick: PropTypes.func,
 }
 
-export default function MedicationGroup({ time, meds }) {
+export default function MedicationGroup({ id, time, meds, handleDeleteClick }) {
   return (
     <Wrapper>
       <Time role="time" dateTime={time}>
@@ -20,7 +22,11 @@ export default function MedicationGroup({ time, meds }) {
           <li key={id}>{medName}</li>
         ))}
       </Meds>
-      <SmallButton right="10px" top="10px">
+      <SmallButton
+        right="10px"
+        top="10px"
+        onClick={() => handleDeleteClick(id)}
+      >
         -
       </SmallButton>
     </Wrapper>
