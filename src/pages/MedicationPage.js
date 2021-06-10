@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
@@ -30,12 +31,23 @@ export default function MedicationPage({
     return 0
   })
 
+  const [editMode, setEditMode] = useState(false)
+
   return (
     <Grid>
       <Header>{formatDate(currentDate)}</Header>
-      <TextButton aligne="left" onClick={() => setActivePage('form')}>
-        Hinzufügen
-      </TextButton>
+      {editMode === false ? (
+        <TextButtonWrapper>
+          <TextButton onClick={() => setActivePage('form')}>
+            Hinzufügen
+          </TextButton>
+          <TextButton onClick={() => setEditMode(true)}>Beareiten</TextButton>
+        </TextButtonWrapper>
+      ) : (
+        <TextButton aligne="right" onClick={() => setEditMode(false)}>
+          Abbrechen
+        </TextButton>
+      )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -83,4 +95,9 @@ const Flexbox = styled.div`
   gap: 20px;
   padding: 16px;
   overflow-y: auto;
+`
+
+const TextButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
