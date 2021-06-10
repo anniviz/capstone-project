@@ -1,6 +1,8 @@
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import SmallButton from './SmallButton'
+import editIcon from '../icons/edit.svg'
+import deleteIcon from '../icons/delete.svg'
 
 MedicationGroup.propTypes = {
   id: PropTypes.node,
@@ -30,13 +32,19 @@ export default function MedicationGroup({
         ))}
       </Meds>
       {editMode && (
-        <SmallButton
-          right="10px"
-          top="10px"
-          onClick={() => handleDeleteClick(id)}
-        >
-          -
-        </SmallButton>
+        <>
+          <SmallButton
+            right="10px"
+            top="10px"
+            color="red"
+            onClick={() => handleDeleteClick(id)}
+          >
+            <img src={deleteIcon} alt="" height="16px" />
+          </SmallButton>
+          <SmallButton right="10px" top="40px" color="green">
+            <img src={editIcon} alt="" height="14px" />
+          </SmallButton>
+        </>
       )}
     </Wrapper>
   )
