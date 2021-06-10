@@ -56,6 +56,7 @@ export default function MedicationPage({
             time={time}
             meds={meds}
             handleDeleteClick={handleDeleteClick}
+            editMode={editMode}
           />
         ))}
       </Flexbox>
@@ -82,6 +83,8 @@ export default function MedicationPage({
       ...medications.slice(index + 1),
     ])
   }
+
+  function handleEditModeClick() {}
 }
 const Grid = styled.div`
   height: 100vh;

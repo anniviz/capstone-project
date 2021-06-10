@@ -11,6 +11,7 @@ describe('MedicationGroup', () => {
           { id: 2, medName: 'Enalapril' },
           { id: 3, medName: 'Prednisolon' },
         ]}
+        editMode={true}
       />
     )
 

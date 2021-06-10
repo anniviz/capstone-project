@@ -9,9 +9,16 @@ MedicationGroup.propTypes = {
     PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
   ),
   handleDeleteClick: PropTypes.func,
+  editMode: PropTypes.bool,
 }
 
-export default function MedicationGroup({ id, time, meds, handleDeleteClick }) {
+export default function MedicationGroup({
+  id,
+  time,
+  meds,
+  handleDeleteClick,
+  editMode,
+}) {
   return (
     <Wrapper>
       <Time role="time" dateTime={time}>
@@ -22,13 +29,15 @@ export default function MedicationGroup({ id, time, meds, handleDeleteClick }) {
           <li key={id}>{medName}</li>
         ))}
       </Meds>
-      <SmallButton
-        right="10px"
-        top="10px"
-        onClick={() => handleDeleteClick(id)}
-      >
-        -
-      </SmallButton>
+      {editMode && (
+        <SmallButton
+          right="10px"
+          top="10px"
+          onClick={() => handleDeleteClick(id)}
+        >
+          -
+        </SmallButton>
+      )}
     </Wrapper>
   )
 }
