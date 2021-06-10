@@ -17,12 +17,14 @@ MedicationPage.propTypes = {
   ),
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
+  setMedicationToEdit: PropTypes.func,
 }
 
 export default function MedicationPage({
   medications,
   setActivePage,
   setMedications,
+  setMedicationToEdit,
 }) {
   const currentDate = new Date()
   const sortedMedications = medications.slice().sort(function (a, b) {
@@ -41,7 +43,7 @@ export default function MedicationPage({
           <TextButton onClick={() => setActivePage('form')}>
             Hinzufügen
           </TextButton>
-          <TextButton onClick={() => setEditMode(true)}>Beareiten</TextButton>
+          <TextButton onClick={() => setEditMode(true)}>Bearbeiten</TextButton>
         </TextButtonWrapper>
       ) : (
         <TextButton aligne="right" onClick={() => setEditMode(false)}>
@@ -56,6 +58,7 @@ export default function MedicationPage({
             time={time}
             meds={meds}
             handleDeleteClick={handleDeleteClick}
+            handleEditClick={handleEditClick}
             editMode={editMode}
           />
         ))}
@@ -84,7 +87,11 @@ export default function MedicationPage({
     ])
   }
 
-  function handleEditModeClick() {}
+  function handleEditClick(id) {
+    const index = medications.findIndex(medication => medication.id === id)
+    setMedicationToEdit(medications[index])
+    setActivePage('form')
+  }
 }
 const Grid = styled.div`
   height: 100vh;

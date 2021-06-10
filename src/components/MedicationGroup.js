@@ -10,16 +10,18 @@ MedicationGroup.propTypes = {
   meds: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
   ),
-  handleDeleteClick: PropTypes.func,
   editMode: PropTypes.bool,
+  handleDeleteClick: PropTypes.func,
+  handleEditClick: PropTypes.func,
 }
 
 export default function MedicationGroup({
   id,
   time,
   meds,
-  handleDeleteClick,
   editMode,
+  handleDeleteClick,
+  handleEditClick,
 }) {
   return (
     <Wrapper>
@@ -41,7 +43,12 @@ export default function MedicationGroup({
           >
             <img src={deleteIcon} alt="" height="16px" />
           </SmallButton>
-          <SmallButton right="10px" top="40px" color="green">
+          <SmallButton
+            right="10px"
+            top="40px"
+            color="green"
+            onClick={() => handleEditClick(id)}
+          >
             <img src={editIcon} alt="" height="14px" />
           </SmallButton>
         </>

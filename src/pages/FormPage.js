@@ -8,9 +8,22 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
+  medicationToEdit: PropTypes.shape({
+    time: PropTypes.node,
+    meds: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+    ),
+  }),
+  setMedicationToEdit: PropTypes.func,
 }
 
-export default function Form({ onSubmit, onNavigate, setActivePage }) {
+export default function Form({
+  onSubmit,
+  onNavigate,
+  setActivePage,
+  medicationToEdit,
+  setMedicationToEdit,
+}) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
   const [isTimeValid, setIsTimeValid] = useState(true)
@@ -24,6 +37,7 @@ export default function Form({ onSubmit, onNavigate, setActivePage }) {
 Magnesium (80mg)
 Metoprolol (23,75mg)
 `
+  const medsArray = medicationToEdit.meds.map(med => med.medName)
 
   return (
     <FormWrapper
@@ -38,6 +52,7 @@ Metoprolol (23,75mg)
           placeholder="8:00"
           onChange={handleChange}
           isTimeValid={isTimeValid}
+          value={medicationToEdit.time}
         />
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
@@ -50,6 +65,7 @@ Metoprolol (23,75mg)
           rows="15"
           placeholder={placeholderText}
           onChange={handleChange}
+          value={medsArray.join('\n')}
         />
       </Label>
       <Grid>
@@ -76,6 +92,7 @@ Metoprolol (23,75mg)
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
     onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
+    setMedicationToEdit([])
     setActivePage('medication')
   }
 
@@ -126,6 +143,7 @@ const Textarea = styled.textarea`
   font-size: 1.1em;
   line-height: 1.5em;
   border-radius: 4px;
+  resize: none;
 `
 
 const Grid = styled.div`

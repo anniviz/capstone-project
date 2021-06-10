@@ -16,6 +16,8 @@ export default function App() {
     medications.length === 0 && setActivePage('form')
   }, [medications])
 
+  const [medicationToEdit, setMedicationToEdit] = useState([])
+
   return (
     <>
       {activePage === 'medication' && (
@@ -23,6 +25,7 @@ export default function App() {
           medications={medications}
           setActivePage={setActivePage}
           setMedications={setMedications}
+          setMedicationToEdit={setMedicationToEdit}
         />
       )}
       {activePage === 'form' && (
@@ -30,6 +33,8 @@ export default function App() {
           onNavigate={handleActivePage}
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
+          medicationToEdit={medicationToEdit}
+          etMedicationToEdit={setMedicationToEdit}
         />
       )}
     </>
