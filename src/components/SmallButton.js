@@ -4,17 +4,19 @@ import styled from 'styled-components/macro'
 SmallButton.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
+  top: PropTypes.string,
+  right: PropTypes.string,
 }
 
 export default function SmallButton({ onClick, children, top, right }) {
   return (
-    <ButtonStyled onClick={onClick} top={top} right={right}>
+    <StyledButton onClick={onClick} top={top} right={right}>
       {children}
-    </ButtonStyled>
+    </StyledButton>
   )
 }
 
-const ButtonStyled = styled.button`
+const StyledButton = styled.button`
   line-height: 0;
   width: 20px;
   height: 20px;
