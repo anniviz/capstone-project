@@ -9,6 +9,7 @@ Form.propTypes = {
   onNavigate: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
   medicationToEdit: PropTypes.shape({
+    id: PropTypes.node,
     time: PropTypes.node,
     meds: PropTypes.arrayOf(
       PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
@@ -29,6 +30,16 @@ export default function Form({
   const [isTimeValid, setIsTimeValid] = useState(true)
 
   useEffect(() => {
+    if (medicationToEdit.meds) {
+      const medsArray = medicationToEdit.meds.map(med => med.medName)
+      setMedGroupInputs({
+        time: medicationToEdit.time,
+        meds: medsArray.join('\n'),
+      })
+    }
+  }, [])
+
+  useEffect(() => {
     validateForm()
     setIsTimeValid(true)
   }, [medGroupInputs])
@@ -37,7 +48,6 @@ export default function Form({
 Magnesium (80mg)
 Metoprolol (23,75mg)
 `
-  const medsArray = medicationToEdit.meds.map(med => med.medName)
 
   return (
     <FormWrapper
@@ -52,7 +62,7 @@ Metoprolol (23,75mg)
           placeholder="8:00"
           onChange={handleChange}
           isTimeValid={isTimeValid}
-          value={medicationToEdit.time}
+          value={medGroupInputs.time}
         />
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
@@ -65,14 +75,14 @@ Metoprolol (23,75mg)
           rows="15"
           placeholder={placeholderText}
           onChange={handleChange}
-          value={medsArray.join('\n')}
+          value={medGroupInputs.meds}
         />
       </Label>
       <Grid>
         <Button onClick={() => onNavigate('medication')} type="button">
           zurück
         </Button>
-        <Button disabled={isDisabled}>erstellen</Button>
+        <Button disabled={isDisabled}>speichern</Button>
       </Grid>
     </FormWrapper>
   )
@@ -91,7 +101,15 @@ Metoprolol (23,75mg)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
+    if (medicationToEdit === {}) {
+      onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
+    } else {
+      onSubmit({
+        id: medicationToEdit.id,
+        time: time.value,
+        meds: medsArrayWithId,
+      })
+    }
     setMedicationToEdit([])
     setActivePage('medication')
   }

@@ -16,7 +16,7 @@ export default function App() {
     medications.length === 0 && setActivePage('form')
   }, [medications])
 
-  const [medicationToEdit, setMedicationToEdit] = useState([])
+  const [medicationToEdit, setMedicationToEdit] = useState({})
 
   return (
     <>
@@ -34,7 +34,7 @@ export default function App() {
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
           medicationToEdit={medicationToEdit}
-          etMedicationToEdit={setMedicationToEdit}
+          setMedicationToEdit={setMedicationToEdit}
         />
       )}
     </>
@@ -45,6 +45,17 @@ export default function App() {
   }
 
   function handleSubmit(newMedication) {
-    setMedications([newMedication, ...medications])
+    const index = medications.findIndex(
+      medication => medication.id === newMedication.id
+    )
+    if (index) {
+      setMedications([
+        ...medications.slice(0, index),
+        { ...newMedication },
+        ...medications.slice(index + 1),
+      ])
+    } else {
+      setMedications([newMedication, ...medications])
+    }
   }
 }
