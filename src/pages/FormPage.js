@@ -102,14 +102,14 @@ Metoprolol (23,75mg)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    if (medicationToEdit === {}) {
-      onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
-    } else {
+    if (medicationToEdit.meds) {
       onSubmit({
         id: medicationToEdit.id,
         time: time.value,
         meds: medsArrayWithId,
       })
+    } else {
+      onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
     setMedicationToEdit([])
     setActivePage('medication')

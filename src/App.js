@@ -48,7 +48,7 @@ export default function App() {
     const index = medications.findIndex(
       medication => medication.id === newMedication.id
     )
-    if (index) {
+    if (index > -1) {
       setMedications([
         ...medications.slice(0, index),
         { ...newMedication },
