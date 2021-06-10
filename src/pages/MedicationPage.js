@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import Header from '../components/Header'
@@ -15,9 +14,15 @@ MedicationPage.propTypes = {
       ),
     })
   ),
+  setActivePage: PropTypes.func,
+  setMedications: PropTypes.func,
 }
 
-export default function MedicationPage({ medications, setActivePage }) {
+export default function MedicationPage({
+  medications,
+  setActivePage,
+  setMedications,
+}) {
   const currentDate = new Date()
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -33,7 +38,13 @@ export default function MedicationPage({ medications, setActivePage }) {
       </TextButton>
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
-          <MedicationGroup key={id} time={time} meds={meds} />
+          <MedicationGroup
+            key={id}
+            id={id}
+            time={time}
+            meds={meds}
+            handleDeleteClick={handleDeleteClick}
+          />
         ))}
       </Flexbox>
     </Grid>
@@ -50,6 +61,14 @@ export default function MedicationPage({ medications, setActivePage }) {
     const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
 
     return formatedDate
+  }
+
+  function handleDeleteClick(id) {
+    const index = medications.findIndex(medication => medication.id === id)
+    setMedications([
+      ...medications.slice(0, index),
+      ...medications.slice(index + 1),
+    ])
   }
 }
 const Grid = styled.div`

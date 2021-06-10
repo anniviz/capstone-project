@@ -14,7 +14,7 @@ export default function App() {
 
   useEffect(() => {
     medications.length === 0 && setActivePage('form')
-  }, [])
+  }, [medications])
 
   return (
     <>
@@ -22,6 +22,7 @@ export default function App() {
         <MedicationPage
           medications={medications}
           setActivePage={setActivePage}
+          setMedications={setMedications}
         />
       )}
       {activePage === 'form' && (
