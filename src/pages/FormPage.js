@@ -98,6 +98,7 @@ Metoprolol (23,75mg)
       return
     }
     const medsArrayWithId = meds.value
+      .replace(/^\s*\n/gm)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
