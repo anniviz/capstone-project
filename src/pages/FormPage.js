@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/Button'
 
-Form.propTypes = {
+FormPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   setActivePage: PropTypes.func.isRequired,
@@ -18,7 +18,7 @@ Form.propTypes = {
   setMedicationToEdit: PropTypes.func,
 }
 
-export default function Form({
+export default function FormPage({
   onSubmit,
   onNavigate,
   setActivePage,
