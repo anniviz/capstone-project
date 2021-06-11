@@ -5,14 +5,14 @@ import editIcon from '../icons/edit.svg'
 import SmallButton from './SmallButton'
 
 MedicationGroup.propTypes = {
-  id: PropTypes.node.isRequired(),
+  id: PropTypes.node,
   time: PropTypes.node,
   meds: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
-  ).isRequired(),
+  ),
   editMode: PropTypes.bool,
-  handleDeleteClick: PropTypes.func.isRequired(),
-  handleEditClick: PropTypes.func.isRequired(),
+  handleDeleteClick: PropTypes.func,
+  handleEditClick: PropTypes.func,
 }
 
 export default function MedicationGroup({

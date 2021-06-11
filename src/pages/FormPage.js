@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/Button'
 
 FormPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired(),
-  onNavigate: PropTypes.func.isRequired(),
-  setActivePage: PropTypes.func.isRequired(),
+  onSubmit: PropTypes.func,
+  onNavigate: PropTypes.func,
+  setActivePage: PropTypes.func,
   medicationToEdit: PropTypes.shape({
     id: PropTypes.node,
     time: PropTypes.node,
