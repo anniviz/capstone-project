@@ -81,7 +81,7 @@ Magnesium`
 
     render(
       <FormPage
-        onSubmit={jest.fn()}
+        onSubmit={handleSubmit}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
         medicationToEdit={{}}
