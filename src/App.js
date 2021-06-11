@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
+import { loadFromLocal, saveToLocal } from './utils/localStorage'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
-import { loadFromLocal, saveToLocal } from './utils/localStorage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('medication')
@@ -16,7 +16,7 @@ export default function App() {
     medications.length === 0 && setActivePage('form')
   }, [medications])
 
-  const [medicationToEdit, ¯] = useState({})
+  const [medicationToEdit, setMedicationToEdit] = useState({})
 
   return (
     <>
