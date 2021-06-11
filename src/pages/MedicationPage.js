@@ -94,17 +94,17 @@ export default function MedicationPage({
   }
 }
 const Grid = styled.div`
-  height: 100vh;
   display: grid;
+  height: 100vh;
   grid-template-rows: 60px 30px 1fr;
 `
 
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
   padding: 16px;
   overflow-y: auto;
+  gap: 20px;
 `
 
 const TextButtonWrapper = styled.div`

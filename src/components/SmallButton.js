@@ -18,17 +18,17 @@ export default function SmallButton({ onClick, children, top, right, color }) {
 }
 
 const StyledButton = styled.button`
-  line-height: 0;
+  position: absolute;
+  top: ${prop => prop.top};
+  right: ${prop => prop.right};
   width: 20px;
   height: 20px;
+  padding: 0;
   border: 2px ${prop => prop.color} solid;
   border-radius: 50%;
   color: ${prop => prop.color};
-  background-color: inherit;
-  text-align: center;
-  padding: 0;
-  position: absolute;
-  right: ${prop => prop.right};
-  top: ${prop => prop.top};
   font-weight: 600;
+  line-height: 0;
+  text-align: center;
+  background-color: inherit;
 `

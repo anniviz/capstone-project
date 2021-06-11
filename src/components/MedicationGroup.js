@@ -59,14 +59,14 @@ export default function MedicationGroup({
 
 const Wrapper = styled.section`
   display: flex;
+  position: relative;
   flex-direction: column;
-  gap: 12px;
-  justify-items: space-between;
+  padding: 12px;
   border: 2px solid grey;
   border-radius: 8px;
-  padding: 12px;
   box-shadow: 0 8px 16px var(--color-shadow);
-  position: relative;
+  gap: 12px;
+  justify-items: space-between;
 `
 
 const Time = styled.time`
@@ -76,10 +76,10 @@ const Time = styled.time`
 const Meds = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 4px;
   li {
     overflow-wrap: break-word;
   }

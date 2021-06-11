@@ -135,19 +135,19 @@ Metoprolol (23,75mg)
 }
 
 const FormWrapper = styled.form`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  gap: 20px;
+  height: 100vh;
   padding: 12px;
+  gap: 20px;
 `
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  gap: 4px;
   height: ${props => props.timeField && '60px'};
+  gap: 4px;
 `
 
 const Input = styled.input`
@@ -157,11 +157,11 @@ const Input = styled.input`
 `
 
 const Textarea = styled.textarea`
-  overflow: auto;
   padding: 4px;
+  border-radius: 4px;
+  overflow: auto;
   font-size: 1.1em;
   line-height: 1.5em;
-  border-radius: 4px;
   resize: none;
 `
 
@@ -171,7 +171,7 @@ const Grid = styled.div`
 `
 
 const Warning = styled.p`
+  display: ${props => (props.isTimeValid ? 'none' : 'block')};
   color: red;
   font-size: 0.8em;
-  display: ${props => (props.isTimeValid ? 'none' : 'block')};
 `
