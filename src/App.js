@@ -49,13 +49,17 @@ export default function App() {
       medication => medication.id === newMedication.id
     )
     if (index > -1) {
-      setMedications([
-        ...medications.slice(0, index),
-        { ...newMedication },
-        ...medications.slice(index + 1),
-      ])
+      updateMedication(newMedication, index)
     } else {
       setMedications([newMedication, ...medications])
     }
+  }
+
+  function updateMedication(newMedication, index) {
+    setMedications([
+      ...medications.slice(0, index),
+      { ...newMedication },
+      ...medications.slice(index + 1),
+    ])
   }
 }

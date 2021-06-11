@@ -1,4 +1,4 @@
-import PropTypes, { string } from 'prop-types'
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
 SmallButton.propTypes = {
@@ -6,7 +6,7 @@ SmallButton.propTypes = {
   children: PropTypes.node,
   top: PropTypes.string,
   right: PropTypes.string,
-  color: string,
+  color: PropTypes.string,
 }
 
 export default function SmallButton({ onClick, children, top, right, color }) {
@@ -24,9 +24,9 @@ const StyledButton = styled.button`
   width: 20px;
   height: 20px;
   padding: 0;
-  border: 2px ${prop => prop.color} solid;
+  border: 2px ${prop => prop.color || 'grey'} solid;
   border-radius: 50%;
-  color: ${prop => prop.color};
+  color: ${prop => prop.color || 'grey'};
   font-weight: 600;
   line-height: 0;
   text-align: center;

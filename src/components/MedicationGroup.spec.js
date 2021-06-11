@@ -26,7 +26,7 @@ describe('MedicationGroup', () => {
     expect(meds).toHaveLength(3)
   })
 
-  it('renders edit and delte button in edit mode', () => {
+  it('renders edit and delete button in edit mode', () => {
     const handleDelete = jest.fn()
     const handleEdit = jest.fn()
 

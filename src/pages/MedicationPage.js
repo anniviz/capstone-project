@@ -46,7 +46,7 @@ export default function MedicationPage({
           <TextButton onClick={() => setEditMode(true)}>Bearbeiten</TextButton>
         </TextButtonWrapper>
       ) : (
-        <TextButton aligne="right" onClick={() => setEditMode(false)}>
+        <TextButton align="right" onClick={() => setEditMode(false)}>
           Abbrechen
         </TextButton>
       )}
