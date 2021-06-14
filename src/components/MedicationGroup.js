@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
-import SmallButton from './SmallButton'
+import SmallButton from './buttons/SmallButton'
 
 MedicationGroup.propTypes = {
   id: PropTypes.node,

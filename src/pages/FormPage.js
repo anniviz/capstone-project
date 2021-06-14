@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
-import Button from '../components/Button'
+import Button from '../components/buttons/Button'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
@@ -167,7 +167,7 @@ const Textarea = styled.textarea`
 
 const Grid = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `
 
 const Warning = styled.p`

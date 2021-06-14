@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components/macro'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
-import TextButton from '../components/TextButton'
+import TextButton from '../components/buttons/TextButton'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
