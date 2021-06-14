@@ -6,12 +6,11 @@ SmallButton.propTypes = {
   children: PropTypes.node,
   top: PropTypes.string,
   right: PropTypes.string,
-  color: PropTypes.string,
 }
 
 export default function SmallButton({ onClick, children, top, right, color }) {
   return (
-    <StyledButton onClick={onClick} top={top} right={right} color={color}>
+    <StyledButton onClick={onClick} top={top} right={right}>
       {children}
     </StyledButton>
   )
@@ -24,11 +23,11 @@ const StyledButton = styled.button`
   width: 20px;
   height: 20px;
   padding: 0;
-  border: 2px ${prop => prop.color || 'grey'} solid;
-  border-radius: 50%;
-  color: ${prop => prop.color || 'grey'};
-  font-weight: 600;
-  line-height: 0;
+  border: none;
   text-align: center;
   background-color: inherit;
+  img {
+    width: 16px;
+    height: 16px;
+  }
 `

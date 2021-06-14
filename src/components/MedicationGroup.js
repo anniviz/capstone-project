@@ -37,16 +37,14 @@ export default function MedicationGroup({
         <>
           <SmallButton
             right="10px"
-            top="10px"
-            color="red"
+            top="20px"
             onClick={() => handleDeleteClick(id)}
           >
             <img src={deleteIcon} alt="" height="16px" />
           </SmallButton>
           <SmallButton
             right="10px"
-            top="40px"
-            color="green"
+            top="52px"
             onClick={() => handleEditClick(id)}
           >
             <img src={editIcon} alt="" height="14px" />
