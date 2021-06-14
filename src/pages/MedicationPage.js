@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
+import SmallButton from '../components/buttons/SmallButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
-import TextButton from '../components/buttons/TextButton'
+import backIcon from '../icons/back.svg'
+import editRectangleIcon from '../icons/edit_rectangle.svg'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -38,18 +40,17 @@ export default function MedicationPage({
   return (
     <Grid>
       <Header>{formatDate(currentDate)}</Header>
-      {editMode === false ? (
-        <TextButtonWrapper>
-          <TextButton onClick={() => setActivePage('form')}>
-            Hinzufügen
-          </TextButton>
-          <TextButton onClick={() => setEditMode(true)}>Bearbeiten</TextButton>
-        </TextButtonWrapper>
-      ) : (
-        <TextButton align="right" onClick={() => setEditMode(false)}>
-          Abbrechen
-        </TextButton>
-      )}
+      <ButtonWrapper>
+        {editMode === false ? (
+          <SmallButton onClick={() => setEditMode(true)}>
+            <img src={editRectangleIcon} alt="" height="20px" />
+          </SmallButton>
+        ) : (
+          <SmallButton align="right" onClick={() => setEditMode(false)}>
+            <img src={backIcon} alt="" height="20px" />
+          </SmallButton>
+        )}
+      </ButtonWrapper>
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -102,12 +103,14 @@ const Grid = styled.div`
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0 16px;
   overflow-y: auto;
   gap: 20px;
 `
 
-const TextButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  align-items: end;
+  padding: 0 26px 0 16px;
 `

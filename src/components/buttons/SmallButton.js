@@ -6,18 +6,25 @@ SmallButton.propTypes = {
   children: PropTypes.node,
   top: PropTypes.string,
   right: PropTypes.string,
+  position: PropTypes.string,
 }
 
-export default function SmallButton({ onClick, children, top, right, color }) {
+export default function SmallButton({
+  onClick,
+  children,
+  top,
+  right,
+  position,
+}) {
   return (
-    <StyledButton onClick={onClick} top={top} right={right}>
+    <StyledButton onClick={onClick} top={top} right={right} position={position}>
       {children}
     </StyledButton>
   )
 }
 
 const StyledButton = styled.button`
-  position: absolute;
+  position: ${prop => prop.position};
   top: ${prop => prop.top};
   right: ${prop => prop.right};
   width: 20px;
@@ -26,8 +33,4 @@ const StyledButton = styled.button`
   border: none;
   text-align: center;
   background-color: inherit;
-  img {
-    width: 16px;
-    height: 16px;
-  }
 `
