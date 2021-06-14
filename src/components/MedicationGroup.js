@@ -26,7 +26,7 @@ export default function MedicationGroup({
   return (
     <Wrapper>
       <Time role="time" dateTime={time}>
-        {time} UHR
+        {time} Uhr
       </Time>
       <Meds>
         {meds.map(({ id, medName }) => (
@@ -62,14 +62,15 @@ const Wrapper = styled.section`
   position: relative;
   flex-direction: column;
   padding: 12px;
-  border: 2px solid grey;
-  border-radius: 8px;
+  border-bottom: 2px solid var(--color-light-mint);
   box-shadow: 0 8px 16px var(--color-shadow);
   gap: 12px;
   justify-items: space-between;
 `
 
 const Time = styled.time`
+  color: var(--color-dark-blue);
+  font-weight: bold;
   font-size: 1.3em;
 `
 
@@ -79,8 +80,13 @@ const Meds = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  gap: 4px;
+  gap: 6px;
+
   li {
+    color: var(--color-dark-blue);
     overflow-wrap: break-word;
+    :nth-child(odd) {
+      color: var(--color-light-petrol);
+    }
   }
 `

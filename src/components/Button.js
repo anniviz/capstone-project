@@ -16,7 +16,7 @@ const ButtonStyled = styled.button`
   border: none;
   border-radius: 20px;
   color: var(--color-white);
-  font-weight: 600;
+  font-weight: bold;
   background: radial-gradient(
     at top left,
     var(--color-light-green),

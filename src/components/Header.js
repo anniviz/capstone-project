@@ -16,7 +16,7 @@ const HeaderStyled = styled.h2`
   padding: 8px;
   border-radius: 0 0 0 32px;
   color: var(--color-dark-blue);
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.2em;
   background-color: var(--color-light-mint);
   place-items: center;
