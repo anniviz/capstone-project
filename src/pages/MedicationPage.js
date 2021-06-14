@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
@@ -16,12 +17,14 @@ MedicationPage.propTypes = {
   ),
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
+  setMedicationToEdit: PropTypes.func,
 }
 
 export default function MedicationPage({
   medications,
   setActivePage,
   setMedications,
+  setMedicationToEdit,
 }) {
   const currentDate = new Date()
   const sortedMedications = medications.slice().sort(function (a, b) {
@@ -30,12 +33,23 @@ export default function MedicationPage({
     return 0
   })
 
+  const [editMode, setEditMode] = useState(false)
+
   return (
     <Grid>
       <Header>{formatDate(currentDate)}</Header>
-      <TextButton aligne="left" onClick={() => setActivePage('form')}>
-        Hinzufügen
-      </TextButton>
+      {editMode === false ? (
+        <TextButtonWrapper>
+          <TextButton onClick={() => setActivePage('form')}>
+            Hinzufügen
+          </TextButton>
+          <TextButton onClick={() => setEditMode(true)}>Bearbeiten</TextButton>
+        </TextButtonWrapper>
+      ) : (
+        <TextButton align="right" onClick={() => setEditMode(false)}>
+          Abbrechen
+        </TextButton>
+      )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -44,6 +58,8 @@ export default function MedicationPage({
             time={time}
             meds={meds}
             handleDeleteClick={handleDeleteClick}
+            handleEditClick={handleEditClick}
+            editMode={editMode}
           />
         ))}
       </Flexbox>
@@ -70,17 +86,28 @@ export default function MedicationPage({
       ...medications.slice(index + 1),
     ])
   }
+
+  function handleEditClick(id) {
+    const index = medications.findIndex(medication => medication.id === id)
+    setMedicationToEdit(medications[index])
+    setActivePage('form')
+  }
 }
 const Grid = styled.div`
-  height: 100vh;
   display: grid;
+  height: 100vh;
   grid-template-rows: 60px 30px 1fr;
 `
 
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
   padding: 16px;
   overflow-y: auto;
+  gap: 20px;
+`
+
+const TextButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `

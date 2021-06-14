@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 TextButton.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
-  aligne: PropTypes.string,
+  align: PropTypes.string,
 }
 
 export default function TextButton(props) {
@@ -17,5 +17,5 @@ const ButtonStyled = styled.button`
   color: blue;
   background-color: inherit;
   justify-self: ${props =>
-    props.aligne === 'left' ? 'self-start' : 'self-end'};
+    props.align === 'left' ? 'self-start' : 'self-end'};
 `

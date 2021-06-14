@@ -4,16 +4,40 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/Button'
 
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onNavigate: PropTypes.func.isRequired,
-  setActivePage: PropTypes.func.isRequired,
+FormPage.propTypes = {
+  onSubmit: PropTypes.func,
+  onNavigate: PropTypes.func,
+  setActivePage: PropTypes.func,
+  medicationToEdit: PropTypes.shape({
+    id: PropTypes.node,
+    time: PropTypes.node,
+    meds: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+    ),
+  }),
+  setMedicationToEdit: PropTypes.func,
 }
 
-export default function Form({ onSubmit, onNavigate, setActivePage }) {
+export default function FormPage({
+  onSubmit,
+  onNavigate,
+  setActivePage,
+  medicationToEdit,
+  setMedicationToEdit,
+}) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
   const [isTimeValid, setIsTimeValid] = useState(true)
+
+  useEffect(() => {
+    if (medicationToEdit.meds) {
+      const medsArray = medicationToEdit.meds.map(med => med.medName)
+      setMedGroupInputs({
+        time: medicationToEdit.time,
+        meds: medsArray.join('\n'),
+      })
+    }
+  }, [])
 
   useEffect(() => {
     validateForm()
@@ -38,6 +62,7 @@ Metoprolol (23,75mg)
           placeholder="8:00"
           onChange={handleChange}
           isTimeValid={isTimeValid}
+          value={medGroupInputs.time}
         />
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
@@ -50,13 +75,14 @@ Metoprolol (23,75mg)
           rows="15"
           placeholder={placeholderText}
           onChange={handleChange}
+          value={medGroupInputs.meds}
         />
       </Label>
       <Grid>
         <Button onClick={() => onNavigate('medication')} type="button">
           zurück
         </Button>
-        <Button disabled={isDisabled}>erstellen</Button>
+        <Button disabled={isDisabled}>speichern</Button>
       </Grid>
     </FormWrapper>
   )
@@ -72,10 +98,20 @@ Metoprolol (23,75mg)
       return
     }
     const medsArrayWithId = meds.value
+      .replace(/^\s*\n/gm)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
+    if (medicationToEdit.meds) {
+      onSubmit({
+        id: medicationToEdit.id,
+        time: time.value,
+        meds: medsArrayWithId,
+      })
+    } else {
+      onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
+    }
+    setMedicationToEdit([])
     setActivePage('medication')
   }
 
@@ -99,19 +135,19 @@ Metoprolol (23,75mg)
 }
 
 const FormWrapper = styled.form`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  gap: 20px;
+  height: 100vh;
   padding: 12px;
+  gap: 20px;
 `
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  gap: 4px;
   height: ${props => props.timeField && '60px'};
+  gap: 4px;
 `
 
 const Input = styled.input`
@@ -121,11 +157,12 @@ const Input = styled.input`
 `
 
 const Textarea = styled.textarea`
-  overflow: auto;
   padding: 4px;
+  border-radius: 4px;
+  overflow: auto;
   font-size: 1.1em;
   line-height: 1.5em;
-  border-radius: 4px;
+  resize: none;
 `
 
 const Grid = styled.div`
@@ -134,7 +171,7 @@ const Grid = styled.div`
 `
 
 const Warning = styled.p`
+  display: ${props => (props.isTimeValid ? 'none' : 'block')};
   color: red;
   font-size: 0.8em;
-  display: ${props => (props.isTimeValid ? 'none' : 'block')};
 `

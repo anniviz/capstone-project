@@ -12,6 +12,16 @@ describe('FormPage', () => {
         onSubmit={jest.fn()}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
+        medicationToEdit={{
+          id: '01234',
+          time: '8:00',
+          meds: [
+            { id: '01234', medName: 'ASS' },
+            { id: '01235', medName: 'Metoprolol' },
+            { id: '01236', medName: 'Magnesium' },
+          ],
+        }}
+        setMedicationToEdit={jest.fn()}
       />
     )
     const form = screen.getByRole('form')
@@ -37,6 +47,8 @@ describe('FormPage', () => {
         onSubmit={handleSubmit}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
+        medicationToEdit={{}}
+        setMedicationToEdit={jest.fn()}
       />
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
@@ -49,7 +61,7 @@ Metoprolol
 Magnesium`
     )
 
-    const button = screen.getByRole('button', { name: 'erstellen' })
+    const button = screen.getByRole('button', { name: 'speichern' })
     userEvent.click(button)
 
     expect(handleSubmit).toHaveBeenCalled()
@@ -69,14 +81,16 @@ Magnesium`
 
     render(
       <FormPage
-        onSubmit={jest.fn()}
+        onSubmit={handleSubmit}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
+        medicationToEdit={{}}
+        setMedicationToEdit={jest.fn()}
       />
     )
     const form = screen.getByRole('form')
 
-    const button = screen.getByRole('button', { name: 'erstellen' })
+    const button = screen.getByRole('button', { name: 'speichern' })
     expect(button).toBeDisabled()
     fireEvent.submit(form)
 
