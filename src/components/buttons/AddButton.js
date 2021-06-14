@@ -15,6 +15,12 @@ export default function Button({ onClick }) {
 }
 
 const StyledButton = styled.button`
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   width: 68px;
   height: 68px;
   padding: 0;

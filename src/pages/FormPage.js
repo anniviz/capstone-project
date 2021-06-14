@@ -79,7 +79,7 @@ Metoprolol (23,75mg)
         />
       </Label>
       <Grid>
-        <Button onClick={() => onNavigate('medication')} type="button">
+        <Button onClick={handleBackClick} type="button">
           zurück
         </Button>
         <Button disabled={isDisabled}>speichern</Button>
@@ -111,8 +111,13 @@ Metoprolol (23,75mg)
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    setMedicationToEdit([])
+    setMedicationToEdit({})
     setActivePage('medication')
+  }
+
+  function handleBackClick() {
+    setMedicationToEdit({})
+    onNavigate('medication')
   }
 
   function handleChange(event) {

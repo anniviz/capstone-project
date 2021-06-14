@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 import SmallButton from '../components/buttons/SmallButton'
+import AddButton from '../components/buttons/AddButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
@@ -64,6 +65,7 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
+      <AddButton onClick={() => setActivePage('form')} />
     </Grid>
   )
 
@@ -95,6 +97,7 @@ export default function MedicationPage({
   }
 }
 const Grid = styled.div`
+  position: relative;
   display: grid;
   height: 100vh;
   grid-template-rows: 80px 30px 1fr;
@@ -113,4 +116,15 @@ const ButtonWrapper = styled.div`
   justify-content: end;
   align-items: end;
   padding: 0 26px 0 16px;
+`
+
+const AddButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  /* align-items: end; */
+  /* padding: 0 26px 0 16px; */
 `
