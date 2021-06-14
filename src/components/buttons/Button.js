@@ -7,10 +7,10 @@ Button.propTypes = {
 }
 
 export default function Button(props) {
-  return <ButtonStyled {...props} />
+  return <StyledButton {...props} />
 }
 
-const ButtonStyled = styled.button`
+const StyledButton = styled.button`
   width: 160px;
   height: 52px;
   border: none;
@@ -22,8 +22,10 @@ const ButtonStyled = styled.button`
     var(--color-light-green),
     var(--color-petrol)
   );
+  box-shadow: 34px 34px 89px var(--color-petrol-21);
 
   :disabled {
     background: var(--color-light-mint);
+    box-shadow: none;
   }
 `

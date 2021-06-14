@@ -41,7 +41,7 @@ export default function MedicationGroup({
             onClick={() => handleDeleteClick(id)}
             position="absolute"
           >
-            <img src={deleteIcon} alt="" height="16px" />
+            <img src={deleteIcon} alt="löschen" height="16px" />
           </SmallButton>
           <SmallButton
             right="10px"
@@ -49,7 +49,7 @@ export default function MedicationGroup({
             onClick={() => handleEditClick(id)}
             position="absolute"
           >
-            <img src={editIcon} alt="" height="16px" />
+            <img src={editIcon} alt="bearbeiten" height="16px" />
           </SmallButton>
         </>
       )}
