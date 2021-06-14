@@ -11,15 +11,19 @@ export default function Button(props) {
 }
 
 const ButtonStyled = styled.button`
-  width: 100px;
-  padding: 12px;
-  border: 2px solid black;
-  border-radius: 8px;
-  color: black;
-  background-color: white;
+  width: 160px;
+  height: 52px;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-white);
+  font-weight: 600;
+  background: radial-gradient(
+    at top left,
+    var(--color-light-green),
+    var(--color-petrol)
+  );
 
   :disabled {
-    border: 2px solid grey;
-    color: grey;
+    background: var(--color-light-mint);
   }
 `

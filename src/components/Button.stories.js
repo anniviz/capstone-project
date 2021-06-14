@@ -8,14 +8,14 @@ export default {
 
 const Template = args => <Button {...args} />
 
-export const Disabled = Template.bind({})
-Disabled.args = {
+export const Active = Template.bind({})
+Active.args = {
   children: 'I am active',
   disabled: false,
 }
 
-export const ActiveButton = Template.bind({})
-ActiveButton.args = {
+export const Disabled = Template.bind({})
+Disabled.args = {
   children: 'I am disabled',
   disabled: true,
 }
