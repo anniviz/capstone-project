@@ -96,7 +96,7 @@ export default function MedicationPage({
 const Grid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: 60px 30px 1fr;
+  grid-template-rows: 80px 30px 1fr;
 `
 
 const Flexbox = styled.div`

@@ -11,10 +11,13 @@ export default function Header({ children }) {
 
 const HeaderStyled = styled.h2`
   display: grid;
+  height: 80px;
   margin: 0;
   padding: 8px;
-  border-bottom: 2px solid black;
-  font-weight: 500;
+  border-radius: 0 0 0 32px;
+  color: var(--color-dark-blue);
+  font-weight: 600;
   font-size: 1.2em;
+  background-color: var(--color-light-mint);
   place-items: center;
 `
