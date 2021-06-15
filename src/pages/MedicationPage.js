@@ -18,7 +18,6 @@ MedicationPage.propTypes = {
       ),
     })
   ),
-  today: PropTypes.string,
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
   setMedicationToEdit: PropTypes.func,
@@ -26,7 +25,6 @@ MedicationPage.propTypes = {
 
 export default function MedicationPage({
   medications,
-  today,
   setActivePage,
   setMedications,
   setMedicationToEdit,
@@ -41,7 +39,7 @@ export default function MedicationPage({
 
   return (
     <Grid>
-      <Header>{today}</Header>
+      <Header />
       <ButtonWrapper>
         {editMode === false ? (
           <SmallButton onClick={() => setEditMode(true)}>

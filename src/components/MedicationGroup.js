@@ -62,14 +62,13 @@ const Wrapper = styled.section`
   position: relative;
   flex-direction: column;
   padding: 12px;
-  border-bottom: 2px solid var(--color-light-mint);
-  box-shadow: 0 8px 16px var(--color-shadow);
+  border-bottom: 2px solid var(--color-secondary);
   gap: 12px;
   justify-items: space-between;
 `
 
 const Time = styled.time`
-  color: var(--color-dark-blue);
+  color: var(--color-primary);
   font-weight: bold;
   font-size: 1.3em;
 `
@@ -83,10 +82,10 @@ const Meds = styled.ul`
   gap: 6px;
 
   li {
-    color: var(--color-dark-blue);
+    color: var(--color-primary);
     overflow-wrap: break-word;
     :nth-child(odd) {
-      color: var(--color-light-petrol);
+      color: var(--color-tertiary);
     }
   }
 `

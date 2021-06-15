@@ -2,7 +2,7 @@ import React from 'react'
 import AddButton from './AddButton'
 
 export default {
-  title: 'AddButton',
+  title: 'buttons/AddButton',
   component: AddButton,
 }
 

@@ -17,7 +17,7 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: 'Click me' })
     userEvent.click(button)
 
-    expect(handleClick).toHaveBeenCalledTimes(1)
+    expect(handleClick).toHaveBeenCalled()
   })
 
   it('changes with the prop isActive', () => {

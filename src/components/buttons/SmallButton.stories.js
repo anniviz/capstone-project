@@ -5,7 +5,7 @@ import deleteIcon from '../../icons/delete.svg'
 import editIcon from '../../icons/edit.svg'
 
 export default {
-  title: 'SmallButton',
+  title: 'buttons/SmallButton',
   component: SmallButton,
   decorators: [
     Story => (

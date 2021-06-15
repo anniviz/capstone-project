@@ -2,19 +2,19 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import plusIcon from '../../icons/plus.svg'
 
-Button.propTypes = {
+AddButton.propTypes = {
   onClick: PropTypes.func,
 }
 
-export default function Button({ onClick }) {
+export default function AddButton({ onClick }) {
   return (
-    <StyledButton onClick={onClick}>
+    <Button onClick={onClick}>
       <img src={plusIcon} alt="hinzufügen" height="24px" />
-    </StyledButton>
+    </Button>
   )
 }
 
-const StyledButton = styled.button`
+const Button = styled.button`
   position: absolute;
   bottom: 12px;
   left: 0;
@@ -28,8 +28,8 @@ const StyledButton = styled.button`
   border-radius: 50%;
   background: radial-gradient(
     at top left,
-    var(--color-light-green),
-    var(--color-petrol)
+    var(--color-gradient-1),
+    var(--color-gradient-2)
   );
-  box-shadow: 26px 26px 68px var(--color-petrol-21);
+  box-shadow: 26px 26px 68px var(--color-shadow-21);
 `

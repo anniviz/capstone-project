@@ -20,7 +20,6 @@ FormPage.propTypes = {
 }
 
 export default function FormPage({
-  today,
   onSubmit,
   onNavigate,
   setActivePage,
@@ -55,7 +54,7 @@ Metoprolol (23,75mg)
 
   return (
     <Grid>
-      <Header>{today}</Header>
+      <Header />
 
       <FormWrapper
         onSubmit={handleSubmit}
@@ -164,7 +163,7 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   height: ${props => props.timeField && '92px'};
-  color: var(--color-dark-blue);
+  color: var(--color-primary);
   font-weight: bold;
   font-size: 1.1em;
   gap: 4px;
@@ -173,23 +172,23 @@ const Label = styled.label`
 const Input = styled.input`
   height: 40px;
   padding: 4px;
-  border: 1px solid var(--color-light-mint);
-  border-color: ${props => props.isTimeValid || '#F75010'};
+  border: 1px solid var(--color-secondary);
+  border-color: ${props => props.isTimeValid || 'var(--color-warning)'};
   border-radius: 16px;
   font-size: 0.9em;
-  box-shadow: 34px 34px 89px var(--color-petrol-21);
+  box-shadow: 34px 34px 89px var(--color-shadow-13);
 `
 
 const Textarea = styled.textarea`
   padding: 4px;
-  border: 1px solid var(--color-light-mint);
+  border: 1px solid var(--color-secondary);
   border-radius: 16px;
   overflow: auto;
   font-size: 1.1em;
   font-size: 1em;
   line-height: 1.5em;
   resize: none;
-  box-shadow: 34px 34px 89px var(--color-petrol-13);
+  box-shadow: 34px 34px 89px var(--color-shadow-13);
 `
 
 const Flexbox = styled.div`
@@ -200,7 +199,7 @@ const Flexbox = styled.div`
 const Warning = styled.p`
   display: ${props => (props.isTimeValid ? 'none' : 'block')};
   margin: 0;
-  color: var(--color-red);
+  color: var(--color-warning);
   font-weight: 300;
   font-size: 0.7em;
 `

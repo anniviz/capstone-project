@@ -15,17 +15,17 @@ const StyledButton = styled.button`
   height: 52px;
   border: none;
   border-radius: 20px;
-  color: var(--color-white);
+  color: var(--color-basis);
   font-weight: bold;
   background: radial-gradient(
     at top left,
-    var(--color-light-green),
-    var(--color-petrol)
+    var(--color-gradient-1),
+    var(--color-gradient-2)
   );
-  box-shadow: 34px 34px 89px var(--color-petrol-21);
+  box-shadow: 34px 34px 89px var(--color-shadow-21);
 
   :disabled {
-    background: var(--color-light-mint);
+    background: var(--color-secondary);
     box-shadow: none;
   }
 `

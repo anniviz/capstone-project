@@ -3,10 +3,13 @@ import userEvent from '@testing-library/user-event'
 import MedicationPage from './MedicationPage'
 
 describe('MedicationPage', () => {
+  beforeAll(() => {
+    jest.useFakeTimers('modern')
+    jest.setSystemTime(new Date('2021-06-07T10:36:41.617Z'))
+  })
   it('renders Header with date, buttons and a List of MedicationGroups', () => {
     render(
       <MedicationPage
-        today="MONTAG, 7. JUNI"
         setActivePage={jest.fn()}
         medications={[
           {
@@ -28,7 +31,7 @@ describe('MedicationPage', () => {
     )
 
     const header = screen.getByRole('heading')
-    expect(header).toHaveTextContent('MONTAG, 7. JUNI')
+    expect(header).toBeInTheDocument()
 
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(2)
