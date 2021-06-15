@@ -1,12 +1,12 @@
 import React from 'react'
-import SmallButton from './SmallButton'
+import IconButton from './IconButton'
 import deleteIcon from '../../icons/delete.svg'
 
 import editIcon from '../../icons/edit.svg'
 
 export default {
-  title: 'buttons/SmallButton',
-  component: SmallButton,
+  title: 'buttons/IconButton',
+  component: IconButton,
   decorators: [
     Story => (
       <div
@@ -24,7 +24,7 @@ export default {
   ],
 }
 
-const Template = args => <SmallButton {...args} />
+const Template = args => <IconButton {...args} />
 
 export const RightTop = Template.bind({})
 RightTop.args = {

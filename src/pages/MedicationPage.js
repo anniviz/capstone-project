@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import SmallButton from '../components/buttons/SmallButton'
+import IconButton from '../components/buttons/IconButton'
 import AddButton from '../components/buttons/AddButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
@@ -41,15 +41,16 @@ export default function MedicationPage({
     <Grid>
       <Header />
       <ButtonWrapper>
-        {editMode === false ? (
-          <SmallButton onClick={() => setEditMode(true)}>
-            <img src={editRectangleIcon} alt="" height="20px" />
-          </SmallButton>
-        ) : (
-          <SmallButton align="right" onClick={() => setEditMode(false)}>
-            <img src={backIcon} alt="" height="20px" />
-          </SmallButton>
-        )}
+        {medications.length !== 0 &&
+          (editMode === false ? (
+            <IconButton onClick={() => setEditMode(true)}>
+              <img src={editRectangleIcon} alt="" height="20px" />
+            </IconButton>
+          ) : (
+            <IconButton align="right" onClick={() => setEditMode(false)}>
+              <img src={backIcon} alt="" height="20px" />
+            </IconButton>
+          ))}
       </ButtonWrapper>
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
