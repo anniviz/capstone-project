@@ -11,7 +11,7 @@ export default {
     Story => (
       <div
         style={{
-          position: 'absolute',
+          position: 'relative',
           width: '200px',
           height: '100px',
           border: '2px black solid',
@@ -26,16 +26,17 @@ export default {
 
 const Template = args => <SmallButton {...args} />
 
-export const Right = Template.bind({})
-Right.args = {
+export const RightTop = Template.bind({})
+RightTop.args = {
   children: <img src={editIcon} alt="" height="14px" />,
+  position: 'absolute',
   top: '10px',
   right: '10px',
 }
 
-export const BitLower = Template.bind({})
-BitLower.args = {
+export const LeftLow = Template.bind({})
+LeftLow.args = {
   children: <img src={deleteIcon} alt="" height="14px" />,
-  top: '30px',
-  right: '10px',
+  position: 'absolute',
+  top: '60px',
 }

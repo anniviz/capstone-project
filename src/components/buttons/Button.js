@@ -11,7 +11,7 @@ export default function Button(props) {
 }
 
 const StyledButton = styled.button`
-  width: 160px;
+  width: 140px;
   height: 52px;
   border: none;
   border-radius: 20px;
