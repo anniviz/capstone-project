@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
+import Header from '../components/Header'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
@@ -19,6 +20,7 @@ FormPage.propTypes = {
 }
 
 export default function FormPage({
+  today,
   onSubmit,
   onNavigate,
   setActivePage,
@@ -37,11 +39,13 @@ export default function FormPage({
         meds: medsArray.join('\n'),
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     validateForm()
     setIsTimeValid(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [medGroupInputs])
 
   const placeholderText = `ASS (50mg)
@@ -50,41 +54,45 @@ Metoprolol (23,75mg)
 `
 
   return (
-    <FormWrapper
-      onSubmit={handleSubmit}
-      aria-label="Medikationsgruppe erstellen"
-      role="form"
-    >
-      <Label timeField>
-        Uhrzeit:
-        <Input
-          name="time"
-          placeholder="8:00"
-          onChange={handleChange}
-          isTimeValid={isTimeValid}
-          value={medGroupInputs.time}
-        />
-        <Warning isTimeValid={isTimeValid}>
-          Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
-        </Warning>
-      </Label>
-      <Label>
-        Medikamente:
-        <Textarea
-          name="meds"
-          rows="15"
-          placeholder={placeholderText}
-          onChange={handleChange}
-          value={medGroupInputs.meds}
-        />
-      </Label>
-      <Grid>
-        <Button onClick={handleBackClick} type="button">
-          zurück
-        </Button>
-        <Button disabled={isDisabled}>speichern</Button>
-      </Grid>
-    </FormWrapper>
+    <Grid>
+      <Header>{today}</Header>
+
+      <FormWrapper
+        onSubmit={handleSubmit}
+        aria-label="Medikationsgruppe erstellen"
+        role="form"
+      >
+        <Label timeField>
+          Uhrzeit:
+          <Input
+            name="time"
+            placeholder="8:00"
+            onChange={handleChange}
+            isTimeValid={isTimeValid}
+            value={medGroupInputs.time}
+          />
+          <Warning isTimeValid={isTimeValid}>
+            Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
+          </Warning>
+        </Label>
+        <Label>
+          Medikamente:
+          <Textarea
+            name="meds"
+            rows="10"
+            placeholder={placeholderText}
+            onChange={handleChange}
+            value={medGroupInputs.meds}
+          />
+        </Label>
+        <Flexbox>
+          <Button onClick={handleBackClick} type="button">
+            zurück
+          </Button>
+          <Button disabled={isDisabled}>speichern</Button>
+        </Flexbox>
+      </FormWrapper>
+    </Grid>
   )
 
   function handleSubmit(event) {
@@ -139,44 +147,60 @@ Metoprolol (23,75mg)
   }
 }
 
+const Grid = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 80px 1fr;
+`
+
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 100vh;
   padding: 12px;
-  gap: 20px;
 `
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  height: ${props => props.timeField && '60px'};
+  height: ${props => props.timeField && '92px'};
+  color: var(--color-dark-blue);
+  font-weight: bold;
+  font-size: 1.1em;
   gap: 4px;
 `
 
 const Input = styled.input`
+  height: 40px;
   padding: 4px;
-  border-color: ${props => props.isTimeValid || 'red'};
-  border-radius: 4px;
+  border: 1px solid var(--color-light-mint);
+  border-color: ${props => props.isTimeValid || '#F75010'};
+  border-radius: 16px;
+  font-size: 0.9em;
+  box-shadow: 34px 34px 89px var(--color-petrol-21);
 `
 
 const Textarea = styled.textarea`
   padding: 4px;
-  border-radius: 4px;
+  border: 1px solid var(--color-light-mint);
+  border-radius: 16px;
   overflow: auto;
   font-size: 1.1em;
+  font-size: 1em;
   line-height: 1.5em;
   resize: none;
+  box-shadow: 34px 34px 89px var(--color-petrol-13);
 `
 
-const Grid = styled.div`
+const Flexbox = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
 const Warning = styled.p`
   display: ${props => (props.isTimeValid ? 'none' : 'block')};
-  color: red;
-  font-size: 0.8em;
+  margin: 0;
+  color: var(--color-red);
+  font-weight: 300;
+  font-size: 0.7em;
 `

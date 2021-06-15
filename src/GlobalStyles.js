@@ -9,7 +9,9 @@ const GlobalStyles = createGlobalStyle`
   --color-light-green: #7BE495;
   --color-petrol: #329D9C;
   --color-petrol-21: rgba(50, 157, 156, 0.21);
+  --color-petrol-13: rgba(50, 157, 156, 0.13);
   --color-light-petrol: #68B2A0;
+  --color-red: #F75010;
 }
 
 * {

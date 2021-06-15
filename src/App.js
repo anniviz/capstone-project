@@ -4,6 +4,8 @@ import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 
 export default function App() {
+  const currentDate = new Date()
+
   const [activePage, setActivePage] = useState('medication')
   const [medications, setMedications] = useState(
     loadFromLocal('medications') ?? []
@@ -23,6 +25,7 @@ export default function App() {
       {activePage === 'medication' && (
         <MedicationPage
           medications={medications}
+          today={formatDate(currentDate)}
           setActivePage={setActivePage}
           setMedications={setMedications}
           setMedicationToEdit={setMedicationToEdit}
@@ -30,6 +33,7 @@ export default function App() {
       )}
       {activePage === 'form' && (
         <FormPage
+          today={formatDate(currentDate)}
           onNavigate={handleActivePage}
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
@@ -61,5 +65,12 @@ export default function App() {
       { ...newMedication },
       ...medications.slice(index + 1),
     ])
+  }
+
+  function formatDate(date) {
+    const options = { weekday: 'long', month: 'long', day: 'numeric' }
+    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
+
+    return formatedDate
   }
 }

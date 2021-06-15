@@ -18,6 +18,7 @@ MedicationPage.propTypes = {
       ),
     })
   ),
+  today: PropTypes.string,
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
   setMedicationToEdit: PropTypes.func,
@@ -25,11 +26,11 @@ MedicationPage.propTypes = {
 
 export default function MedicationPage({
   medications,
+  today,
   setActivePage,
   setMedications,
   setMedicationToEdit,
 }) {
-  const currentDate = new Date()
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
     if (convertToMinutes(a.time) < convertToMinutes(b.time)) return -1
@@ -40,7 +41,7 @@ export default function MedicationPage({
 
   return (
     <Grid>
-      <Header>{formatDate(currentDate)}</Header>
+      <Header>{today}</Header>
       <ButtonWrapper>
         {editMode === false ? (
           <SmallButton onClick={() => setEditMode(true)}>
@@ -73,13 +74,6 @@ export default function MedicationPage({
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
     return Number(minutes)
-  }
-
-  function formatDate(date) {
-    const options = { weekday: 'long', month: 'long', day: 'numeric' }
-    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
-
-    return formatedDate
   }
 
   function handleDeleteClick(id) {
@@ -116,15 +110,4 @@ const ButtonWrapper = styled.div`
   justify-content: end;
   align-items: end;
   padding: 0 26px 0 16px;
-`
-
-const AddButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 1);
-  /* align-items: end; */
-  /* padding: 0 26px 0 16px; */
 `
