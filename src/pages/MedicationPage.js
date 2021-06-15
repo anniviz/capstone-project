@@ -9,6 +9,8 @@ import backIcon from '../icons/back.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
+import MomentLocaleUtils from 'react-day-picker/moment'
+import 'moment/locale/de'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -40,8 +42,6 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
 
-  console.log(selectedDay)
-
   return (
     <Grid>
       <Header />
@@ -60,6 +60,7 @@ export default function MedicationPage({
       <DayPicker
         onDayClick={handleDayClick}
         selectedDays={selectedDay}
+        localeUtils={MomentLocaleUtils}
         locale="de"
       />
       <Flexbox>
