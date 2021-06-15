@@ -7,6 +7,8 @@ import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
+import DayPicker from 'react-day-picker'
+import 'react-day-picker/lib/style.css'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -36,6 +38,9 @@ export default function MedicationPage({
   })
 
   const [editMode, setEditMode] = useState(false)
+  const [selectedDay, setSelectedDay] = useState(new Date())
+
+  console.log(selectedDay)
 
   return (
     <Grid>
@@ -52,6 +57,11 @@ export default function MedicationPage({
             </IconButton>
           ))}
       </ButtonWrapper>
+      <DayPicker
+        onDayClick={handleDayClick}
+        selectedDays={selectedDay}
+        locale="de"
+      />
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -68,6 +78,10 @@ export default function MedicationPage({
       <AddButton onClick={() => setActivePage('form')} />
     </Grid>
   )
+
+  function handleDayClick(day) {
+    setSelectedDay(day)
+  }
 
   function convertToMinutes(time) {
     const timeArray = time.split(':')
@@ -93,7 +107,7 @@ const Grid = styled.div`
   position: relative;
   display: grid;
   height: 100vh;
-  grid-template-rows: 80px 30px 1fr;
+  grid-template-rows: 80px 30px auto 1fr;
 `
 
 const Flexbox = styled.div`
