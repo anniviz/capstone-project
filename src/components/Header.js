@@ -1,20 +1,27 @@
 import styled from 'styled-components/macro'
-import PropTypes from 'prop-types'
 
-Header.propTypes = {
-  children: PropTypes.node,
-}
+export default function Header() {
+  const today = new Date()
 
-export default function Header({ children }) {
-  return <HeaderStyled>{children}</HeaderStyled>
+  return <HeaderStyled>{formatDate(today)}</HeaderStyled>
+
+  function formatDate(date) {
+    const options = { weekday: 'long', month: 'long', day: 'numeric' }
+    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
+
+    return formatedDate
+  }
 }
 
 const HeaderStyled = styled.h2`
   display: grid;
+  min-height: 80px;
   margin: 0;
   padding: 8px;
-  border-bottom: 2px solid black;
-  font-weight: 500;
+  border-radius: 0 0 0 32px;
+  color: var(--color-primary);
+  font-weight: bold;
   font-size: 1.2em;
+  background-color: var(--color-secondary);
   place-items: center;
 `

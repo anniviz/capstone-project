@@ -6,7 +6,7 @@ jest.mock('uuid', () => ({
 }))
 
 describe('FormPage', () => {
-  it('renders a FormPage with 2 inputs/textareas, 2 labels, 2 Buttons', () => {
+  it('renders a FormPage with 2 inputs/textareas, 2 labels, 2 Buttons and a header', () => {
     render(
       <FormPage
         onSubmit={jest.fn()}
@@ -37,6 +37,9 @@ describe('FormPage', () => {
 
     const button = screen.getAllByRole('button')
     expect(button).toHaveLength(2)
+
+    const header = screen.getByRole('heading')
+    expect(header).toBeInTheDocument()
   })
 
   it('submits the form', () => {

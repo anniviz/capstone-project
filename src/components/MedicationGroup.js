@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
-import SmallButton from './SmallButton'
+import IconButton from './buttons/IconButton'
 
 MedicationGroup.propTypes = {
   id: PropTypes.node,
@@ -26,7 +26,7 @@ export default function MedicationGroup({
   return (
     <Wrapper>
       <Time role="time" dateTime={time}>
-        {time} UHR
+        {time} Uhr
       </Time>
       <Meds>
         {meds.map(({ id, medName }) => (
@@ -35,22 +35,22 @@ export default function MedicationGroup({
       </Meds>
       {editMode && (
         <>
-          <SmallButton
+          <IconButton
             right="10px"
-            top="10px"
-            color="red"
+            top="20px"
             onClick={() => handleDeleteClick(id)}
+            position="absolute"
           >
-            <img src={deleteIcon} alt="" height="16px" />
-          </SmallButton>
-          <SmallButton
+            <img src={deleteIcon} alt="löschen" height="16px" />
+          </IconButton>
+          <IconButton
             right="10px"
-            top="40px"
-            color="green"
+            top="52px"
             onClick={() => handleEditClick(id)}
+            position="absolute"
           >
-            <img src={editIcon} alt="" height="14px" />
-          </SmallButton>
+            <img src={editIcon} alt="bearbeiten" height="16px" />
+          </IconButton>
         </>
       )}
     </Wrapper>
@@ -62,14 +62,14 @@ const Wrapper = styled.section`
   position: relative;
   flex-direction: column;
   padding: 12px;
-  border: 2px solid grey;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px var(--color-shadow);
+  border-bottom: 2px solid var(--color-secondary);
   gap: 12px;
   justify-items: space-between;
 `
 
 const Time = styled.time`
+  color: var(--color-primary);
+  font-weight: bold;
   font-size: 1.3em;
 `
 
@@ -79,8 +79,13 @@ const Meds = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  gap: 4px;
+  gap: 6px;
+
   li {
+    color: var(--color-primary);
     overflow-wrap: break-word;
+    :nth-child(odd) {
+      color: var(--color-tertiary);
+    }
   }
 `

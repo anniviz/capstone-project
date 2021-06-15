@@ -9,11 +9,13 @@ export default {
 
 export const Default = args => <FormPage {...args} />
 Default.args = {
+  today: 'MONTAG, 7. JUNI',
   medicationToEdit: {},
 }
 
 export const Edit = args => <FormPage {...args} />
 Edit.args = {
+  today: 'MONTAG, 7. JUNI',
   medicationToEdit: {
     id: '01234',
     time: '8:00',

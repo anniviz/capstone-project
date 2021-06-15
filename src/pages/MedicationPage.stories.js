@@ -9,6 +9,7 @@ export default {
 
 export const Default = args => <MedicationPage {...args} />
 Default.args = {
+  today: 'MONTAG, 7. JUNI',
   medications: [
     {
       id: '01234',

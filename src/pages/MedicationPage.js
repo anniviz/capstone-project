@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
+import IconButton from '../components/buttons/IconButton'
+import AddButton from '../components/buttons/AddButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
-import TextButton from '../components/TextButton'
+import backIcon from '../icons/back.svg'
+import editRectangleIcon from '../icons/edit_rectangle.svg'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -26,7 +29,6 @@ export default function MedicationPage({
   setMedications,
   setMedicationToEdit,
 }) {
-  const currentDate = new Date()
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
     if (convertToMinutes(a.time) < convertToMinutes(b.time)) return -1
@@ -37,19 +39,19 @@ export default function MedicationPage({
 
   return (
     <Grid>
-      <Header>{formatDate(currentDate)}</Header>
-      {editMode === false ? (
-        <TextButtonWrapper>
-          <TextButton onClick={() => setActivePage('form')}>
-            Hinzufügen
-          </TextButton>
-          <TextButton onClick={() => setEditMode(true)}>Bearbeiten</TextButton>
-        </TextButtonWrapper>
-      ) : (
-        <TextButton align="right" onClick={() => setEditMode(false)}>
-          Abbrechen
-        </TextButton>
-      )}
+      <Header />
+      <ButtonWrapper>
+        {medications.length !== 0 &&
+          (editMode === false ? (
+            <IconButton onClick={() => setEditMode(true)}>
+              <img src={editRectangleIcon} alt="" height="20px" />
+            </IconButton>
+          ) : (
+            <IconButton align="right" onClick={() => setEditMode(false)}>
+              <img src={backIcon} alt="" height="20px" />
+            </IconButton>
+          ))}
+      </ButtonWrapper>
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -63,6 +65,7 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
+      <AddButton onClick={() => setActivePage('form')} />
     </Grid>
   )
 
@@ -70,13 +73,6 @@ export default function MedicationPage({
     const timeArray = time.split(':')
     const minutes = timeArray[0] * 60 + timeArray[1]
     return Number(minutes)
-  }
-
-  function formatDate(date) {
-    const options = { weekday: 'long', month: 'long', day: 'numeric' }
-    const formatedDate = date.toLocaleDateString('de-DE', options).toUpperCase()
-
-    return formatedDate
   }
 
   function handleDeleteClick(id) {
@@ -94,20 +90,23 @@ export default function MedicationPage({
   }
 }
 const Grid = styled.div`
+  position: relative;
   display: grid;
   height: 100vh;
-  grid-template-rows: 60px 30px 1fr;
+  grid-template-rows: 80px 30px 1fr;
 `
 
 const Flexbox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0 16px;
   overflow-y: auto;
   gap: 20px;
 `
 
-const TextButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  align-items: end;
+  padding: 0 26px 0 16px;
 `
