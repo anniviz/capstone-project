@@ -6,6 +6,7 @@ import AddButton from '../components/buttons/AddButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
+import calendarIcon from '../icons/calendar.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
@@ -41,11 +42,15 @@ export default function MedicationPage({
 
   const [editMode, setEditMode] = useState(false)
   const [selectedDay, setSelectedDay] = useState(new Date())
+  const [showCalendar, setShowCalendar] = useState(false)
 
   return (
-    <Grid>
+    <Grid showCalendar={showCalendar}>
       <Header />
       <ButtonWrapper>
+        <IconButton onClick={() => setShowCalendar(!showCalendar)}>
+          <img src={calendarIcon} alt="" height="20px" />
+        </IconButton>
         {medications.length !== 0 &&
           (editMode === false ? (
             <IconButton onClick={() => setEditMode(true)}>
@@ -57,12 +62,14 @@ export default function MedicationPage({
             </IconButton>
           ))}
       </ButtonWrapper>
-      <StyledDayPicker
-        onDayClick={handleDayClick}
-        selectedDays={selectedDay}
-        localeUtils={MomentLocaleUtils}
-        locale="de"
-      />
+      {showCalendar && (
+        <StyledDayPicker
+          onDayClick={handleDayClick}
+          selectedDays={selectedDay}
+          localeUtils={MomentLocaleUtils}
+          locale="de"
+        />
+      )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
           <MedicationGroup
@@ -108,7 +115,8 @@ const Grid = styled.div`
   position: relative;
   display: grid;
   height: 100vh;
-  grid-template-rows: 80px 30px auto 1fr;
+  grid-template-rows: ${props =>
+    props.showCalendar ? '80px 30px auto 1fr' : '80px 30px 1fr'};
 `
 
 const Flexbox = styled.div`
@@ -121,9 +129,9 @@ const Flexbox = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: end;
-  padding: 0 26px 0 16px;
+  padding: 0 26px;
 `
 
 const StyledDayPicker = styled(DayPicker)`

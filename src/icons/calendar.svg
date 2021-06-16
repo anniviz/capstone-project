@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.387" height="25.958" viewBox="0 0 25.387 25.958">
+  <g id="calendar" transform="translate(1 1)">
+    <g id="Date">
+      <rect id="Rectangle" width="23" height="5.75" transform="translate(0 2.875)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path" d="M.479,0V2.875" transform="translate(6.229)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path-2" data-name="Path" d="M.479,0V2.875" transform="translate(15.813)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path-3" data-name="Path" d="M23,0H0V15.333H18.975l.862-.862A10.882,10.882,0,0,0,23,6.8Z" transform="translate(0 8.625)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path-4" data-name="Path" d="M0,8.625V3.833H0a5.368,5.368,0,0,0,3.833-2.4L4.792,0" transform="translate(18.208 15.333)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
