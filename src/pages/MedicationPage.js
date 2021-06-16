@@ -57,7 +57,7 @@ export default function MedicationPage({
             </IconButton>
           ))}
       </ButtonWrapper>
-      <DayPicker
+      <StyledDayPicker
         onDayClick={handleDayClick}
         selectedDays={selectedDay}
         localeUtils={MomentLocaleUtils}
@@ -124,4 +124,22 @@ const ButtonWrapper = styled.div`
   justify-content: end;
   align-items: end;
   padding: 0 26px 0 16px;
+`
+
+const StyledDayPicker = styled(DayPicker)`
+  margin: 16px;
+  border-radius: 20px;
+  box-shadow: 34px 34px 89px var(--color-shadow-13);
+
+  .DayPicker-Day--selected {
+    background: radial-gradient(
+      at top left,
+      var(--color-gradient-1),
+      var(--color-gradient-2)
+    );
+  }
+
+  .DayPicker-Day--today {
+    color: var(--color-tertiary);
+  }
 `
