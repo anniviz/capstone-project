@@ -8,6 +8,7 @@ import Header from '../components/Header'
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
   onNavigate: PropTypes.func,
+  selectedDay: PropTypes.string,
   setActivePage: PropTypes.func,
   medicationToEdit: PropTypes.shape({
     id: PropTypes.node,
@@ -22,6 +23,7 @@ FormPage.propTypes = {
 export default function FormPage({
   onSubmit,
   onNavigate,
+  selectedDay,
   setActivePage,
   medicationToEdit,
   setMedicationToEdit,
@@ -54,7 +56,7 @@ Metoprolol (23,75mg)
 
   return (
     <Grid>
-      <Header />
+      <Header selectedDay={selectedDay} />
 
       <FormWrapper
         onSubmit={handleSubmit}

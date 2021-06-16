@@ -1,17 +1,17 @@
+import 'moment/locale/de'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import DayPicker from 'react-day-picker'
+import 'react-day-picker/lib/style.css'
+import MomentLocaleUtils from 'react-day-picker/moment'
 import styled from 'styled-components/macro'
-import IconButton from '../components/buttons/IconButton'
 import AddButton from '../components/buttons/AddButton'
+import IconButton from '../components/buttons/IconButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
-import DayPicker from 'react-day-picker'
-import 'react-day-picker/lib/style.css'
-import MomentLocaleUtils from 'react-day-picker/moment'
-import 'moment/locale/de'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -26,6 +26,8 @@ MedicationPage.propTypes = {
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
   setMedicationToEdit: PropTypes.func,
+  selectedDay: PropTypes.string,
+  setSelectedDay: PropTypes.func,
 }
 
 export default function MedicationPage({
@@ -33,6 +35,8 @@ export default function MedicationPage({
   setActivePage,
   setMedications,
   setMedicationToEdit,
+  selectedDay,
+  setSelectedDay,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -41,12 +45,11 @@ export default function MedicationPage({
   })
 
   const [editMode, setEditMode] = useState(false)
-  const [selectedDay, setSelectedDay] = useState(new Date())
   const [showCalendar, setShowCalendar] = useState(false)
 
   return (
     <Grid showCalendar={showCalendar}>
-      <Header />
+      <Header selectedDay={selectedDay} />
       <ButtonWrapper>
         <IconButton onClick={() => setShowCalendar(!showCalendar)}>
           <img src={calendarIcon} alt="" height="20px" />

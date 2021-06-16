@@ -5,6 +5,7 @@ import MedicationPage from './pages/MedicationPage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('medication')
+  const [selectedDay, setSelectedDay] = useState(new Date())
   const [medications, setMedications] = useState(
     loadFromLocal('medications') ?? []
   )
@@ -26,6 +27,8 @@ export default function App() {
           setActivePage={setActivePage}
           setMedications={setMedications}
           setMedicationToEdit={setMedicationToEdit}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
         />
       )}
       {activePage === 'form' && (
@@ -35,6 +38,7 @@ export default function App() {
           onSubmit={handleSubmit}
           medicationToEdit={medicationToEdit}
           setMedicationToEdit={setMedicationToEdit}
+          selectedDay={selectedDay}
         />
       )}
     </>
