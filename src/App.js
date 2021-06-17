@@ -5,16 +5,16 @@ import MedicationPage from './pages/MedicationPage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('medication')
-  const [selectedDay, setSelectedDay] = useState(new Date())
+  const today = new Date()
+  const [selectedDay, setSelectedDay] = useState(today)
   const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
 
   const {
-    medicationsDiary,
-    setMedicationsDiary,
-    dateIndex,
     activeMedications,
     medicationToEdit,
     setMedicationToEdit,
+    handleSubmit,
+    deleteSingleMedication,
   } = useMedications(setActivePage, selectedDayString)
 
   return (
@@ -44,77 +44,5 @@ export default function App() {
 
   function handleActivePage(page) {
     setActivePage(page)
-  }
-
-  function handleSubmit(newMedication) {
-    if (dateIndex > -1) {
-      updateSelectedDay(newMedication, dateIndex)
-    } else {
-      setMedicationsDiary([
-        {
-          date: selectedDayString,
-          medications: [newMedication],
-        },
-        ...medicationsDiary,
-      ])
-    }
-  }
-
-  function updateSelectedDay(newMedication, dateIndex) {
-    const dayMedications = medicationsDiary[dateIndex].medications
-
-    const medicationsIndex = dayMedications.findIndex(
-      medication => medication.id === newMedication.id
-    )
-    if (medicationsIndex > -1) {
-      setMedicationsDiary([
-        ...medicationsDiary.slice(0, dateIndex),
-        {
-          ...medicationsDiary[dateIndex],
-          medications: updateMedication(
-            newMedication,
-            dayMedications,
-            medicationsIndex
-          ),
-        },
-        ...medicationsDiary.slice(dateIndex + 1),
-      ])
-    } else {
-      setMedicationsDiary([
-        ...medicationsDiary.slice(0, dateIndex),
-        {
-          ...medicationsDiary[dateIndex],
-          medications: [...dayMedications, newMedication],
-        },
-        ...medicationsDiary.slice(dateIndex + 1),
-      ])
-    }
-  }
-
-  function updateMedication(newMedication, medications, index) {
-    return [
-      ...medications.slice(0, index),
-      { ...newMedication },
-      ...medications.slice(index + 1),
-    ]
-  }
-
-  function deleteSingleMedication(id) {
-    const dayMedications = medicationsDiary[dateIndex].medications
-    const medicationsIndex = dayMedications.findIndex(
-      medication => medication.id === id
-    )
-
-    setMedicationsDiary([
-      ...medicationsDiary.slice(0, dateIndex),
-      {
-        ...medicationsDiary[dateIndex],
-        medications: [
-          ...dayMedications.slice(0, medicationsIndex),
-          ...dayMedications.slice(medicationsIndex + 1),
-        ],
-      },
-      ...medicationsDiary.slice(dateIndex + 1),
-    ])
   }
 }
