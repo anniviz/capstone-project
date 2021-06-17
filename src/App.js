@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { loadFromLocal, saveToLocal } from './utils/localStorage'
+import { useState } from 'react'
+import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 
@@ -8,20 +8,14 @@ export default function App() {
   const [selectedDay, setSelectedDay] = useState(new Date())
   const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
 
-  const [medicationsDiary, setMedicationsDiary] = useState(
-    loadFromLocal('medicationsDiary') ?? []
-  )
-  useEffect(() => {
-    saveToLocal('medicationsDiary', medicationsDiary)
-    medicationsDiary.length === 0 && setActivePage('form')
-  }, [medicationsDiary])
-
-  const dateIndex = medicationsDiary.findIndex(
-    day => day.date === selectedDayString
-  )
-  const activeMedications = dateIndex > -1 ? findActiveMedications() : []
-
-  const [medicationToEdit, setMedicationToEdit] = useState({})
+  const {
+    medicationsDiary,
+    setMedicationsDiary,
+    dateIndex,
+    activeMedications,
+    medicationToEdit,
+    setMedicationToEdit,
+  } = useMedications(setActivePage, selectedDayString)
 
   return (
     <>
@@ -122,9 +116,5 @@ export default function App() {
       },
       ...medicationsDiary.slice(dateIndex + 1),
     ])
-  }
-
-  function findActiveMedications() {
-    return medicationsDiary[dateIndex].medications
   }
 }
