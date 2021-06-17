@@ -34,7 +34,6 @@ export default function MedicationPage({
   medications,
   setActivePage,
   deleteSingleMedication,
-  // setMedicationToEdit,
   setMedicationToEditId,
   selectedDay,
   setSelectedDay,
@@ -102,8 +101,6 @@ export default function MedicationPage({
   }
 
   function handleEditClick(id) {
-    // const index = medications.findIndex(medication => medication.id === id)
-    // setMedicationToEdit(medications[index])
     setMedicationToEditId(id)
     setActivePage('form')
   }
