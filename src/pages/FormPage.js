@@ -8,6 +8,15 @@ import Header from '../components/Header'
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
   onNavigate: PropTypes.func,
+  medications: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      time: PropTypes.node,
+      meds: PropTypes.arrayOf(
+        PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+      ),
+    })
+  ),
   selectedDay: PropTypes.instanceOf(Date),
   setActivePage: PropTypes.func,
   medicationToEdit: PropTypes.shape({
@@ -23,17 +32,22 @@ FormPage.propTypes = {
 export default function FormPage({
   onSubmit,
   onNavigate,
+  medications,
   selectedDay,
   setActivePage,
-  medicationToEdit,
-  setMedicationToEdit,
+  medicationToEditId,
+  setMedicationToEditId,
 }) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
   const [isTimeValid, setIsTimeValid] = useState(true)
 
   useEffect(() => {
-    if (medicationToEdit.meds) {
+    const index = medications.findIndex(
+      medication => medication.id === medicationToEditId
+    )
+    if (medicationToEditId) {
+      const medicationToEdit = medications[index]
       const medsArray = medicationToEdit.meds.map(med => med.medName)
       setMedGroupInputs({
         time: medicationToEdit.time,
@@ -111,7 +125,11 @@ Metoprolol (23,75mg)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    if (medicationToEdit.meds) {
+    const index = medications.findIndex(
+      medication => medication.id === medicationToEditId
+    )
+    if (medicationToEditId) {
+      const medicationToEdit = medications[index]
       onSubmit({
         id: medicationToEdit.id,
         time: time.value,
@@ -120,12 +138,12 @@ Metoprolol (23,75mg)
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    setMedicationToEdit({})
+    setMedicationToEditId(null)
     setActivePage('medication')
   }
 
   function handleBackClick() {
-    setMedicationToEdit({})
+    setMedicationToEditId(null)
     onNavigate('medication')
   }
 

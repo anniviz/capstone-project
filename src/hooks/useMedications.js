@@ -19,7 +19,7 @@ export default function useMedications(setActivePage, selectedDayString) {
   )
   const activeMedications = dateIndex > -1 ? findActiveMedications() : []
 
-  const [medicationToEdit, setMedicationToEdit] = useState({})
+  const [medicationToEditId, setMedicationToEditId] = useState(null)
 
   function findActiveMedications() {
     return medicationsDiary[dateIndex].medications
@@ -38,7 +38,6 @@ export default function useMedications(setActivePage, selectedDayString) {
 
   function updateSelectedDay(newMedication) {
     const dayMedications = medicationsDiary[dateIndex].medications
-
     const medicationsIndex = dayMedications.findIndex(
       medication => medication.id === newMedication.id
     )
@@ -70,8 +69,8 @@ export default function useMedications(setActivePage, selectedDayString) {
 
   return {
     activeMedications,
-    medicationToEdit,
-    setMedicationToEdit,
+    medicationToEditId,
+    setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
   }

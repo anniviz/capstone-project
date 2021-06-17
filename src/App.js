@@ -11,8 +11,8 @@ export default function App() {
 
   const {
     activeMedications,
-    medicationToEdit,
-    setMedicationToEdit,
+    medicationToEditId,
+    setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
   } = useMedications(setActivePage, selectedDayString)
@@ -23,7 +23,7 @@ export default function App() {
         <MedicationPage
           medications={activeMedications}
           setActivePage={setActivePage}
-          setMedicationToEdit={setMedicationToEdit}
+          setMedicationToEditId={setMedicationToEditId}
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
           deleteSingleMedication={deleteSingleMedication}
@@ -31,11 +31,12 @@ export default function App() {
       )}
       {activePage === 'form' && (
         <FormPage
+          medications={activeMedications}
           onNavigate={handleActivePage}
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
-          medicationToEdit={medicationToEdit}
-          setMedicationToEdit={setMedicationToEdit}
+          medicationToEditId={medicationToEditId}
+          setMedicationToEditId={setMedicationToEditId}
           selectedDay={selectedDay}
         />
       )}
