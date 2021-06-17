@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import Header from '../components/Header'
+import useFormValidation from '../hooks/useFormValidation'
 import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
@@ -39,18 +39,17 @@ export default function FormPage({
   medicationToEditId,
   setMedicationToEditId,
 }) {
-  const [isDisabled, setIsDisabled] = useState(true)
   const { medGroupInputs, setMedGroupInputs } = useMedicationGroup(
     medications,
     medicationToEditId
   )
-  const [isTimeValid, setIsTimeValid] = useState(true)
 
-  useEffect(() => {
-    validateForm()
-    setIsTimeValid(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [medGroupInputs])
+  const {
+    isTimeValid,
+    isDisabled,
+    setIsTimeValid,
+    validateTime,
+  } = useFormValidation(medGroupInputs)
 
   const placeholderText = `ASS (50mg)
 Magnesium (80mg)
@@ -139,19 +138,6 @@ Metoprolol (23,75mg)
   function handleChange(event) {
     const { name, value } = event.target
     setMedGroupInputs({ ...medGroupInputs, [name]: value })
-  }
-
-  function validateTime(time) {
-    const timeFormat = /^([0-9]|[0-1][0-9]|2[0-3]):([0-5][0-9])$/
-
-    return time.match(timeFormat) ? true : false
-  }
-
-  function validateForm() {
-    setIsDisabled(
-      medGroupInputs.time.trim().length === 0 ||
-        medGroupInputs.meds.trim().length === 0
-    )
   }
 }
 
