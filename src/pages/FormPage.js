@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import Header from '../components/Header'
+import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
@@ -39,23 +40,11 @@ export default function FormPage({
   setMedicationToEditId,
 }) {
   const [isDisabled, setIsDisabled] = useState(true)
-  const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
+  const { medGroupInputs, setMedGroupInputs } = useMedicationGroup(
+    medications,
+    medicationToEditId
+  )
   const [isTimeValid, setIsTimeValid] = useState(true)
-
-  useEffect(() => {
-    const index = medications.findIndex(
-      medication => medication.id === medicationToEditId
-    )
-    if (medicationToEditId) {
-      const medicationToEdit = medications[index]
-      const medsArray = medicationToEdit.meds.map(med => med.medName)
-      setMedGroupInputs({
-        time: medicationToEdit.time,
-        meds: medsArray.join('\n'),
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     validateForm()
