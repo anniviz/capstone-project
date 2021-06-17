@@ -6,8 +6,6 @@ Header.propTypes = {
 }
 
 export default function Header({ selectedDay }) {
-  const today = new Date()
-
   return <HeaderStyled>{formatDate(selectedDay)}</HeaderStyled>
 
   function formatDate(date) {

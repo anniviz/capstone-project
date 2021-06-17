@@ -7,7 +7,7 @@ describe('Header', () => {
     jest.setSystemTime(new Date('2021-06-07T10:36:41.617Z'))
   })
   it('renders the Header', () => {
-    render(<Header />)
+    render(<Header selectedDay={new Date('2021-06-07T10:36:41.617Z')} />)
     expect(screen.getByRole('heading')).toHaveTextContent('MONTAG, 7. JUNI')
   })
 })

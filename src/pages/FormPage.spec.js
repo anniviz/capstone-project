@@ -12,16 +12,25 @@ describe('FormPage', () => {
         onSubmit={jest.fn()}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
-        medicationToEdit={{
-          id: '01234',
-          time: '8:00',
-          meds: [
-            { id: '01234', medName: 'ASS' },
-            { id: '01235', medName: 'Metoprolol' },
-            { id: '01236', medName: 'Magnesium' },
-          ],
-        }}
-        setMedicationToEdit={jest.fn()}
+        medications={[
+          {
+            id: '01234',
+            time: '8:00',
+            meds: [
+              { id: '01234', medName: 'ASS' },
+              { id: '01235', medName: 'Metoprolol' },
+              { id: '01236', medName: 'Magnesium' },
+            ],
+          },
+          {
+            id: '01235',
+            time: '9:00',
+            meds: [{ id: '01234', medName: 'Tacrolimus' }],
+          },
+        ]}
+        medicationToEditId="01234"
+        setMedicationToEditId={jest.fn()}
+        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
       />
     )
     const form = screen.getByRole('form')
@@ -50,8 +59,25 @@ describe('FormPage', () => {
         onSubmit={handleSubmit}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
-        medicationToEdit={{}}
-        setMedicationToEdit={jest.fn()}
+        medications={[
+          {
+            id: '01234',
+            time: '8:00',
+            meds: [
+              { id: '01234', medName: 'ASS' },
+              { id: '01235', medName: 'Metoprolol' },
+              { id: '01236', medName: 'Magnesium' },
+            ],
+          },
+          {
+            id: '01235',
+            time: '9:00',
+            meds: [{ id: '01234', medName: 'Tacrolimus' }],
+          },
+        ]}
+        medicationToEditId={null}
+        setMedicationToEditId={jest.fn()}
+        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
       />
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
@@ -87,8 +113,25 @@ Magnesium`
         onSubmit={handleSubmit}
         onNavigate={jest.fn()}
         setActivePage={jest.fn()}
-        medicationToEdit={{}}
-        setMedicationToEdit={jest.fn()}
+        medications={[
+          {
+            id: '01234',
+            time: '8:00',
+            meds: [
+              { id: '01234', medName: 'ASS' },
+              { id: '01235', medName: 'Metoprolol' },
+              { id: '01236', medName: 'Magnesium' },
+            ],
+          },
+          {
+            id: '01235',
+            time: '9:00',
+            meds: [{ id: '01234', medName: 'Tacrolimus' }],
+          },
+        ]}
+        medicationToEditId={null}
+        setMedicationToEditId={jest.fn()}
+        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
       />
     )
     const form = screen.getByRole('form')
