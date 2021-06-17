@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useImmer } from 'use-immer'
+import produce from 'immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
 export default function useMedications(setActivePage, selectedDayString) {
-  const [medicationsDiary, setMedicationsDiary] = useState(
+  const [medicationsDiary, updateMedicationsDiary] = useImmer(
     loadFromLocal('medicationsDiary') ?? []
   )
+
   useEffect(() => {
     saveToLocal('medicationsDiary', medicationsDiary)
     medicationsDiary.length === 0 && setActivePage('form')
@@ -24,55 +27,32 @@ export default function useMedications(setActivePage, selectedDayString) {
 
   function handleSubmit(newMedication) {
     if (dateIndex > -1) {
-      updateSelectedDay(newMedication, dateIndex)
+      updateSelectedDay(newMedication)
     } else {
-      setMedicationsDiary([
-        {
-          date: selectedDayString,
-          medications: [newMedication],
-        },
-        ...medicationsDiary,
-      ])
+      const addedMedicationsDiary = produce(medicationsDiary, draft => {
+        draft.push({ date: selectedDayString, medications: [newMedication] })
+      })
+      updateMedicationsDiary(addedMedicationsDiary)
     }
   }
 
-  function updateSelectedDay(newMedication, dateIndex) {
+  function updateSelectedDay(newMedication) {
     const dayMedications = medicationsDiary[dateIndex].medications
 
     const medicationsIndex = dayMedications.findIndex(
       medication => medication.id === newMedication.id
     )
-    if (medicationsIndex > -1) {
-      setMedicationsDiary([
-        ...medicationsDiary.slice(0, dateIndex),
-        {
-          ...medicationsDiary[dateIndex],
-          medications: updateMedication(
-            newMedication,
-            dayMedications,
-            medicationsIndex
-          ),
-        },
-        ...medicationsDiary.slice(dateIndex + 1),
-      ])
-    } else {
-      setMedicationsDiary([
-        ...medicationsDiary.slice(0, dateIndex),
-        {
-          ...medicationsDiary[dateIndex],
-          medications: [...dayMedications, newMedication],
-        },
-        ...medicationsDiary.slice(dateIndex + 1),
-      ])
-    }
-  }
 
-  function updateMedication(newMedication, medications, index) {
-    return [
-      ...medications.slice(0, index),
-      { ...newMedication },
-      ...medications.slice(index + 1),
-    ]
+    if (medicationsIndex > -1) {
+      updateMedicationsDiary(draft => {
+        draft[dateIndex].medications[medicationsIndex] = newMedication
+      })
+    } else {
+      const addedMedicationsDiary = produce(medicationsDiary, draft => {
+        draft[dateIndex].medications.push(newMedication)
+      })
+      updateMedicationsDiary(addedMedicationsDiary)
+    }
   }
 
   function deleteSingleMedication(id) {
@@ -81,17 +61,11 @@ export default function useMedications(setActivePage, selectedDayString) {
       medication => medication.id === id
     )
 
-    setMedicationsDiary([
-      ...medicationsDiary.slice(0, dateIndex),
-      {
-        ...medicationsDiary[dateIndex],
-        medications: [
-          ...dayMedications.slice(0, medicationsIndex),
-          ...dayMedications.slice(medicationsIndex + 1),
-        ],
-      },
-      ...medicationsDiary.slice(dateIndex + 1),
-    ])
+    const deletedMedicationsDiary = produce(medicationsDiary, draft => {
+      if (medicationsIndex !== -1)
+        draft[dateIndex].medications.splice(medicationsIndex, 1)
+    })
+    updateMedicationsDiary(deletedMedicationsDiary)
   }
 
   return {
