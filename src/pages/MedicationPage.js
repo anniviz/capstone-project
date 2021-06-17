@@ -24,7 +24,7 @@ MedicationPage.propTypes = {
     })
   ),
   setActivePage: PropTypes.func,
-  setMedications: PropTypes.func,
+  deleteSingleMedication: PropTypes.func,
   setMedicationToEdit: PropTypes.func,
   selectedDay: PropTypes.instanceOf(Date),
   setSelectedDay: PropTypes.func,
@@ -33,7 +33,7 @@ MedicationPage.propTypes = {
 export default function MedicationPage({
   medications,
   setActivePage,
-  setMedications,
+  deleteSingleMedication,
   setMedicationToEdit,
   selectedDay,
   setSelectedDay,
@@ -80,7 +80,7 @@ export default function MedicationPage({
             id={id}
             time={time}
             meds={meds}
-            handleDeleteClick={handleDeleteClick}
+            handleDeleteClick={deleteSingleMedication}
             handleEditClick={handleEditClick}
             editMode={editMode}
           />
@@ -100,13 +100,10 @@ export default function MedicationPage({
     return Number(minutes)
   }
 
-  function handleDeleteClick(id) {
-    const index = medications.findIndex(medication => medication.id === id)
-    setMedications([
-      ...medications.slice(0, index),
-      ...medications.slice(index + 1),
-    ])
-  }
+  // function handleDeleteClick(id) {
+  //   const index = medications.findIndex(medication => medication.id === id)
+  //   return index
+  // }
 
   function handleEditClick(id) {
     const index = medications.findIndex(medication => medication.id === id)

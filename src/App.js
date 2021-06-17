@@ -6,25 +6,20 @@ import MedicationPage from './pages/MedicationPage'
 export default function App() {
   const [activePage, setActivePage] = useState('medication')
   const [selectedDay, setSelectedDay] = useState(new Date())
-  const [medications, setMedications] = useState(
-    loadFromLocal('medications') ?? []
-  )
-  useEffect(() => {
-    saveToLocal('medications', medications)
-    medications.length === 0 && setActivePage('form')
-  }, [medications])
+  const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
 
   const [medicationsDiary, setMedicationsDiary] = useState(
     loadFromLocal('medicationsDiary') ?? []
   )
-  const activeMedications =
-    medicationsDiary.length === 0 ? [] : findActiveMedications()
-  console.log(medicationsDiary)
-  console.log(medicationsDiary.length === 0 ? {} : medicationsDiary[0])
-  console.log(
-    medicationsDiary.length === 0 ? [] : medicationsDiary[0].medications
+  useEffect(() => {
+    saveToLocal('medicationsDiary', medicationsDiary)
+    medicationsDiary.length === 0 && setActivePage('form')
+  }, [medicationsDiary])
+
+  const dateIndex = medicationsDiary.findIndex(
+    day => day.date === selectedDayString
   )
-  console.log(activeMedications)
+  const activeMedications = dateIndex > -1 ? findActiveMedications() : []
 
   const [medicationToEdit, setMedicationToEdit] = useState({})
 
@@ -32,12 +27,12 @@ export default function App() {
     <>
       {activePage === 'medication' && (
         <MedicationPage
-          medications={medications}
+          medications={activeMedications}
           setActivePage={setActivePage}
-          setMedications={setMedications}
           setMedicationToEdit={setMedicationToEdit}
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
+          deleteSingleMedication={deleteSingleMedication}
         />
       )}
       {activePage === 'form' && (
@@ -58,10 +53,6 @@ export default function App() {
   }
 
   function handleSubmit(newMedication) {
-    const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
-    const dateIndex = medicationsDiary.findIndex(
-      day => day.date === selectedDayString
-    )
     if (dateIndex > -1) {
       updateSelectedDay(newMedication, dateIndex)
     } else {
@@ -114,11 +105,26 @@ export default function App() {
     ]
   }
 
-  function findActiveMedications() {
-    const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
-    const dateIndex = medicationsDiary.findIndex(
-      day => day.date === selectedDayString
+  function deleteSingleMedication(id) {
+    const dayMedications = medicationsDiary[dateIndex].medications
+    const medicationsIndex = dayMedications.findIndex(
+      medication => medication.id === id
     )
+
+    setMedicationsDiary([
+      ...medicationsDiary.slice(0, dateIndex),
+      {
+        ...medicationsDiary[dateIndex],
+        medications: [
+          ...dayMedications.slice(0, medicationsIndex),
+          ...dayMedications.slice(medicationsIndex + 1),
+        ],
+      },
+      ...medicationsDiary.slice(dateIndex + 1),
+    ])
+  }
+
+  function findActiveMedications() {
     return medicationsDiary[dateIndex].medications
   }
 }
