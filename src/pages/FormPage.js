@@ -8,7 +8,7 @@ import Header from '../components/Header'
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
   onNavigate: PropTypes.func,
-  selectedDay: PropTypes.string,
+  selectedDay: PropTypes.instanceOf(Date),
   setActivePage: PropTypes.func,
   medicationToEdit: PropTypes.shape({
     id: PropTypes.node,
@@ -151,7 +151,7 @@ Metoprolol (23,75mg)
 const Grid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: auto 1fr;
 `
 
 const FormWrapper = styled.form`

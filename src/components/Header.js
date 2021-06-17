@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
 Header.propTypes = {
-  selectedDay: PropTypes.string,
+  selectedDay: PropTypes.instanceOf(Date),
 }
 
 export default function Header({ selectedDay }) {

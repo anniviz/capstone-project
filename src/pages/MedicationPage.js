@@ -26,7 +26,7 @@ MedicationPage.propTypes = {
   setActivePage: PropTypes.func,
   setMedications: PropTypes.func,
   setMedicationToEdit: PropTypes.func,
-  selectedDay: PropTypes.string,
+  selectedDay: PropTypes.instanceOf(Date),
   setSelectedDay: PropTypes.func,
 }
 
@@ -119,7 +119,7 @@ const Grid = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: ${props =>
-    props.showCalendar ? '80px 30px auto 1fr' : '80px 30px 1fr'};
+    props.showCalendar ? 'auto 30px auto 1fr' : 'auto 30px 1fr'};
 `
 
 const Flexbox = styled.div`

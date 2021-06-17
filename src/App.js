@@ -11,11 +11,20 @@ export default function App() {
   )
   useEffect(() => {
     saveToLocal('medications', medications)
-  }, [medications])
-
-  useEffect(() => {
     medications.length === 0 && setActivePage('form')
   }, [medications])
+
+  const [medicationsDiary, setMedicationsDiary] = useState(
+    loadFromLocal('medicationsDiary') ?? []
+  )
+  const activeMedications =
+    medicationsDiary.length === 0 ? [] : findActiveMedications()
+  console.log(medicationsDiary)
+  console.log(medicationsDiary.length === 0 ? {} : medicationsDiary[0])
+  console.log(
+    medicationsDiary.length === 0 ? [] : medicationsDiary[0].medications
+  )
+  console.log(activeMedications)
 
   const [medicationToEdit, setMedicationToEdit] = useState({})
 
@@ -49,21 +58,67 @@ export default function App() {
   }
 
   function handleSubmit(newMedication) {
-    const index = medications.findIndex(
-      medication => medication.id === newMedication.id
+    const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
+    const dateIndex = medicationsDiary.findIndex(
+      day => day.date === selectedDayString
     )
-    if (index > -1) {
-      updateMedication(newMedication, index)
+    if (dateIndex > -1) {
+      updateSelectedDay(newMedication, dateIndex)
     } else {
-      setMedications([newMedication, ...medications])
+      setMedicationsDiary([
+        {
+          date: selectedDayString,
+          medications: [newMedication],
+        },
+        ...medicationsDiary,
+      ])
     }
   }
 
-  function updateMedication(newMedication, index) {
-    setMedications([
+  function updateSelectedDay(newMedication, dateIndex) {
+    const dayMedications = medicationsDiary[dateIndex].medications
+
+    const medicationsIndex = dayMedications.findIndex(
+      medication => medication.id === newMedication.id
+    )
+    if (medicationsIndex > -1) {
+      setMedicationsDiary([
+        ...medicationsDiary.slice(0, dateIndex),
+        {
+          ...medicationsDiary[dateIndex],
+          medications: updateMedication(
+            newMedication,
+            dayMedications,
+            medicationsIndex
+          ),
+        },
+        ...medicationsDiary.slice(dateIndex + 1),
+      ])
+    } else {
+      setMedicationsDiary([
+        ...medicationsDiary.slice(0, dateIndex),
+        {
+          ...medicationsDiary[dateIndex],
+          medications: [...dayMedications, newMedication],
+        },
+        ...medicationsDiary.slice(dateIndex + 1),
+      ])
+    }
+  }
+
+  function updateMedication(newMedication, medications, index) {
+    return [
       ...medications.slice(0, index),
       { ...newMedication },
       ...medications.slice(index + 1),
-    ])
+    ]
+  }
+
+  function findActiveMedications() {
+    const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
+    const dateIndex = medicationsDiary.findIndex(
+      day => day.date === selectedDayString
+    )
+    return medicationsDiary[dateIndex].medications
   }
 }
