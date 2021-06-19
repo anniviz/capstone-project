@@ -51,11 +51,6 @@ export default function FormPage({
     validateTime,
   } = useFormValidation(medGroupInputs)
 
-  const placeholderText = `ASS (50mg)
-Magnesium (80mg)
-Metoprolol (23,75mg)
-`
-
   return (
     <Grid>
       <Header selectedDay={selectedDay} />
@@ -80,13 +75,21 @@ Metoprolol (23,75mg)
         </Label>
         <Label>
           Medikamente:
-          <Textarea
-            name="meds"
-            rows="10"
-            placeholder={placeholderText}
-            onChange={handleChange}
-            value={medGroupInputs.meds}
-          />
+          <TextareaWithPlaceholderWrapper>
+            <Textarea
+              name="meds"
+              rows="10"
+              onChange={handleChange}
+              value={medGroupInputs.meds}
+            />
+            {medGroupInputs.meds === '' && (
+              <Placeholder>
+                ASS (50mg)
+                <br /> Magnesium (80mg)
+                <br /> Metoprolol (23,75mg)
+              </Placeholder>
+            )}
+          </TextareaWithPlaceholderWrapper>
         </Label>
         <Flexbox>
           <Button onClick={handleBackClick} type="button">
@@ -170,20 +173,43 @@ const Input = styled.input`
   border: 1px solid var(--color-secondary);
   border-color: ${props => props.isTimeValid || 'var(--color-warning)'};
   border-radius: 16px;
+  color: var(--color-primary);
   font-size: 0.9em;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
+
+  &::placeholder {
+    color: var(--color-primary);
+    opacity: 0.5;
+  }
 `
 
 const Textarea = styled.textarea`
+  width: 100%;
   padding: 4px;
   border: 1px solid var(--color-secondary);
   border-radius: 16px;
   overflow: auto;
-  font-size: 1.1em;
+  color: var(--color-primary);
   font-size: 1em;
   line-height: 1.5em;
   resize: none;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
+`
+
+const TextareaWithPlaceholderWrapper = styled.div`
+  position: relative;
+`
+
+const Placeholder = styled.div`
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  font-weight: 400;
+  font-size: 0.8em;
 `
 
 const Flexbox = styled.div`

@@ -81,7 +81,9 @@ describe('FormPage', () => {
       />
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
-    const meds = screen.getByRole('textbox', { name: 'Medikamente:' })
+    const meds = screen.getByRole('textbox', {
+      name: 'Medikamente: ASS (50mg) Magnesium (80mg) Metoprolol (23,75mg)',
+    })
     userEvent.type(time, '8:00')
     userEvent.type(
       meds,
