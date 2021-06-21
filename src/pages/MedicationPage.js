@@ -24,14 +24,14 @@ MedicationPage.propTypes = {
       ),
     })
   ),
-  setActivePage: PropTypes.func,
-  deleteSingleMedication: PropTypes.func,
-  setMedicationToEditId: PropTypes.func,
+  setActivePage: PropTypes.func.isRequired,
+  deleteSingleMedication: PropTypes.func.isRequired,
+  setMedicationToEditId: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
-  setSelectedDay: PropTypes.func,
+  setSelectedDay: PropTypes.func.isRequired,
   copyToDay: PropTypes.instanceOf(Date),
-  setCopyToDay: PropTypes.func,
-  saveCopy: PropTypes.func,
+  setCopyToDay: PropTypes.func.isRequired,
+  saveCopy: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
