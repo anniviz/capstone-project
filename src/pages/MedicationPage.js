@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import styled from 'styled-components/macro'
 import AddButton from '../components/buttons/AddButton'
+import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
@@ -56,7 +57,7 @@ export default function MedicationPage({
       <Header selectedDay={selectedDay} />
       <ButtonWrapper>
         {copyMode ? (
-          <div />
+          <EmptyFlexElement />
         ) : (
           <IconButton onClick={() => setShowCalendar(!showCalendar)}>
             <img src={calendarIcon} alt="" height="20px" />
@@ -87,13 +88,17 @@ export default function MedicationPage({
         />
       )}
       {copyMode && (
-        <StyledDayPicker
-          onDayClick={handleCopyDayClick}
-          selectedDays={copyDay}
-          localeUtils={MomentLocaleUtils}
-          locale="de"
-        />
-        // die beiden buttons
+        <CopyWrapper>
+          <StyledDayPicker
+            onDayClick={handleCopyDayClick}
+            selectedDays={copyDay}
+            localeUtils={MomentLocaleUtils}
+            locale="de"
+          />
+          <Button onClick={handleSaveCopyClick} type="button">
+            Kopieren
+          </Button>
+        </CopyWrapper>
       )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
@@ -128,13 +133,15 @@ export default function MedicationPage({
   }
 
   function handleCopyClick() {
-    setCopyMode(true)
+    setCopyMode(!copyMode)
     setShowCalendar(false)
   }
 
   function handleCopyDayClick(day) {
     setCopyDay(day)
   }
+
+  function handleSaveCopyClick() {}
 
   function handleBackClick() {
     setEditMode(false)
@@ -164,6 +171,10 @@ const ButtonWrapper = styled.div`
   padding: 0 26px;
 `
 
+const EmptyFlexElement = styled.div`
+  width: 20px;
+`
+
 const Text = styled.span`
   color: var(--color-tertiary);
 `
@@ -184,4 +195,10 @@ const StyledDayPicker = styled(DayPicker)`
   .DayPicker-Day--today {
     color: var(--color-tertiary);
   }
+`
+
+const CopyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
