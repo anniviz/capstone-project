@@ -46,28 +46,36 @@ export default function MedicationPage({
 
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [copyMode, setCopyMode] = useState(false)
+  const [copyDay, setCopyDay] = useState(selectedDay)
+
+  // der tag von dem aus kopiert wird, muss noch gestyled werden
 
   return (
     <Grid showCalendar={showCalendar}>
       <Header selectedDay={selectedDay} />
       <ButtonWrapper>
-        <IconButton onClick={() => setShowCalendar(!showCalendar)}>
-          <img src={calendarIcon} alt="" height="20px" />
-        </IconButton>
+        {copyMode ? (
+          <div />
+        ) : (
+          <IconButton onClick={() => setShowCalendar(!showCalendar)}>
+            <img src={calendarIcon} alt="" height="20px" />
+          </IconButton>
+        )}
         {medications.length !== 0 &&
-          (editMode === false ? (
-            <IconButton onClick={() => setEditMode(true)}>
-              <img src={editRectangleIcon} alt="" height="20px" />
-            </IconButton>
-          ) : (
+          (editMode === true ? (
             <>
-              <IconButton align="right" onClick={() => setEditMode(false)}>
+              <IconButton align="right" onClick={handleCopyClick}>
                 <Text>Tag kopieren</Text>
               </IconButton>
-              <IconButton align="right" onClick={() => setEditMode(false)}>
+              <IconButton align="right" onClick={handleBackClick}>
                 <img src={backIcon} alt="" height="20px" />
               </IconButton>
             </>
+          ) : (
+            <IconButton onClick={() => setEditMode(true)}>
+              <img src={editRectangleIcon} alt="" height="20px" />
+            </IconButton>
           ))}
       </ButtonWrapper>
       {showCalendar && (
@@ -77,6 +85,15 @@ export default function MedicationPage({
           localeUtils={MomentLocaleUtils}
           locale="de"
         />
+      )}
+      {copyMode && (
+        <StyledDayPicker
+          onDayClick={handleCopyDayClick}
+          selectedDays={copyDay}
+          localeUtils={MomentLocaleUtils}
+          locale="de"
+        />
+        // die beiden buttons
       )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
@@ -108,6 +125,20 @@ export default function MedicationPage({
   function handleEditClick(id) {
     setMedicationToEditId(id)
     setActivePage('form')
+  }
+
+  function handleCopyClick() {
+    setCopyMode(true)
+    setShowCalendar(false)
+  }
+
+  function handleCopyDayClick(day) {
+    setCopyDay(day)
+  }
+
+  function handleBackClick() {
+    setEditMode(false)
+    setCopyMode(false)
   }
 }
 const Grid = styled.div`
