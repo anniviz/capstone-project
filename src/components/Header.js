@@ -1,9 +1,12 @@
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
-export default function Header() {
-  const today = new Date()
+Header.propTypes = {
+  selectedDay: PropTypes.instanceOf(Date),
+}
 
-  return <HeaderStyled>{formatDate(today)}</HeaderStyled>
+export default function Header({ selectedDay }) {
+  return <HeaderStyled>{formatDate(selectedDay)}</HeaderStyled>
 
   function formatDate(date) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' }

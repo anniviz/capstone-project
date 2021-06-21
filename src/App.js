@@ -1,40 +1,43 @@
-import { useEffect, useState } from 'react'
-import { loadFromLocal, saveToLocal } from './utils/localStorage'
+import { useState } from 'react'
+import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 
 export default function App() {
   const [activePage, setActivePage] = useState('medication')
-  const [medications, setMedications] = useState(
-    loadFromLocal('medications') ?? []
-  )
-  useEffect(() => {
-    saveToLocal('medications', medications)
-  }, [medications])
+  const today = new Date()
+  const [selectedDay, setSelectedDay] = useState(today)
+  const selectedDayString = `${selectedDay.getFullYear()}-${selectedDay.getMonth()}-${selectedDay.getDate()}`
 
-  useEffect(() => {
-    medications.length === 0 && setActivePage('form')
-  }, [medications])
-
-  const [medicationToEdit, setMedicationToEdit] = useState({})
+  const {
+    activeMedications,
+    medicationToEditId,
+    setMedicationToEditId,
+    handleSubmit,
+    deleteSingleMedication,
+  } = useMedications(setActivePage, selectedDayString)
 
   return (
     <>
       {activePage === 'medication' && (
         <MedicationPage
-          medications={medications}
+          medications={activeMedications}
           setActivePage={setActivePage}
-          setMedications={setMedications}
-          setMedicationToEdit={setMedicationToEdit}
+          setMedicationToEditId={setMedicationToEditId}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+          deleteSingleMedication={deleteSingleMedication}
         />
       )}
       {activePage === 'form' && (
         <FormPage
+          medications={activeMedications}
           onNavigate={handleActivePage}
           setActivePage={setActivePage}
           onSubmit={handleSubmit}
-          medicationToEdit={medicationToEdit}
-          setMedicationToEdit={setMedicationToEdit}
+          medicationToEditId={medicationToEditId}
+          setMedicationToEditId={setMedicationToEditId}
+          selectedDay={selectedDay}
         />
       )}
     </>
@@ -42,24 +45,5 @@ export default function App() {
 
   function handleActivePage(page) {
     setActivePage(page)
-  }
-
-  function handleSubmit(newMedication) {
-    const index = medications.findIndex(
-      medication => medication.id === newMedication.id
-    )
-    if (index > -1) {
-      updateMedication(newMedication, index)
-    } else {
-      setMedications([newMedication, ...medications])
-    }
-  }
-
-  function updateMedication(newMedication, index) {
-    setMedications([
-      ...medications.slice(0, index),
-      { ...newMedication },
-      ...medications.slice(index + 1),
-    ])
   }
 }

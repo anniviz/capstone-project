@@ -1,13 +1,24 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import Header from '../components/Header'
+import useFormValidation from '../hooks/useFormValidation'
+import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func,
   onNavigate: PropTypes.func,
+  medications: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      time: PropTypes.node,
+      meds: PropTypes.arrayOf(
+        PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+      ),
+    })
+  ),
+  selectedDay: PropTypes.instanceOf(Date),
   setActivePage: PropTypes.func,
   medicationToEdit: PropTypes.shape({
     id: PropTypes.node,
@@ -22,39 +33,27 @@ FormPage.propTypes = {
 export default function FormPage({
   onSubmit,
   onNavigate,
+  medications,
+  selectedDay,
   setActivePage,
-  medicationToEdit,
-  setMedicationToEdit,
+  medicationToEditId,
+  setMedicationToEditId,
 }) {
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [medGroupInputs, setMedGroupInputs] = useState({ time: '', meds: '' })
-  const [isTimeValid, setIsTimeValid] = useState(true)
+  const { medGroupInputs, setMedGroupInputs } = useMedicationGroup(
+    medications,
+    medicationToEditId
+  )
 
-  useEffect(() => {
-    if (medicationToEdit.meds) {
-      const medsArray = medicationToEdit.meds.map(med => med.medName)
-      setMedGroupInputs({
-        time: medicationToEdit.time,
-        meds: medsArray.join('\n'),
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    validateForm()
-    setIsTimeValid(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [medGroupInputs])
-
-  const placeholderText = `ASS (50mg)
-Magnesium (80mg)
-Metoprolol (23,75mg)
-`
+  const {
+    isTimeValid,
+    isDisabled,
+    setIsTimeValid,
+    validateTime,
+  } = useFormValidation(medGroupInputs)
 
   return (
     <Grid>
-      <Header />
+      <Header selectedDay={selectedDay} />
 
       <FormWrapper
         onSubmit={handleSubmit}
@@ -76,13 +75,21 @@ Metoprolol (23,75mg)
         </Label>
         <Label>
           Medikamente:
-          <Textarea
-            name="meds"
-            rows="10"
-            placeholder={placeholderText}
-            onChange={handleChange}
-            value={medGroupInputs.meds}
-          />
+          <TextareaWithPlaceholderWrapper>
+            <Textarea
+              name="meds"
+              rows="10"
+              onChange={handleChange}
+              value={medGroupInputs.meds}
+            />
+            {medGroupInputs.meds === '' && (
+              <Placeholder>
+                ASS (50mg)
+                <br /> Magnesium (80mg)
+                <br /> Metoprolol (23,75mg)
+              </Placeholder>
+            )}
+          </TextareaWithPlaceholderWrapper>
         </Label>
         <Flexbox>
           <Button onClick={handleBackClick} type="button">
@@ -109,7 +116,11 @@ Metoprolol (23,75mg)
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    if (medicationToEdit.meds) {
+    const index = medications.findIndex(
+      medication => medication.id === medicationToEditId
+    )
+    if (medicationToEditId) {
+      const medicationToEdit = medications[index]
       onSubmit({
         id: medicationToEdit.id,
         time: time.value,
@@ -118,12 +129,12 @@ Metoprolol (23,75mg)
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    setMedicationToEdit({})
+    setMedicationToEditId(null)
     setActivePage('medication')
   }
 
   function handleBackClick() {
-    setMedicationToEdit({})
+    setMedicationToEditId(null)
     onNavigate('medication')
   }
 
@@ -131,25 +142,12 @@ Metoprolol (23,75mg)
     const { name, value } = event.target
     setMedGroupInputs({ ...medGroupInputs, [name]: value })
   }
-
-  function validateTime(time) {
-    const timeFormat = /^([0-9]|[0-1][0-9]|2[0-3]):([0-5][0-9])$/
-
-    return time.match(timeFormat) ? true : false
-  }
-
-  function validateForm() {
-    setIsDisabled(
-      medGroupInputs.time.trim().length === 0 ||
-        medGroupInputs.meds.trim().length === 0
-    )
-  }
 }
 
 const Grid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: auto 1fr;
 `
 
 const FormWrapper = styled.form`
@@ -175,20 +173,43 @@ const Input = styled.input`
   border: 1px solid var(--color-secondary);
   border-color: ${props => props.isTimeValid || 'var(--color-warning)'};
   border-radius: 16px;
+  color: var(--color-primary);
   font-size: 0.9em;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
+
+  &::placeholder {
+    color: var(--color-primary);
+    opacity: 0.5;
+  }
 `
 
 const Textarea = styled.textarea`
+  width: 100%;
   padding: 4px;
   border: 1px solid var(--color-secondary);
   border-radius: 16px;
   overflow: auto;
-  font-size: 1.1em;
+  color: var(--color-primary);
   font-size: 1em;
   line-height: 1.5em;
   resize: none;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
+`
+
+const TextareaWithPlaceholderWrapper = styled.div`
+  position: relative;
+`
+
+const Placeholder = styled.div`
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  font-weight: 400;
+  font-size: 0.8em;
 `
 
 const Flexbox = styled.div`

@@ -27,6 +27,7 @@ describe('MedicationPage', () => {
             meds: [{ id: '01234', medName: 'Tacrolimus' }],
           },
         ]}
+        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
       />
     )
 
@@ -34,7 +35,7 @@ describe('MedicationPage', () => {
     expect(header).toBeInTheDocument()
 
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(2)
+    expect(buttons).toHaveLength(3)
 
     const MedGroups = screen.getAllByRole('list')
     expect(MedGroups).toHaveLength(2)
@@ -64,13 +65,14 @@ describe('MedicationPage', () => {
             meds: [{ id: '01234', medName: 'Tacrolimus' }],
           },
         ]}
+        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
       />
     )
 
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(2)
+    expect(buttons).toHaveLength(3)
 
-    userEvent.click(buttons[1])
+    userEvent.click(buttons[2])
     expect(setActivePage).toHaveBeenCalledWith('form')
   })
 })
