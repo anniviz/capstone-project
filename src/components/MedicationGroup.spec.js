@@ -15,6 +15,7 @@ describe('MedicationGroup', () => {
         editMode={false}
         handleDeleteClick={jest.fn()}
         handleEditClick={jest.fn()}
+        handleCheckClick={jest.fn()}
       />
     )
 
@@ -42,6 +43,7 @@ describe('MedicationGroup', () => {
         editMode={true}
         handleDeleteClick={handleDelete}
         handleEditClick={handleEdit}
+        handleCheckClick={jest.fn()}
       />
     )
 
