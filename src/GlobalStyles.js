@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color: var(----color-basis);
+    background-color: var(--color-basis);
   }
 
   input,
