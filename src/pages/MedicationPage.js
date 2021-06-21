@@ -60,9 +60,14 @@ export default function MedicationPage({
               <img src={editRectangleIcon} alt="" height="20px" />
             </IconButton>
           ) : (
-            <IconButton align="right" onClick={() => setEditMode(false)}>
-              <img src={backIcon} alt="" height="20px" />
-            </IconButton>
+            <>
+              <IconButton align="right" onClick={() => setEditMode(false)}>
+                <Text>Tag kopieren</Text>
+              </IconButton>
+              <IconButton align="right" onClick={() => setEditMode(false)}>
+                <img src={backIcon} alt="" height="20px" />
+              </IconButton>
+            </>
           ))}
       </ButtonWrapper>
       {showCalendar && (
@@ -126,6 +131,10 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: end;
   padding: 0 26px;
+`
+
+const Text = styled.span`
+  color: var(--color-tertiary);
 `
 
 const StyledDayPicker = styled(DayPicker)`
