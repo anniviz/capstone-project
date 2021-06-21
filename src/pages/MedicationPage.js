@@ -29,6 +29,9 @@ MedicationPage.propTypes = {
   setMedicationToEditId: PropTypes.func,
   selectedDay: PropTypes.instanceOf(Date),
   setSelectedDay: PropTypes.func,
+  copyToDay: PropTypes.instanceOf(Date),
+  setCopyToDay: PropTypes.func,
+  saveCopy: PropTypes.func,
 }
 
 export default function MedicationPage({
@@ -38,6 +41,9 @@ export default function MedicationPage({
   setMedicationToEditId,
   selectedDay,
   setSelectedDay,
+  copyToDay,
+  setCopyToDay,
+  saveCopy,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -48,7 +54,6 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
   const [copyMode, setCopyMode] = useState(false)
-  const [copyDay, setCopyDay] = useState(new Date())
 
   const modifiers = {
     copyFromDay: selectedDay,
@@ -92,8 +97,8 @@ export default function MedicationPage({
       {copyMode && (
         <CopyWrapper>
           <StyledDayPicker
-            onDayClick={handleCopyDayClick}
-            selectedDays={copyDay}
+            onDayClick={handlecopyToDayClick}
+            selectedDays={copyToDay}
             modifiers={modifiers}
             localeUtils={MomentLocaleUtils}
             locale="de"
@@ -140,11 +145,17 @@ export default function MedicationPage({
     setShowCalendar(false)
   }
 
-  function handleCopyDayClick(day) {
-    setCopyDay(day)
+  function handlecopyToDayClick(day) {
+    setCopyToDay(day)
   }
 
-  function handleSaveCopyClick() {}
+  function handleSaveCopyClick() {
+    saveCopy()
+    setEditMode(false)
+    setCopyMode(false)
+    setSelectedDay(copyToDay)
+    setCopyToDay(new Date())
+  }
 
   function handleBackClick() {
     setEditMode(false)

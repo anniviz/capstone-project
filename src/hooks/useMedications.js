@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useImmer } from 'use-immer'
 import produce from 'immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
+import createDateString from '../services/createDayString'
 
 export default function useMedications(setActivePage, selectedDayString) {
   const [medicationsDiary, updateMedicationsDiary] = useImmer(
@@ -20,6 +21,7 @@ export default function useMedications(setActivePage, selectedDayString) {
   const activeMedications = dateIndex > -1 ? findActiveMedications() : []
 
   const [medicationToEditId, setMedicationToEditId] = useState(null)
+  const [copyToDay, setCopyToDay] = useState(new Date())
 
   function findActiveMedications() {
     return medicationsDiary[dateIndex].medications
@@ -67,11 +69,32 @@ export default function useMedications(setActivePage, selectedDayString) {
     updateMedicationsDiary(deletedMedicationsDiary)
   }
 
+  function saveCopy() {
+    const copyToDayString = createDateString(copyToDay)
+    const index = medicationsDiary.findIndex(
+      day => day.date === copyToDayString
+    )
+
+    if (index > -1) {
+      updateMedicationsDiary(draft => {
+        draft[index].medications = activeMedications
+      })
+    } else {
+      const addedMedicationsDiary = produce(medicationsDiary, draft => {
+        draft.push({ date: copyToDayString, medications: activeMedications })
+      })
+      updateMedicationsDiary(addedMedicationsDiary)
+    }
+  }
+
   return {
     activeMedications,
     medicationToEditId,
     setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
+    copyToDay,
+    setCopyToDay,
+    saveCopy,
   }
 }
