@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
+import checkIcon from '../icons/check-done.svg'
 import checkIconDisabled from '../icons/check-disabled.svg'
 import IconButton from './buttons/IconButton'
 
@@ -15,6 +16,7 @@ MedicationGroup.propTypes = {
   handleDeleteClick: PropTypes.func.isRequired,
   handleEditClick: PropTypes.func.isRequired,
   handleCheckClick: PropTypes.func.isRequired,
+  check: PropTypes.bool,
 }
 
 export default function MedicationGroup({
@@ -25,6 +27,7 @@ export default function MedicationGroup({
   handleDeleteClick,
   handleEditClick,
   handleCheckClick,
+  check,
 }) {
   return (
     <Wrapper>
@@ -62,7 +65,11 @@ export default function MedicationGroup({
           onClick={() => handleCheckClick(id)}
           position="absolute"
         >
-          <img src={checkIconDisabled} alt="löschen" height="20px" />
+          {check ? (
+            <img src={checkIcon} alt="löschen" height="20px" />
+          ) : (
+            <img src={checkIconDisabled} alt="löschen" height="20px" />
+          )}
         </IconButton>
       )}
     </Wrapper>

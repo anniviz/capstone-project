@@ -111,12 +111,13 @@ export default function MedicationPage({
         </CopyWrapper>
       )}
       <Flexbox>
-        {sortedMedications.map(({ id, time, meds }) => (
+        {sortedMedications.map(({ id, time, meds, check }) => (
           <MedicationGroup
             key={id}
             id={id}
             time={time}
             meds={meds}
+            check={check}
             editMode={editMode}
             handleDeleteClick={deleteSingleMedication}
             handleEditClick={handleEditClick}

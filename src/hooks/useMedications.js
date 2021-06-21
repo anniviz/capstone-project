@@ -39,8 +39,7 @@ export default function useMedications(setActivePage, selectedDayString) {
   }
 
   function updateSelectedDay(newMedication) {
-    const dayMedications = medicationsDiary[dateIndex].medications
-    const medicationsIndex = dayMedications.findIndex(
+    const medicationsIndex = activeMedications.findIndex(
       medication => medication.id === newMedication.id
     )
 
@@ -86,7 +85,19 @@ export default function useMedications(setActivePage, selectedDayString) {
       updateMedicationsDiary(addedMedicationsDiary)
     }
   }
-  function toggleMedicationCheck(id) {}
+  function toggleMedicationCheck(id) {
+    // const addedMedicationsDiary = produce(medicationsDiary, draft => {
+    //   draft.push({ date: copyToDayString, medications: activeMedications })
+    // })
+    // updateMedicationsDiary(addedMedicationsDiary)
+    const medicationsIndex = activeMedications.findIndex(
+      medication => medication.id === id
+    )
+    updateMedicationsDiary(draft => {
+      draft[dateIndex].medications[medicationsIndex].check = !draft[dateIndex]
+        .medications[medicationsIndex].check
+    })
+  }
 
   return {
     activeMedications,
