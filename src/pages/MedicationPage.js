@@ -32,6 +32,7 @@ MedicationPage.propTypes = {
   copyToDay: PropTypes.instanceOf(Date),
   setCopyToDay: PropTypes.func.isRequired,
   saveCopy: PropTypes.func.isRequired,
+  toggleMedicationCheck: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
@@ -44,6 +45,7 @@ export default function MedicationPage({
   copyToDay,
   setCopyToDay,
   saveCopy,
+  toggleMedicationCheck,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -115,9 +117,10 @@ export default function MedicationPage({
             id={id}
             time={time}
             meds={meds}
+            editMode={editMode}
             handleDeleteClick={deleteSingleMedication}
             handleEditClick={handleEditClick}
-            editMode={editMode}
+            handleCheckClick={toggleMedicationCheck}
           />
         ))}
       </Flexbox>

@@ -86,6 +86,7 @@ export default function useMedications(setActivePage, selectedDayString) {
       updateMedicationsDiary(addedMedicationsDiary)
     }
   }
+  function toggleMedicationCheck(id) {}
 
   return {
     activeMedications,
@@ -96,5 +97,6 @@ export default function useMedications(setActivePage, selectedDayString) {
     copyToDay,
     setCopyToDay,
     saveCopy,
+    toggleMedicationCheck,
   }
 }

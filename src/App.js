@@ -19,6 +19,7 @@ export default function App() {
     copyToDay,
     setCopyToDay,
     saveCopy,
+    toggleMedicationCheck,
   } = useMedications(setActivePage, selectedDayString)
 
   return (
@@ -34,6 +35,7 @@ export default function App() {
           copyToDay={copyToDay}
           setCopyToDay={setCopyToDay}
           saveCopy={saveCopy}
+          toggleMedicationCheck={toggleMedicationCheck}
         />
       )}
       {activePage === 'form' && (
