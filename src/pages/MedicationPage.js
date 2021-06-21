@@ -48,9 +48,11 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
   const [copyMode, setCopyMode] = useState(false)
-  const [copyDay, setCopyDay] = useState(selectedDay)
+  const [copyDay, setCopyDay] = useState(new Date())
 
-  // der tag von dem aus kopiert wird, muss noch gestyled werden
+  const modifiers = {
+    copyFromDay: selectedDay,
+  }
 
   return (
     <Grid showCalendar={showCalendar}>
@@ -92,6 +94,7 @@ export default function MedicationPage({
           <StyledDayPicker
             onDayClick={handleCopyDayClick}
             selectedDays={copyDay}
+            modifiers={modifiers}
             localeUtils={MomentLocaleUtils}
             locale="de"
           />
@@ -194,6 +197,12 @@ const StyledDayPicker = styled(DayPicker)`
 
   .DayPicker-Day--today {
     color: var(--color-tertiary);
+  }
+
+  .DayPicker-Day--copyFromDay {
+    /* border: solid 2px hotpink;
+    border-radius: 50%; */
+    color: var(--color-warning);
   }
 `
 
