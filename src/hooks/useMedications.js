@@ -73,23 +73,23 @@ export default function useMedications(setActivePage, selectedDayString) {
     const index = medicationsDiary.findIndex(
       day => day.date === copyToDayString
     )
+    const uncheckedMedications = activeMedications.map(
+      medication => (medication = { ...medication, check: false })
+    )
 
     if (index > -1) {
       updateMedicationsDiary(draft => {
-        draft[index].medications = activeMedications
+        draft[index].medications = uncheckedMedications
       })
     } else {
       const addedMedicationsDiary = produce(medicationsDiary, draft => {
-        draft.push({ date: copyToDayString, medications: activeMedications })
+        draft.push({ date: copyToDayString, medications: uncheckedMedications })
       })
       updateMedicationsDiary(addedMedicationsDiary)
     }
   }
+
   function toggleMedicationCheck(id) {
-    // const addedMedicationsDiary = produce(medicationsDiary, draft => {
-    //   draft.push({ date: copyToDayString, medications: activeMedications })
-    // })
-    // updateMedicationsDiary(addedMedicationsDiary)
     const medicationsIndex = activeMedications.findIndex(
       medication => medication.id === id
     )

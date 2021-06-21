@@ -22,6 +22,7 @@ MedicationPage.propTypes = {
       meds: PropTypes.arrayOf(
         PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
       ),
+      check: PropTypes.bool,
     })
   ),
   setActivePage: PropTypes.func.isRequired,
