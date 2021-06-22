@@ -76,7 +76,11 @@ export default function MedicationPage({
         {medications.length !== 0 &&
           (editMode === true ? (
             <>
-              <IconButton align="right" onClick={handleCopyClick}>
+              <IconButton
+                align="right"
+                onClick={handleCopyClick}
+                aria-label="Tag kopieren"
+              >
                 <Text>Tag kopieren</Text>
               </IconButton>
               <IconButton align="right" onClick={handleBackClick}>
@@ -216,8 +220,6 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .DayPicker-Day--copyFromDay {
-    /* border: solid 2px hotpink;
-    border-radius: 50%; */
     color: var(--color-warning);
   }
 `
