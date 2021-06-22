@@ -39,8 +39,7 @@ export default function useMedications(setActivePage, selectedDayString) {
   }
 
   function updateSelectedDay(newMedication) {
-    const dayMedications = medicationsDiary[dateIndex].medications
-    const medicationsIndex = dayMedications.findIndex(
+    const medicationsIndex = activeMedications.findIndex(
       medication => medication.id === newMedication.id
     )
 
@@ -74,17 +73,31 @@ export default function useMedications(setActivePage, selectedDayString) {
     const index = medicationsDiary.findIndex(
       day => day.date === copyToDayString
     )
+    const uncheckedMedications = activeMedications.map(
+      medication => (medication = { ...medication, isChecked: false })
+    )
 
     if (index > -1) {
       updateMedicationsDiary(draft => {
-        draft[index].medications = activeMedications
+        draft[index].medications = uncheckedMedications
       })
     } else {
       const addedMedicationsDiary = produce(medicationsDiary, draft => {
-        draft.push({ date: copyToDayString, medications: activeMedications })
+        draft.push({ date: copyToDayString, medications: uncheckedMedications })
       })
       updateMedicationsDiary(addedMedicationsDiary)
     }
+  }
+
+  function toggleMedicationCheck(id) {
+    const medicationsIndex = activeMedications.findIndex(
+      medication => medication.id === id
+    )
+    updateMedicationsDiary(draft => {
+      draft[dateIndex].medications[medicationsIndex].isChecked = !draft[
+        dateIndex
+      ].medications[medicationsIndex].isChecked
+    })
   }
 
   return {
@@ -96,5 +109,6 @@ export default function useMedications(setActivePage, selectedDayString) {
     copyToDay,
     setCopyToDay,
     saveCopy,
+    toggleMedicationCheck,
   }
 }

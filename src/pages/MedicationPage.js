@@ -22,6 +22,7 @@ MedicationPage.propTypes = {
       meds: PropTypes.arrayOf(
         PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
       ),
+      isChecked: PropTypes.bool,
     })
   ),
   setActivePage: PropTypes.func.isRequired,
@@ -32,6 +33,7 @@ MedicationPage.propTypes = {
   copyToDay: PropTypes.instanceOf(Date),
   setCopyToDay: PropTypes.func.isRequired,
   saveCopy: PropTypes.func.isRequired,
+  toggleMedicationCheck: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
@@ -44,6 +46,7 @@ export default function MedicationPage({
   copyToDay,
   setCopyToDay,
   saveCopy,
+  toggleMedicationCheck,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -113,15 +116,17 @@ export default function MedicationPage({
         </CopyWrapper>
       )}
       <Flexbox>
-        {sortedMedications.map(({ id, time, meds }) => (
+        {sortedMedications.map(({ id, time, meds, isChecked }) => (
           <MedicationGroup
             key={id}
             id={id}
             time={time}
             meds={meds}
+            isChecked={isChecked}
+            editMode={editMode}
             handleDeleteClick={deleteSingleMedication}
             handleEditClick={handleEditClick}
-            editMode={editMode}
+            handleCheckClick={toggleMedicationCheck}
           />
         ))}
       </Flexbox>

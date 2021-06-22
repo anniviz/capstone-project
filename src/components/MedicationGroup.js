@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
+import checkIcon from '../icons/check-done.svg'
+import checkIconDisabled from '../icons/check-disabled.svg'
 import IconButton from './buttons/IconButton'
 
 MedicationGroup.propTypes = {
@@ -9,10 +11,12 @@ MedicationGroup.propTypes = {
   time: PropTypes.node,
   meds: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
-  ),
+  ).isRequired,
   editMode: PropTypes.bool,
-  handleDeleteClick: PropTypes.func,
-  handleEditClick: PropTypes.func,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
+  handleCheckClick: PropTypes.func.isRequired,
+  isChecked: PropTypes.bool,
 }
 
 export default function MedicationGroup({
@@ -22,6 +26,8 @@ export default function MedicationGroup({
   editMode,
   handleDeleteClick,
   handleEditClick,
+  handleCheckClick,
+  isChecked,
 }) {
   return (
     <Wrapper>
@@ -33,7 +39,7 @@ export default function MedicationGroup({
           <li key={id}>{medName}</li>
         ))}
       </Meds>
-      {editMode && (
+      {editMode ? (
         <>
           <IconButton
             right="10px"
@@ -52,6 +58,19 @@ export default function MedicationGroup({
             <img src={editIcon} alt="bearbeiten" height="16px" />
           </IconButton>
         </>
+      ) : (
+        <IconButton
+          right="10px"
+          bottom="10px"
+          onClick={() => handleCheckClick(id)}
+          position="absolute"
+        >
+          {isChecked ? (
+            <img src={checkIcon} alt="nicht erledigt" height="20px" />
+          ) : (
+            <img src={checkIconDisabled} alt="erledigt" height="20px" />
+          )}
+        </IconButton>
       )}
     </Wrapper>
   )

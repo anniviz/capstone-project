@@ -29,6 +29,7 @@ describe('MedicationPage', () => {
         setSelectedDay={jest.fn()}
         setCopyToDay={jest.fn()}
         saveCopy={jest.fn()}
+        toggleMedicationCheck={jest.fn()}
       />
     )
 
@@ -36,7 +37,7 @@ describe('MedicationPage', () => {
     expect(header).toBeInTheDocument()
 
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(3)
+    expect(buttons).toHaveLength(5)
 
     const MedGroups = screen.getAllByRole('list')
     expect(MedGroups).toHaveLength(2)
@@ -71,13 +72,14 @@ describe('MedicationPage', () => {
         setSelectedDay={jest.fn()}
         setCopyToDay={jest.fn()}
         saveCopy={jest.fn()}
+        toggleMedicationCheck={jest.fn()}
       />
     )
 
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(3)
+    expect(buttons).toHaveLength(5)
 
-    userEvent.click(buttons[2])
+    userEvent.click(buttons[buttons.length - 1])
     expect(setActivePage).toHaveBeenCalledWith('form')
   })
 
@@ -107,11 +109,12 @@ describe('MedicationPage', () => {
         setSelectedDay={jest.fn()}
         setCopyToDay={jest.fn()}
         saveCopy={jest.fn()}
+        toggleMedicationCheck={jest.fn()}
       />
     )
 
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(3)
+    expect(buttons).toHaveLength(5)
 
     userEvent.click(buttons[0])
     const calendar = screen.getByRole('row', {
