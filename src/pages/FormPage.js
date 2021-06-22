@@ -42,7 +42,7 @@ export default function FormPage({
     validateTime,
   } = useFormValidation(medGroupInputs)
 
-  const { history } = useHistory()
+  let history = useHistory()
 
   return (
     <Grid>
@@ -123,13 +123,12 @@ export default function FormPage({
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
     setMedicationToEditId(null)
-    history('/medications')
-    // setActivePage('medication')
+    history.push('/medications')
   }
 
   function handleBackClick() {
     setMedicationToEditId(null)
-    history('/medications')
+    history.push('/medications')
   }
 
   function handleChange(event) {
