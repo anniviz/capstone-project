@@ -16,7 +16,7 @@ MedicationGroup.propTypes = {
   handleDeleteClick: PropTypes.func.isRequired,
   handleEditClick: PropTypes.func.isRequired,
   handleCheckClick: PropTypes.func.isRequired,
-  check: PropTypes.bool,
+  isChecked: PropTypes.bool,
 }
 
 export default function MedicationGroup({
@@ -27,7 +27,7 @@ export default function MedicationGroup({
   handleDeleteClick,
   handleEditClick,
   handleCheckClick,
-  check,
+  isChecked,
 }) {
   return (
     <Wrapper>
@@ -65,10 +65,10 @@ export default function MedicationGroup({
           onClick={() => handleCheckClick(id)}
           position="absolute"
         >
-          {check ? (
-            <img src={checkIcon} alt="löschen" height="20px" />
+          {isChecked ? (
+            <img src={checkIcon} alt="nicht erledigt" height="20px" />
           ) : (
-            <img src={checkIconDisabled} alt="löschen" height="20px" />
+            <img src={checkIconDisabled} alt="erledigt" height="20px" />
           )}
         </IconButton>
       )}

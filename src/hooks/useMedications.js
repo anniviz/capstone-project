@@ -74,7 +74,7 @@ export default function useMedications(setActivePage, selectedDayString) {
       day => day.date === copyToDayString
     )
     const uncheckedMedications = activeMedications.map(
-      medication => (medication = { ...medication, check: false })
+      medication => (medication = { ...medication, isChecked: false })
     )
 
     if (index > -1) {
@@ -94,8 +94,9 @@ export default function useMedications(setActivePage, selectedDayString) {
       medication => medication.id === id
     )
     updateMedicationsDiary(draft => {
-      draft[dateIndex].medications[medicationsIndex].check = !draft[dateIndex]
-        .medications[medicationsIndex].check
+      draft[dateIndex].medications[medicationsIndex].isChecked = !draft[
+        dateIndex
+      ].medications[medicationsIndex].isChecked
     })
   }
 
