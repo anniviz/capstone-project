@@ -1,4 +1,6 @@
 import GlobalStyles from '../src/GlobalStyles'
+import {MemoryRouter} from 'react-router-dom'
+
 
 export const parameters = {
   layout: 'fullscreen',
@@ -12,5 +14,12 @@ export const parameters = {
 }
 
 export const decorators = [
-  Story => <><GlobalStyles/><Story/></>
+  Story => (
+  <>
+  <MemoryRouter>
+  <GlobalStyles/>
+  <Story/>
+  </MemoryRouter>
+  </>
+  ),
 ]
