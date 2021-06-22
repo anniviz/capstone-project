@@ -23,7 +23,7 @@ MedicationPage.propTypes = {
       meds: PropTypes.arrayOf(
         PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
       ),
-      check: PropTypes.bool,
+      isChecked: PropTypes.bool,
     })
   ),
   deleteSingleMedication: PropTypes.func.isRequired,
@@ -117,13 +117,13 @@ export default function MedicationPage({
         </CopyWrapper>
       )}
       <Flexbox>
-        {sortedMedications.map(({ id, time, meds, check }) => (
+        {sortedMedications.map(({ id, time, meds, isChecked }) => (
           <MedicationGroup
             key={id}
             id={id}
             time={time}
             meds={meds}
-            check={check}
+            isChecked={isChecked}
             editMode={editMode}
             handleDeleteClick={deleteSingleMedication}
             handleEditClick={handleEditClick}
