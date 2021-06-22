@@ -4,12 +4,17 @@ import MedicationPage from './MedicationPage'
 export default {
   title: 'pages/Medication',
   component: MedicationPage,
-  argTypes: { setActivePage: { action: 'setActivePage' } },
+  argTypes: {
+    setActivePage: { action: 'setActivePage' },
+    editMode: { type: 'boolean' },
+    showCalendar: { type: 'boolean' },
+    copyMode: { type: 'boolean' },
+  },
 }
 
 export const Default = args => <MedicationPage {...args} />
 Default.args = {
-  today: 'MONTAG, 7. JUNI',
+  selectedDay: new Date(),
   medications: [
     {
       id: '01234',

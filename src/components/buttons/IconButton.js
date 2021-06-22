@@ -27,8 +27,6 @@ const StyledButton = styled.button`
   position: ${prop => prop.position};
   top: ${prop => prop.top};
   right: ${prop => prop.right};
-  width: 20px;
-  height: 20px;
   padding: 0;
   border: none;
   text-align: center;

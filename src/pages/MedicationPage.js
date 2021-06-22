@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import styled from 'styled-components/macro'
 import AddButton from '../components/buttons/AddButton'
+import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
@@ -23,11 +24,14 @@ MedicationPage.propTypes = {
       ),
     })
   ),
-  setActivePage: PropTypes.func,
-  deleteSingleMedication: PropTypes.func,
-  setMedicationToEditId: PropTypes.func,
+  setActivePage: PropTypes.func.isRequired,
+  deleteSingleMedication: PropTypes.func.isRequired,
+  setMedicationToEditId: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
-  setSelectedDay: PropTypes.func,
+  setSelectedDay: PropTypes.func.isRequired,
+  copyToDay: PropTypes.instanceOf(Date),
+  setCopyToDay: PropTypes.func.isRequired,
+  saveCopy: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
@@ -37,6 +41,9 @@ export default function MedicationPage({
   setMedicationToEditId,
   selectedDay,
   setSelectedDay,
+  copyToDay,
+  setCopyToDay,
+  saveCopy,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -46,22 +53,40 @@ export default function MedicationPage({
 
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [copyMode, setCopyMode] = useState(false)
+
+  const modifiers = {
+    copyFromDay: selectedDay,
+  }
 
   return (
     <Grid showCalendar={showCalendar}>
       <Header selectedDay={selectedDay} />
       <ButtonWrapper>
-        <IconButton onClick={() => setShowCalendar(!showCalendar)}>
-          <img src={calendarIcon} alt="" height="20px" />
-        </IconButton>
+        {copyMode ? (
+          <EmptyFlexElement />
+        ) : (
+          <IconButton onClick={() => setShowCalendar(!showCalendar)}>
+            <img src={calendarIcon} alt="" height="20px" />
+          </IconButton>
+        )}
         {medications.length !== 0 &&
-          (editMode === false ? (
+          (editMode === true ? (
+            <>
+              <IconButton
+                align="right"
+                onClick={handleCopyClick}
+                aria-label="Tag kopieren"
+              >
+                <Text>Tag kopieren</Text>
+              </IconButton>
+              <IconButton align="right" onClick={handleBackClick}>
+                <img src={backIcon} alt="" height="20px" />
+              </IconButton>
+            </>
+          ) : (
             <IconButton onClick={() => setEditMode(true)}>
               <img src={editRectangleIcon} alt="" height="20px" />
-            </IconButton>
-          ) : (
-            <IconButton align="right" onClick={() => setEditMode(false)}>
-              <img src={backIcon} alt="" height="20px" />
             </IconButton>
           ))}
       </ButtonWrapper>
@@ -72,6 +97,20 @@ export default function MedicationPage({
           localeUtils={MomentLocaleUtils}
           locale="de"
         />
+      )}
+      {copyMode && (
+        <CopyWrapper>
+          <StyledDayPicker
+            onDayClick={handlecopyToDayClick}
+            selectedDays={copyToDay}
+            modifiers={modifiers}
+            localeUtils={MomentLocaleUtils}
+            locale="de"
+          />
+          <Button onClick={handleSaveCopyClick} type="button">
+            Kopieren
+          </Button>
+        </CopyWrapper>
       )}
       <Flexbox>
         {sortedMedications.map(({ id, time, meds }) => (
@@ -104,6 +143,28 @@ export default function MedicationPage({
     setMedicationToEditId(id)
     setActivePage('form')
   }
+
+  function handleCopyClick() {
+    setCopyMode(!copyMode)
+    setShowCalendar(false)
+  }
+
+  function handlecopyToDayClick(day) {
+    setCopyToDay(day)
+  }
+
+  function handleSaveCopyClick() {
+    saveCopy()
+    setEditMode(false)
+    setCopyMode(false)
+    setSelectedDay(copyToDay)
+    setCopyToDay(new Date())
+  }
+
+  function handleBackClick() {
+    setEditMode(false)
+    setCopyMode(false)
+  }
 }
 const Grid = styled.div`
   position: relative;
@@ -128,6 +189,14 @@ const ButtonWrapper = styled.div`
   padding: 0 26px;
 `
 
+const EmptyFlexElement = styled.div`
+  width: 20px;
+`
+
+const Text = styled.span`
+  color: var(--color-tertiary);
+`
+
 const StyledDayPicker = styled(DayPicker)`
   margin: 16px;
   border-radius: 20px;
@@ -144,4 +213,14 @@ const StyledDayPicker = styled(DayPicker)`
   .DayPicker-Day--today {
     color: var(--color-tertiary);
   }
+
+  .DayPicker-Day--copyFromDay {
+    color: var(--color-warning);
+  }
+`
+
+const CopyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `

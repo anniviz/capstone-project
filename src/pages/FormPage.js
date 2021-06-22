@@ -20,14 +20,8 @@ FormPage.propTypes = {
   ),
   selectedDay: PropTypes.instanceOf(Date),
   setActivePage: PropTypes.func,
-  medicationToEdit: PropTypes.shape({
-    id: PropTypes.node,
-    time: PropTypes.node,
-    meds: PropTypes.arrayOf(
-      PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
-    ),
-  }),
-  setMedicationToEdit: PropTypes.func,
+  medicationToEditId: PropTypes.string,
+  setMedicationToEditId: PropTypes.func,
 }
 
 export default function FormPage({
