@@ -1,31 +1,31 @@
-import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import plusIcon from '../../icons/plus.svg'
+import plusIcon from '../icons/plus.svg'
 
-AddButton.propTypes = {
-  onClick: PropTypes.func,
-}
-
-export default function AddButton({ onClick }) {
+export default function AddLink({ to }) {
   return (
-    <Button onClick={onClick}>
+    <LinkStyled to={to}>
       <img src={plusIcon} alt="hinzufügen" height="24px" />
-    </Button>
+    </LinkStyled>
   )
 }
 
-const Button = styled.button`
+const LinkStyled = styled(Link)`
+  display: flex;
   position: absolute;
+  right: 0;
   bottom: 12px;
   left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: center;
+  align-items: center;
   width: 68px;
   height: 68px;
+  margin-right: auto;
+  margin-left: auto;
   padding: 0;
   border: none;
   border-radius: 50%;
+  cursor: default;
   background: radial-gradient(
     at top left,
     var(--color-gradient-1),

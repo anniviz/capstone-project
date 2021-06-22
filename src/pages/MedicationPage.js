@@ -6,7 +6,7 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import AddButton from '../components/buttons/AddButton'
+import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import Header from '../components/Header'
@@ -131,7 +131,7 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
-      <AddButton onClick={() => history('/medications/form')} />
+      <AddLink to="/medications/form" />
     </Grid>
   )
 
