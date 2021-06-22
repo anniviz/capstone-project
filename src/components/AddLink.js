@@ -22,8 +22,6 @@ const LinkStyled = styled(Link)`
   height: 68px;
   margin-right: auto;
   margin-left: auto;
-  padding: 0;
-  border: none;
   border-radius: 50%;
   cursor: default;
   background: radial-gradient(
