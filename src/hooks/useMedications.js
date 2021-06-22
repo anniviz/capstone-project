@@ -4,14 +4,13 @@ import produce from 'immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 import createDateString from '../services/createDayString'
 
-export default function useMedications(setActivePage, selectedDayString) {
+export default function useMedications(selectedDayString) {
   const [medicationsDiary, updateMedicationsDiary] = useImmer(
     loadFromLocal('medicationsDiary') ?? []
   )
 
   useEffect(() => {
     saveToLocal('medicationsDiary', medicationsDiary)
-    medicationsDiary.length === 0 && setActivePage('form')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [medicationsDiary])
 
