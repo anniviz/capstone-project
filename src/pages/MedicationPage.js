@@ -29,8 +29,6 @@ MedicationPage.propTypes = {
   setMedicationToEditId: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
   setSelectedDay: PropTypes.func.isRequired,
-  copyToDay: PropTypes.instanceOf(Date),
-  setCopyToDay: PropTypes.func.isRequired,
   saveCopy: PropTypes.func.isRequired,
   toggleMedicationCheck: PropTypes.func.isRequired,
 }
@@ -41,8 +39,6 @@ export default function MedicationPage({
   setMedicationToEditId,
   selectedDay,
   setSelectedDay,
-  copyToDay,
-  setCopyToDay,
   saveCopy,
   toggleMedicationCheck,
 }) {
@@ -55,6 +51,7 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
   const [copyMode, setCopyMode] = useState(false)
+  const [newDay, setNewDay] = useState(new Date())
 
   const modifiers = {
     copyFromDay: selectedDay,
@@ -77,7 +74,7 @@ export default function MedicationPage({
             <>
               <IconButton
                 align="right"
-                onClick={handleCopyClick}
+                onClick={handleOpenCopyCalenderClick}
                 aria-label="Tag kopieren"
               >
                 <Text>Tag kopieren</Text>
@@ -103,8 +100,8 @@ export default function MedicationPage({
       {copyMode && (
         <CopyWrapper>
           <StyledDayPicker
-            onDayClick={handlecopyToDayClick}
-            selectedDays={copyToDay}
+            onDayClick={handleCopyDayClick}
+            selectedDays={newDay}
             modifiers={modifiers}
             localeUtils={MomentLocaleUtils}
             locale="de"
@@ -148,21 +145,21 @@ export default function MedicationPage({
     history.push('/medications/form')
   }
 
-  function handleCopyClick() {
+  function handleOpenCopyCalenderClick() {
     setCopyMode(!copyMode)
     setShowCalendar(false)
   }
 
-  function handlecopyToDayClick(day) {
-    setCopyToDay(day)
+  function handleCopyDayClick(day) {
+    setNewDay(day)
   }
 
   function handleSaveCopyClick() {
-    saveCopy()
+    saveCopy(newDay)
     setEditMode(false)
     setCopyMode(false)
-    setSelectedDay(copyToDay)
-    setCopyToDay(new Date())
+    setSelectedDay(newDay)
+    setNewDay(new Date())
   }
 
   function handleBackClick() {

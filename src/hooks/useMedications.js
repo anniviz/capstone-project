@@ -20,7 +20,6 @@ export default function useMedications(selectedDayString) {
   const activeMedications = dateIndex > -1 ? findActiveMedications() : []
 
   const [medicationToEditId, setMedicationToEditId] = useState(null)
-  const [copyToDay, setCopyToDay] = useState(new Date())
 
   function findActiveMedications() {
     return medicationsDiary[dateIndex].medications
@@ -67,7 +66,7 @@ export default function useMedications(selectedDayString) {
     updateMedicationsDiary(deletedMedicationsDiary)
   }
 
-  function saveCopy() {
+  function saveCopy(copyToDay) {
     const copyToDayString = createDateString(copyToDay)
     const index = medicationsDiary.findIndex(
       day => day.date === copyToDayString
@@ -105,8 +104,6 @@ export default function useMedications(selectedDayString) {
     setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
-    copyToDay,
-    setCopyToDay,
     saveCopy,
     toggleMedicationCheck,
   }

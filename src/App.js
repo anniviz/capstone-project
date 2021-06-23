@@ -18,8 +18,6 @@ export default function App() {
     setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
-    copyToDay,
-    setCopyToDay,
     saveCopy,
     toggleMedicationCheck,
   } = useMedications(selectedDayString)
@@ -37,8 +35,6 @@ export default function App() {
             setMedicationToEditId={setMedicationToEditId}
             setSelectedDay={setSelectedDay}
             deleteSingleMedication={deleteSingleMedication}
-            copyToDay={copyToDay}
-            setCopyToDay={setCopyToDay}
             saveCopy={saveCopy}
             toggleMedicationCheck={toggleMedicationCheck}
           />
