@@ -51,7 +51,7 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
   const [copyMode, setCopyMode] = useState(false)
-  const [newDay, setNewDay] = useState(new Date())
+  const [targetDate, setTargetDate] = useState(new Date())
 
   const modifiers = {
     copyFromDay: selectedDay,
@@ -101,7 +101,7 @@ export default function MedicationPage({
         <CopyWrapper>
           <StyledDayPicker
             onDayClick={handleCopyDayClick}
-            selectedDays={newDay}
+            selectedDays={targetDate}
             modifiers={modifiers}
             localeUtils={MomentLocaleUtils}
             locale="de"
@@ -151,15 +151,15 @@ export default function MedicationPage({
   }
 
   function handleCopyDayClick(day) {
-    setNewDay(day)
+    setTargetDate(day)
   }
 
   function handleSaveCopyClick() {
-    saveCopy(newDay)
+    saveCopy(targetDate)
     setEditMode(false)
     setCopyMode(false)
-    setSelectedDay(newDay)
-    setNewDay(new Date())
+    setSelectedDay(targetDate)
+    setTargetDate(new Date())
   }
 
   function handleBackClick() {
