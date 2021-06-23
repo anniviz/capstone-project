@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
-import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
@@ -24,14 +24,15 @@ FormPage.propTypes = {
 
 export default function FormPage({
   onSubmit,
-  medications,
-  medicationToEditId,
+  medication,
   setMedicationToEditId,
 }) {
-  const { medGroupInputs, setMedGroupInputs } = useMedicationGroup(
-    medications,
-    medicationToEditId
-  )
+  const medsString = medication.meds?.map(med => med.medName).join('\n') ?? []
+
+  const [medGroupInputs, setMedGroupInputs] = useState({
+    time: medication.time,
+    meds: medsString,
+  })
 
   const {
     isTimeValid,
@@ -103,20 +104,16 @@ export default function FormPage({
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    const index = medications.findIndex(
-      medication => medication.id === medicationToEditId
-    )
-    if (medicationToEditId) {
-      const medicationToEdit = medications[index]
+    if (medication.id) {
       onSubmit({
-        id: medicationToEdit.id,
+        id: medication.id,
         time: time.value,
         meds: medsArrayWithId,
       })
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    setMedicationToEditId(null)
+    // setMedicationToEditId(null)
     history.push('/medications')
   }
 
@@ -130,12 +127,6 @@ export default function FormPage({
     setMedGroupInputs({ ...medGroupInputs, [name]: value })
   }
 }
-
-// const Wrapper = styled.main`
-//   /* display: grid; */
-//   height: 100vh;
-//   /* grid-template-rows: auto 1fr; */
-// `
 
 const FormWrapper = styled.form`
   display: flex;

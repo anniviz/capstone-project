@@ -167,7 +167,7 @@ export default function MedicationPage({
     setCopyMode(false)
   }
 }
-const Grid = styled.div`
+const Grid = styled.main`
   position: relative;
   display: grid;
   grid-template-rows: ${props =>

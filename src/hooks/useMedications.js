@@ -17,9 +17,17 @@ export default function useMedications(selectedDayString) {
   const dateIndex = medicationsDiary.findIndex(
     day => day.date === selectedDayString
   )
-  const activeMedications = dateIndex > -1 ? findActiveMedications() : []
+  const selectedMedications = dateIndex > -1 ? findActiveMedications() : []
 
   const [medicationToEditId, setMedicationToEditId] = useState(null)
+  const selectedMedicationIndex = selectedMedications.findIndex(
+    medication => medication.id === medicationToEditId
+  )
+  const selectedMedication = selectedMedications[selectedMedicationIndex] ?? {
+    // id: '',
+    time: '',
+    meds: [],
+  }
 
   function findActiveMedications() {
     return medicationsDiary[dateIndex].medications
@@ -34,10 +42,11 @@ export default function useMedications(selectedDayString) {
       })
       updateMedicationsDiary(addedMedicationsDiary)
     }
+    setMedicationToEditId(null)
   }
 
   function updateSelectedDay(newMedication) {
-    const medicationsIndex = activeMedications.findIndex(
+    const medicationsIndex = selectedMedications.findIndex(
       medication => medication.id === newMedication.id
     )
 
@@ -71,7 +80,7 @@ export default function useMedications(selectedDayString) {
     const index = medicationsDiary.findIndex(
       day => day.date === copyToDayString
     )
-    const uncheckedMedications = activeMedications.map(
+    const uncheckedMedications = selectedMedications.map(
       medication => (medication = { ...medication, isChecked: false })
     )
 
@@ -88,7 +97,7 @@ export default function useMedications(selectedDayString) {
   }
 
   function toggleMedicationCheck(id) {
-    const medicationsIndex = activeMedications.findIndex(
+    const medicationsIndex = selectedMedications.findIndex(
       medication => medication.id === id
     )
     updateMedicationsDiary(draft => {
@@ -99,7 +108,8 @@ export default function useMedications(selectedDayString) {
   }
 
   return {
-    activeMedications,
+    selectedMedications,
+    selectedMedication,
     medicationToEditId,
     setMedicationToEditId,
     handleSubmit,

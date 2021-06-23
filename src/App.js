@@ -13,8 +13,8 @@ export default function App() {
   const selectedDayString = createDateString(selectedDay)
 
   const {
-    activeMedications,
-    medicationToEditId,
+    selectedMedications,
+    selectedMedication,
     setMedicationToEditId,
     handleSubmit,
     deleteSingleMedication,
@@ -31,7 +31,7 @@ export default function App() {
         </Route>
         <Route exact path="/medications">
           <MedicationPage
-            medications={activeMedications}
+            medications={selectedMedications}
             setMedicationToEditId={setMedicationToEditId}
             setSelectedDay={setSelectedDay}
             deleteSingleMedication={deleteSingleMedication}
@@ -41,9 +41,8 @@ export default function App() {
         </Route>
         <Route path="/medications/form">
           <FormPage
-            medications={activeMedications}
+            medication={selectedMedication}
             onSubmit={handleSubmit}
-            medicationToEditId={medicationToEditId}
             setMedicationToEditId={setMedicationToEditId}
           />
         </Route>
