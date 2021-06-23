@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
-import Header from '../components/Header'
 import useFormValidation from '../hooks/useFormValidation'
 import useMedicationGroup from '../hooks/useMedicationGroup'
 
@@ -26,7 +25,6 @@ FormPage.propTypes = {
 export default function FormPage({
   onSubmit,
   medications,
-  selectedDay,
   medicationToEditId,
   setMedicationToEditId,
 }) {
@@ -45,53 +43,49 @@ export default function FormPage({
   let history = useHistory()
 
   return (
-    <Grid>
-      <Header selectedDay={selectedDay} />
-
-      <FormWrapper
-        onSubmit={handleSubmit}
-        aria-label="Medikationsgruppe erstellen"
-        role="form"
-      >
-        <Label timeField>
-          Uhrzeit:
-          <Input
-            name="time"
-            placeholder="8:00"
+    <FormWrapper
+      onSubmit={handleSubmit}
+      aria-label="Medikationsgruppe erstellen"
+      role="form"
+    >
+      <Label timeField>
+        Uhrzeit:
+        <Input
+          name="time"
+          placeholder="8:00"
+          onChange={handleChange}
+          isTimeValid={isTimeValid}
+          value={medGroupInputs.time}
+        />
+        <Warning isTimeValid={isTimeValid}>
+          Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
+        </Warning>
+      </Label>
+      <Label>
+        Medikamente:
+        <TextareaWithPlaceholderWrapper>
+          <Textarea
+            name="meds"
+            rows="10"
             onChange={handleChange}
-            isTimeValid={isTimeValid}
-            value={medGroupInputs.time}
+            value={medGroupInputs.meds}
           />
-          <Warning isTimeValid={isTimeValid}>
-            Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
-          </Warning>
-        </Label>
-        <Label>
-          Medikamente:
-          <TextareaWithPlaceholderWrapper>
-            <Textarea
-              name="meds"
-              rows="10"
-              onChange={handleChange}
-              value={medGroupInputs.meds}
-            />
-            {medGroupInputs.meds === '' && (
-              <Placeholder>
-                ASS (50mg)
-                <br /> Magnesium (80mg)
-                <br /> Metoprolol (23,75mg)
-              </Placeholder>
-            )}
-          </TextareaWithPlaceholderWrapper>
-        </Label>
-        <Flexbox>
-          <Button onClick={handleBackClick} type="button">
-            zurück
-          </Button>
-          <Button disabled={isDisabled}>speichern</Button>
-        </Flexbox>
-      </FormWrapper>
-    </Grid>
+          {medGroupInputs.meds === '' && (
+            <Placeholder>
+              ASS (50mg)
+              <br /> Magnesium (80mg)
+              <br /> Metoprolol (23,75mg)
+            </Placeholder>
+          )}
+        </TextareaWithPlaceholderWrapper>
+      </Label>
+      <Flexbox>
+        <Button onClick={handleBackClick} type="button">
+          zurück
+        </Button>
+        <Button disabled={isDisabled}>speichern</Button>
+      </Flexbox>
+    </FormWrapper>
   )
 
   function handleSubmit(event) {
@@ -137,11 +131,11 @@ export default function FormPage({
   }
 }
 
-const Grid = styled.div`
-  display: grid;
-  height: 100vh;
-  grid-template-rows: auto 1fr;
-`
+// const Wrapper = styled.main`
+//   /* display: grid; */
+//   height: 100vh;
+//   /* grid-template-rows: auto 1fr; */
+// `
 
 const FormWrapper = styled.form`
   display: flex;

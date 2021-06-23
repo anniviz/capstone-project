@@ -35,9 +35,6 @@ describe('MedicationPage', () => {
       </MemoryRouter>
     )
 
-    const header = screen.getByRole('heading')
-    expect(header).toBeInTheDocument()
-
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(4)
 

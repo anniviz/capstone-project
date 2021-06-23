@@ -9,7 +9,6 @@ import styled from 'styled-components/macro'
 import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
-import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
@@ -65,7 +64,6 @@ export default function MedicationPage({
 
   return (
     <Grid showCalendar={showCalendar}>
-      <Header selectedDay={selectedDay} />
       <ButtonWrapper>
         {copyMode ? (
           <EmptyFlexElement />
@@ -175,9 +173,8 @@ export default function MedicationPage({
 const Grid = styled.div`
   position: relative;
   display: grid;
-  height: 100vh;
   grid-template-rows: ${props =>
-    props.showCalendar ? 'auto 30px auto 1fr' : 'auto 30px 1fr'};
+    props.showCalendar ? '30px auto 1fr' : '30px 1fr'};
 `
 
 const Flexbox = styled.div`
