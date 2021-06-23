@@ -85,7 +85,6 @@ describe('MedicationPage', () => {
 
     const AddLink = screen.getByRole('link')
     userEvent.click(AddLink)
-    // expect(setActivePage).toHaveBeenCalledWith('form')
   })
 
   it('reders a calendar when calendar is clicked', () => {

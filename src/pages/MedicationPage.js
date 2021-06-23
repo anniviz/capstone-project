@@ -61,7 +61,7 @@ export default function MedicationPage({
     copyFromDay: selectedDay,
   }
 
-  const { history } = useHistory()
+  let history = useHistory()
 
   return (
     <Grid showCalendar={showCalendar}>
@@ -147,7 +147,7 @@ export default function MedicationPage({
 
   function handleEditClick(id) {
     setMedicationToEditId(id)
-    history('/medications/form')
+    history.push('/medications/form')
   }
 
   function handleCopyClick() {
