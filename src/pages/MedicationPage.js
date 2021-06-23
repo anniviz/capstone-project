@@ -4,8 +4,9 @@ import { useState } from 'react'
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import AddButton from '../components/buttons/AddButton'
+import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import Header from '../components/Header'
@@ -25,7 +26,6 @@ MedicationPage.propTypes = {
       isChecked: PropTypes.bool,
     })
   ),
-  setActivePage: PropTypes.func.isRequired,
   deleteSingleMedication: PropTypes.func.isRequired,
   setMedicationToEditId: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
@@ -38,7 +38,6 @@ MedicationPage.propTypes = {
 
 export default function MedicationPage({
   medications,
-  setActivePage,
   deleteSingleMedication,
   setMedicationToEditId,
   selectedDay,
@@ -61,6 +60,8 @@ export default function MedicationPage({
   const modifiers = {
     copyFromDay: selectedDay,
   }
+
+  let history = useHistory()
 
   return (
     <Grid showCalendar={showCalendar}>
@@ -130,7 +131,7 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
-      <AddButton onClick={() => setActivePage('form')} />
+      <AddLink to="/medications/form" />
     </Grid>
   )
 
@@ -146,7 +147,7 @@ export default function MedicationPage({
 
   function handleEditClick(id) {
     setMedicationToEditId(id)
-    setActivePage('form')
+    history.push('/medications/form')
   }
 
   function handleCopyClick() {

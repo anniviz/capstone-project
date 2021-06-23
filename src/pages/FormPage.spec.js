@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import FormPage from './FormPage'
 jest.mock('uuid', () => ({
   v4: () => '01234',
@@ -8,30 +9,32 @@ jest.mock('uuid', () => ({
 describe('FormPage', () => {
   it('renders a FormPage with 2 inputs/textareas, 2 labels, 2 Buttons and a header', () => {
     render(
-      <FormPage
-        onSubmit={jest.fn()}
-        onNavigate={jest.fn()}
-        setActivePage={jest.fn()}
-        medications={[
-          {
-            id: '01234',
-            time: '8:00',
-            meds: [
-              { id: '01234', medName: 'ASS' },
-              { id: '01235', medName: 'Metoprolol' },
-              { id: '01236', medName: 'Magnesium' },
-            ],
-          },
-          {
-            id: '01235',
-            time: '9:00',
-            meds: [{ id: '01234', medName: 'Tacrolimus' }],
-          },
-        ]}
-        medicationToEditId="01234"
-        setMedicationToEditId={jest.fn()}
-        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-      />
+      <MemoryRouter>
+        <FormPage
+          onSubmit={jest.fn()}
+          onNavigate={jest.fn()}
+          setActivePage={jest.fn()}
+          medications={[
+            {
+              id: '01234',
+              time: '8:00',
+              meds: [
+                { id: '01234', medName: 'ASS' },
+                { id: '01235', medName: 'Metoprolol' },
+                { id: '01236', medName: 'Magnesium' },
+              ],
+            },
+            {
+              id: '01235',
+              time: '9:00',
+              meds: [{ id: '01234', medName: 'Tacrolimus' }],
+            },
+          ]}
+          medicationToEditId="01234"
+          setMedicationToEditId={jest.fn()}
+          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+        />
+      </MemoryRouter>
     )
     const form = screen.getByRole('form')
     expect(form).toBeInTheDocument()
@@ -53,32 +56,33 @@ describe('FormPage', () => {
 
   it('submits the form', () => {
     const handleSubmit = jest.fn()
-
     render(
-      <FormPage
-        onSubmit={handleSubmit}
-        onNavigate={jest.fn()}
-        setActivePage={jest.fn()}
-        medications={[
-          {
-            id: '01234',
-            time: '8:00',
-            meds: [
-              { id: '01234', medName: 'ASS' },
-              { id: '01235', medName: 'Metoprolol' },
-              { id: '01236', medName: 'Magnesium' },
-            ],
-          },
-          {
-            id: '01235',
-            time: '9:00',
-            meds: [{ id: '01234', medName: 'Tacrolimus' }],
-          },
-        ]}
-        medicationToEditId={null}
-        setMedicationToEditId={jest.fn()}
-        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-      />
+      <MemoryRouter>
+        <FormPage
+          onSubmit={handleSubmit}
+          onNavigate={jest.fn()}
+          medications={[
+            {
+              id: '01234',
+              time: '8:00',
+              meds: [
+                { id: '01234', medName: 'ASS' },
+                { id: '01235', medName: 'Metoprolol' },
+                { id: '01236', medName: 'Magnesium' },
+              ],
+            },
+            {
+              id: '01235',
+              time: '9:00',
+              meds: [{ id: '01234', medName: 'Tacrolimus' }],
+            },
+          ]}
+          medicationToEditId={null}
+          setMedicationToEditId={jest.fn()}
+          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+          history={jest.fn()}
+        />
+      </MemoryRouter>
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
     const meds = screen.getByRole('textbox', {
@@ -111,30 +115,32 @@ Magnesium`
     const handleSubmit = jest.fn()
 
     render(
-      <FormPage
-        onSubmit={handleSubmit}
-        onNavigate={jest.fn()}
-        setActivePage={jest.fn()}
-        medications={[
-          {
-            id: '01234',
-            time: '8:00',
-            meds: [
-              { id: '01234', medName: 'ASS' },
-              { id: '01235', medName: 'Metoprolol' },
-              { id: '01236', medName: 'Magnesium' },
-            ],
-          },
-          {
-            id: '01235',
-            time: '9:00',
-            meds: [{ id: '01234', medName: 'Tacrolimus' }],
-          },
-        ]}
-        medicationToEditId={null}
-        setMedicationToEditId={jest.fn()}
-        selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-      />
+      <MemoryRouter>
+        <FormPage
+          onSubmit={handleSubmit}
+          onNavigate={jest.fn()}
+          setActivePage={jest.fn()}
+          medications={[
+            {
+              id: '01234',
+              time: '8:00',
+              meds: [
+                { id: '01234', medName: 'ASS' },
+                { id: '01235', medName: 'Metoprolol' },
+                { id: '01236', medName: 'Magnesium' },
+              ],
+            },
+            {
+              id: '01235',
+              time: '9:00',
+              meds: [{ id: '01234', medName: 'Tacrolimus' }],
+            },
+          ]}
+          medicationToEditId={null}
+          setMedicationToEditId={jest.fn()}
+          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+        />
+      </MemoryRouter>
     )
     const form = screen.getByRole('form')
 

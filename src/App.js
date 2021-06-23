@@ -1,11 +1,11 @@
 import { useState } from 'react'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 import createDateString from './services/createDayString'
 
 export default function App() {
-  const [activePage, setActivePage] = useState('medication')
   const today = new Date()
   const [selectedDay, setSelectedDay] = useState(today)
   const selectedDayString = createDateString(selectedDay)
@@ -20,14 +20,16 @@ export default function App() {
     setCopyToDay,
     saveCopy,
     toggleMedicationCheck,
-  } = useMedications(setActivePage, selectedDayString)
+  } = useMedications(selectedDayString)
 
   return (
-    <>
-      {activePage === 'medication' && (
+    <Switch>
+      <Route exact path="/">
+        <Redirect to="/medications" />
+      </Route>
+      <Route exact path="/medications">
         <MedicationPage
           medications={activeMedications}
-          setActivePage={setActivePage}
           setMedicationToEditId={setMedicationToEditId}
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
@@ -37,22 +39,16 @@ export default function App() {
           saveCopy={saveCopy}
           toggleMedicationCheck={toggleMedicationCheck}
         />
-      )}
-      {activePage === 'form' && (
+      </Route>
+      <Route path="/medications/form">
         <FormPage
           medications={activeMedications}
-          onNavigate={handleActivePage}
-          setActivePage={setActivePage}
           onSubmit={handleSubmit}
           medicationToEditId={medicationToEditId}
           setMedicationToEditId={setMedicationToEditId}
           selectedDay={selectedDay}
         />
-      )}
-    </>
+      </Route>
+    </Switch>
   )
-
-  function handleActivePage(page) {
-    setActivePage(page)
-  }
 }

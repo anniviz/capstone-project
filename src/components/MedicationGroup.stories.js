@@ -3,6 +3,11 @@ import MedicationGroup from './MedicationGroup'
 export default {
   title: 'MedicationGroup',
   component: MedicationGroup,
+  argTypes: {
+    handleDeleteClick: { action: 'handleDeleteClick' },
+    handleEditClick: { action: 'handleEditClick' },
+    handleCheckClick: { action: 'handleCheckClick' },
+  },
 }
 
 const Template = args => <MedicationGroup {...args} />

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
@@ -7,8 +8,7 @@ import useFormValidation from '../hooks/useFormValidation'
 import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
-  onSubmit: PropTypes.func,
-  onNavigate: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
   medications: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -19,17 +19,14 @@ FormPage.propTypes = {
     })
   ),
   selectedDay: PropTypes.instanceOf(Date),
-  setActivePage: PropTypes.func,
   medicationToEditId: PropTypes.string,
-  setMedicationToEditId: PropTypes.func,
+  setMedicationToEditId: PropTypes.func.isRequired,
 }
 
 export default function FormPage({
   onSubmit,
-  onNavigate,
   medications,
   selectedDay,
-  setActivePage,
   medicationToEditId,
   setMedicationToEditId,
 }) {
@@ -44,6 +41,8 @@ export default function FormPage({
     setIsTimeValid,
     validateTime,
   } = useFormValidation(medGroupInputs)
+
+  let history = useHistory()
 
   return (
     <Grid>
@@ -124,12 +123,12 @@ export default function FormPage({
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
     setMedicationToEditId(null)
-    setActivePage('medication')
+    history.push('/medications')
   }
 
   function handleBackClick() {
     setMedicationToEditId(null)
-    onNavigate('medication')
+    history.push('/medications')
   }
 
   function handleChange(event) {
