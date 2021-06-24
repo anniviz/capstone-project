@@ -113,7 +113,6 @@ export default function FormPage({
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    // setMedicationToEditId(null)
     history.push('/medications')
   }
 

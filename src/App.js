@@ -32,11 +32,12 @@ export default function App() {
         <Route exact path="/medications">
           <MedicationPage
             medications={selectedMedications}
-            setMedicationToEditId={setMedicationToEditId}
-            setSelectedDay={setSelectedDay}
-            deleteSingleMedication={deleteSingleMedication}
-            saveCopy={saveCopy}
-            toggleMedicationCheck={toggleMedicationCheck}
+            selectedDay={selectedDay}
+            onEdit={setMedicationToEditId}
+            onDelete={deleteSingleMedication}
+            onSelectDay={setSelectedDay}
+            onCopyDay={saveCopy}
+            onToggle={toggleMedicationCheck}
           />
         </Route>
         <Route path="/medications/form">

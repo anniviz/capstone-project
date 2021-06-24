@@ -25,22 +25,22 @@ MedicationPage.propTypes = {
       isChecked: PropTypes.bool,
     })
   ),
-  deleteSingleMedication: PropTypes.func.isRequired,
-  setMedicationToEditId: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
-  setSelectedDay: PropTypes.func.isRequired,
-  saveCopy: PropTypes.func.isRequired,
-  toggleMedicationCheck: PropTypes.func.isRequired,
+  onSelectDay: PropTypes.func.isRequired,
+  onCopyDay: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
   medications,
-  deleteSingleMedication,
-  setMedicationToEditId,
   selectedDay,
-  setSelectedDay,
-  saveCopy,
-  toggleMedicationCheck,
+  onEdit,
+  onDelete,
+  onSelectDay,
+  onCopyDay,
+  onToggle,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -120,9 +120,9 @@ export default function MedicationPage({
             meds={meds}
             isChecked={isChecked}
             editMode={editMode}
-            handleDeleteClick={deleteSingleMedication}
+            handleDeleteClick={onDelete}
             handleEditClick={handleEditClick}
-            handleCheckClick={toggleMedicationCheck}
+            handleCheckClick={onToggle}
           />
         ))}
       </Flexbox>
@@ -131,7 +131,7 @@ export default function MedicationPage({
   )
 
   function handleDayClick(day) {
-    setSelectedDay(day)
+    onSelectDay(day)
   }
 
   function convertToMinutes(time) {
@@ -141,7 +141,7 @@ export default function MedicationPage({
   }
 
   function handleEditClick(id) {
-    setMedicationToEditId(id)
+    onEdit(id)
     history.push('/medications/form')
   }
 
@@ -155,10 +155,10 @@ export default function MedicationPage({
   }
 
   function handleSaveCopyClick() {
-    saveCopy(targetDate)
+    onCopyDay(targetDate)
     setEditMode(false)
     setCopyMode(false)
-    setSelectedDay(targetDate)
+    onSelectDay(targetDate)
     setTargetDate(new Date())
   }
 
