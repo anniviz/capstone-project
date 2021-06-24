@@ -15,8 +15,8 @@ export default function App() {
   const {
     selectedMedications,
     selectedMedication,
-    setMedicationToEditId,
-    handleSubmit,
+    setSelectedMedicationId,
+    saveMedication,
     deleteSingleMedication,
     saveCopy,
     toggleMedicationCheck,
@@ -33,7 +33,7 @@ export default function App() {
           <MedicationPage
             medications={selectedMedications}
             selectedDay={selectedDay}
-            onEdit={setMedicationToEditId}
+            onEdit={setSelectedMedicationId}
             onDelete={deleteSingleMedication}
             onSelectDay={setSelectedDay}
             onCopyDay={saveCopy}
@@ -43,8 +43,8 @@ export default function App() {
         <Route path="/medications/form">
           <FormPage
             medication={selectedMedication}
-            onSubmit={handleSubmit}
-            setMedicationToEditId={setMedicationToEditId}
+            onSubmit={saveMedication}
+            setSelectedMedicationId={setSelectedMedicationId}
           />
         </Route>
       </Switch>

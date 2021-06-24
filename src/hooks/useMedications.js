@@ -19,12 +19,11 @@ export default function useMedications(selectedDayString) {
   )
   const selectedMedications = dateIndex > -1 ? findActiveMedications() : []
 
-  const [medicationToEditId, setMedicationToEditId] = useState(null)
+  const [selectedMedicationId, setSelectedMedicationId] = useState(null)
   const selectedMedicationIndex = selectedMedications.findIndex(
-    medication => medication.id === medicationToEditId
+    medication => medication.id === selectedMedicationId
   )
   const selectedMedication = selectedMedications[selectedMedicationIndex] ?? {
-    // id: '',
     time: '',
     meds: [],
   }
@@ -33,16 +32,15 @@ export default function useMedications(selectedDayString) {
     return medicationsDiary[dateIndex].medications
   }
 
-  function handleSubmit(newMedication) {
-    if (dateIndex > -1) {
+  function saveMedication(newMedication) {
+    const doesDayExist = dateIndex > -1
+
+    if (doesDayExist) {
       updateSelectedDay(newMedication)
     } else {
-      const addedMedicationsDiary = produce(medicationsDiary, draft => {
-        draft.push({ date: selectedDayString, medications: [newMedication] })
-      })
-      updateMedicationsDiary(addedMedicationsDiary)
+      addMedicationToNewDay(newMedication)
     }
-    setMedicationToEditId(null)
+    setSelectedMedicationId(null)
   }
 
   function updateSelectedDay(newMedication) {
@@ -50,16 +48,31 @@ export default function useMedications(selectedDayString) {
       medication => medication.id === newMedication.id
     )
 
-    if (medicationsIndex > -1) {
-      updateMedicationsDiary(draft => {
-        draft[dateIndex].medications[medicationsIndex] = newMedication
-      })
+    const doesMedicationExist = medicationsIndex > -1
+
+    if (doesMedicationExist) {
+      updateExistingMedication(medicationsIndex, newMedication)
     } else {
-      const addedMedicationsDiary = produce(medicationsDiary, draft => {
-        draft[dateIndex].medications.push(newMedication)
-      })
-      updateMedicationsDiary(addedMedicationsDiary)
+      addMedicationToExistingDay(newMedication)
     }
+  }
+
+  function updateExistingMedication(medicationsIndex, newMedication) {
+    updateMedicationsDiary(draft => {
+      draft[dateIndex].medications[medicationsIndex] = newMedication
+    })
+  }
+
+  function addMedicationToExistingDay(newMedication) {
+    updateMedicationsDiary(draft => {
+      draft[dateIndex].medications.push(newMedication)
+    })
+  }
+
+  function addMedicationToNewDay(newMedication) {
+    updateMedicationsDiary(draft => {
+      draft.push({ date: selectedDayString, medications: [newMedication] })
+    })
   }
 
   function deleteSingleMedication(id) {
@@ -67,33 +80,47 @@ export default function useMedications(selectedDayString) {
     const medicationsIndex = dayMedications.findIndex(
       medication => medication.id === id
     )
-
-    const deletedMedicationsDiary = produce(medicationsDiary, draft => {
-      if (medicationsIndex !== -1)
-        draft[dateIndex].medications.splice(medicationsIndex, 1)
-    })
-    updateMedicationsDiary(deletedMedicationsDiary)
+    updateMedicationsDiary(
+      produce(medicationsDiary, draft => {
+        if (medicationsIndex !== -1)
+          draft[dateIndex].medications.splice(medicationsIndex, 1)
+      })
+    )
   }
 
-  function saveCopy(copyToDay) {
-    const copyToDayString = createDateString(copyToDay)
+  function saveCopy(targetDate) {
+    const targetDateString = createDateString(targetDate)
     const index = medicationsDiary.findIndex(
-      day => day.date === copyToDayString
+      day => day.date === targetDateString
     )
     const uncheckedMedications = selectedMedications.map(
       medication => (medication = { ...medication, isChecked: false })
     )
 
-    if (index > -1) {
-      updateMedicationsDiary(draft => {
-        draft[index].medications = uncheckedMedications
-      })
+    const doesDayExist = index > -1
+
+    if (doesDayExist) {
+      addNewDayWithCopy(index, uncheckedMedications)
     } else {
-      const addedMedicationsDiary = produce(medicationsDiary, draft => {
-        draft.push({ date: copyToDayString, medications: uncheckedMedications })
-      })
-      updateMedicationsDiary(addedMedicationsDiary)
+      replaceExistingDayWithCopy(targetDateString, uncheckedMedications)
     }
+  }
+
+  function addNewDayWithCopy(index, uncheckedMedications) {
+    updateMedicationsDiary(draft => {
+      draft[index].medications = uncheckedMedications
+    })
+  }
+
+  function replaceExistingDayWithCopy(targetDateString, uncheckedMedications) {
+    updateMedicationsDiary(
+      produce(medicationsDiary, draft => {
+        draft.push({
+          date: targetDateString,
+          medications: uncheckedMedications,
+        })
+      })
+    )
   }
 
   function toggleMedicationCheck(id) {
@@ -110,9 +137,8 @@ export default function useMedications(selectedDayString) {
   return {
     selectedMedications,
     selectedMedication,
-    medicationToEditId,
-    setMedicationToEditId,
-    handleSubmit,
+    setSelectedMedicationId,
+    saveMedication,
     deleteSingleMedication,
     saveCopy,
     toggleMedicationCheck,

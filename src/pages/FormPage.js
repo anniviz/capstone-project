@@ -8,24 +8,20 @@ import useFormValidation from '../hooks/useFormValidation'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  medications: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      time: PropTypes.node,
-      meds: PropTypes.arrayOf(
-        PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
-      ),
-    })
-  ),
-  selectedDay: PropTypes.instanceOf(Date),
-  medicationToEditId: PropTypes.string,
-  setMedicationToEditId: PropTypes.func.isRequired,
+  medication: PropTypes.shape({
+    id: PropTypes.string,
+    time: PropTypes.node,
+    meds: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+    ),
+  }),
+  setSelectedMedicationId: PropTypes.func.isRequired,
 }
 
 export default function FormPage({
   onSubmit,
   medication,
-  setMedicationToEditId,
+  setSelectedMedicationId,
 }) {
   const medsString = medication.meds?.map(med => med.medName).join('\n') ?? []
 
@@ -117,7 +113,7 @@ export default function FormPage({
   }
 
   function handleBackClick() {
-    setMedicationToEditId(null)
+    setSelectedMedicationId(null)
     history.push('/medications')
   }
 
