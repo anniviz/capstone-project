@@ -12,6 +12,7 @@ import IconButton from '../components/buttons/IconButton'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
+import copyDayIcon from '../icons/copyDay.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
 
 MedicationPage.propTypes = {
@@ -62,8 +63,8 @@ export default function MedicationPage({
   return (
     <Grid showCalendar={showCalendar}>
       <ButtonWrapper>
-        {copyMode ? (
-          <EmptyFlexElement />
+        {copyMode || editMode ? (
+          <Spacer width="20px" />
         ) : (
           <IconButton onClick={() => setShowCalendar(!showCalendar)}>
             <img src={calendarIcon} alt="" height="20px" />
@@ -77,7 +78,7 @@ export default function MedicationPage({
                 onClick={handleOpenCopyCalenderClick}
                 aria-label="Tag kopieren"
               >
-                <Text>Tag kopieren</Text>
+                <img src={copyDayIcon} alt="" height="20px" />
               </IconButton>
               <IconButton align="right" onClick={handleBackClick}>
                 <img src={backIcon} alt="" height="20px" />
@@ -171,7 +172,7 @@ const Grid = styled.main`
   position: relative;
   display: grid;
   grid-template-rows: ${props =>
-    props.showCalendar ? '30px auto 1fr' : '30px 1fr'};
+    props.showCalendar ? 'auto auto 1fr' : 'auto 1fr'};
 `
 
 const Flexbox = styled.div`
@@ -186,11 +187,11 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding: 0 26px;
+  padding: 20px 26px 10px 26px;
 `
 
-const EmptyFlexElement = styled.div`
-  width: 20px;
+const Spacer = styled.div`
+  width: ${props => props.width};
 `
 
 const Text = styled.span`
