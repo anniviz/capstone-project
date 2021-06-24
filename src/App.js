@@ -35,7 +35,7 @@ export default function App() {
             selectedDay={selectedDay}
             onEdit={setSelectedMedicationId}
             onDelete={deleteSingleMedication}
-            onSelectDay={setSelectedDay}
+            onSelectedDay={setSelectedDay}
             onCopyDay={saveCopy}
             onToggle={toggleMedicationCheck}
           />

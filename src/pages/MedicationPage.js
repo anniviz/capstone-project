@@ -28,7 +28,7 @@ MedicationPage.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
-  onSelectDay: PropTypes.func.isRequired,
+  onSelectedDay: PropTypes.func.isRequired,
   onCopyDay: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
 }
@@ -38,7 +38,7 @@ export default function MedicationPage({
   selectedDay,
   onEdit,
   onDelete,
-  onSelectDay,
+  onSelectedDay,
   onCopyDay,
   onToggle,
 }) {
@@ -131,7 +131,7 @@ export default function MedicationPage({
   )
 
   function handleDayClick(day) {
-    onSelectDay(day)
+    onSelectedDay(day)
   }
 
   function convertToMinutes(time) {
@@ -158,7 +158,7 @@ export default function MedicationPage({
     onCopyDay(targetDate)
     setEditMode(false)
     setCopyMode(false)
-    onSelectDay(targetDate)
+    onSelectedDay(targetDate)
     setTargetDate(new Date())
   }
 

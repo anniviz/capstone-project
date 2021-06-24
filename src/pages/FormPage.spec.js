@@ -11,28 +11,12 @@ describe('FormPage', () => {
     render(
       <MemoryRouter>
         <FormPage
-          onSubmit={jest.fn()}
-          onNavigate={jest.fn()}
-          setActivePage={jest.fn()}
-          medications={[
-            {
-              id: '01234',
-              time: '8:00',
-              meds: [
-                { id: '01234', medName: 'ASS' },
-                { id: '01235', medName: 'Metoprolol' },
-                { id: '01236', medName: 'Magnesium' },
-              ],
-            },
-            {
-              id: '01235',
-              time: '9:00',
-              meds: [{ id: '01234', medName: 'Tacrolimus' }],
-            },
-          ]}
-          medicationToEditId="01234"
-          setMedicationToEditId={jest.fn()}
-          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+          saveMedication={jest.fn()}
+          medication={{
+            time: '',
+            meds: [],
+          }}
+          setSelectedMedicationId={jest.fn()}
         />
       </MemoryRouter>
     )
@@ -56,35 +40,22 @@ describe('FormPage', () => {
     render(
       <MemoryRouter>
         <FormPage
-          onSubmit={handleSubmit}
-          onNavigate={jest.fn()}
-          medications={[
-            {
-              id: '01234',
-              time: '8:00',
-              meds: [
-                { id: '01234', medName: 'ASS' },
-                { id: '01235', medName: 'Metoprolol' },
-                { id: '01236', medName: 'Magnesium' },
-              ],
-            },
-            {
-              id: '01235',
-              time: '9:00',
-              meds: [{ id: '01234', medName: 'Tacrolimus' }],
-            },
-          ]}
-          medicationToEditId={null}
-          setMedicationToEditId={jest.fn()}
-          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-          history={jest.fn()}
+          saveMedication={handleSubmit}
+          medication={{
+            id: '01234',
+            time: '8:00',
+            meds: [
+              { id: '01234', medName: 'ASS' },
+              { id: '01235', medName: 'Metoprolol' },
+              { id: '01236', medName: 'Magnesium' },
+            ],
+          }}
+          setSelectedMedicationId={jest.fn()}
         />
       </MemoryRouter>
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
-    const meds = screen.getByRole('textbox', {
-      name: 'Medikamente: ASS (50mg) Magnesium (80mg) Metoprolol (23,75mg)',
-    })
+    const meds = screen.getByRole('textbox', { name: 'Medikamente:' })
     userEvent.type(time, '8:00')
     userEvent.type(
       meds,
@@ -96,7 +67,6 @@ Magnesium`
     const button = screen.getByRole('button', { name: 'speichern' })
     userEvent.click(button)
 
-    expect(handleSubmit).toHaveBeenCalled()
     expect(handleSubmit).toHaveBeenCalledWith({
       id: '01234',
       time: '8:00',
@@ -114,28 +84,17 @@ Magnesium`
     render(
       <MemoryRouter>
         <FormPage
-          onSubmit={handleSubmit}
-          onNavigate={jest.fn()}
-          setActivePage={jest.fn()}
-          medications={[
-            {
-              id: '01234',
-              time: '8:00',
-              meds: [
-                { id: '01234', medName: 'ASS' },
-                { id: '01235', medName: 'Metoprolol' },
-                { id: '01236', medName: 'Magnesium' },
-              ],
-            },
-            {
-              id: '01235',
-              time: '9:00',
-              meds: [{ id: '01234', medName: 'Tacrolimus' }],
-            },
-          ]}
-          medicationToEditId={null}
-          setMedicationToEditId={jest.fn()}
-          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+          saveMedication={handleSubmit}
+          medication={{
+            id: '01234',
+            time: '8:00',
+            meds: [
+              { id: '01234', medName: 'ASS' },
+              { id: '01235', medName: 'Metoprolol' },
+              { id: '01236', medName: 'Magnesium' },
+            ],
+          }}
+          setSelectedMedicationId={jest.fn()}
         />
       </MemoryRouter>
     )
