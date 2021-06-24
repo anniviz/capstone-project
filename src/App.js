@@ -7,6 +7,7 @@ import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 import createDateString from './services/createDayString'
 import navbar from './icons/navbar.svg'
+import clip from './icons/clip.svg'
 
 export default function App() {
   const today = new Date()
@@ -55,12 +56,13 @@ export default function App() {
         </Route>
       </Switch>
       <Navbar>
-        <Element />
-        <img src={navbar} alt="" />
-        <Element />
+        <div></div>
+        {/* <Element /> */}
+        {/* <img src={navbar} alt="" />
+        <Element /> */}
 
         {/* <Circle></Circle> */}
-        <AddLink to="/medications/form"></AddLink>
+        {/* <AddLink to="/medications/form"></AddLink> */}
       </Navbar>
     </Grid>
   )
@@ -88,16 +90,35 @@ const Circle = styled.div`
 
 const Navbar = styled.div`
   width: 100vw;
-  display: grid;
+  height: 80px;
+  /* display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: end;
+  align-items: end; */
   background-color: var(--color-basis);
   /* box-shadow: 26px 26px 68px var(--color-shadow-21); */
   position: relative;
 `
 
 const Element = styled.div`
-  height: 85px;
-  background-color: var(--color-basis);
-  box-shadow: var(--shadow-navbar);
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-secondary);
+  ::before {
+    content: ' ';
+    background-color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-mask-image: -webkit-linear-gradient(black, black), url(clip);
+    -webkit-mask-size: 100% 100%, 22px 18px;
+    -webkit-mask-position: top left, -6px 1rem;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    transition: all 0.2s;
+    border-radius: 3px;
+  }
 `
