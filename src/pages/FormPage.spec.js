@@ -11,7 +11,7 @@ describe('FormPage', () => {
     render(
       <MemoryRouter>
         <FormPage
-          saveMedication={jest.fn()}
+          onSubmit={jest.fn()}
           medication={{
             time: '',
             meds: [],
@@ -40,22 +40,19 @@ describe('FormPage', () => {
     render(
       <MemoryRouter>
         <FormPage
-          saveMedication={handleSubmit}
+          onSubmit={handleSubmit}
           medication={{
-            id: '01234',
-            time: '8:00',
-            meds: [
-              { id: '01234', medName: 'ASS' },
-              { id: '01235', medName: 'Metoprolol' },
-              { id: '01236', medName: 'Magnesium' },
-            ],
+            time: '',
+            meds: [],
           }}
           setSelectedMedicationId={jest.fn()}
         />
       </MemoryRouter>
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit:' })
-    const meds = screen.getByRole('textbox', { name: 'Medikamente:' })
+    const meds = screen.getByRole('textbox', {
+      name: 'Medikamente: ASS (50mg) Magnesium (80mg) Metoprolol (23,75mg)',
+    })
     userEvent.type(time, '8:00')
     userEvent.type(
       meds,
@@ -66,7 +63,6 @@ Magnesium`
 
     const button = screen.getByRole('button', { name: 'speichern' })
     userEvent.click(button)
-
     expect(handleSubmit).toHaveBeenCalledWith({
       id: '01234',
       time: '8:00',
@@ -84,15 +80,10 @@ Magnesium`
     render(
       <MemoryRouter>
         <FormPage
-          saveMedication={handleSubmit}
+          onSubmit={handleSubmit}
           medication={{
-            id: '01234',
-            time: '8:00',
-            meds: [
-              { id: '01234', medName: 'ASS' },
-              { id: '01235', medName: 'Metoprolol' },
-              { id: '01236', medName: 'Magnesium' },
-            ],
+            time: '',
+            meds: [],
           }}
           setSelectedMedicationId={jest.fn()}
         />
