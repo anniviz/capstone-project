@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Navbar from './components/Navbar'
+import Header from './components/Header'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
@@ -13,53 +13,47 @@ export default function App() {
   const selectedDayString = createDateString(selectedDay)
 
   const {
-    activeMedications,
-    medicationToEditId,
-    setMedicationToEditId,
-    handleSubmit,
+    selectedMedications,
+    selectedMedication,
+    setSelectedMedicationId,
+    saveMedication,
     deleteSingleMedication,
-    copyToDay,
-    setCopyToDay,
     saveCopy,
     toggleMedicationCheck,
   } = useMedications(selectedDayString)
 
   return (
     <Grid>
+      <Header selectedDay={selectedDay} />
       <Switch>
         <Route exact path="/">
           <Redirect to="/medications" />
         </Route>
         <Route exact path="/medications">
           <MedicationPage
-            medications={activeMedications}
-            setMedicationToEditId={setMedicationToEditId}
+            medications={selectedMedications}
             selectedDay={selectedDay}
-            setSelectedDay={setSelectedDay}
-            deleteSingleMedication={deleteSingleMedication}
-            copyToDay={copyToDay}
-            setCopyToDay={setCopyToDay}
-            saveCopy={saveCopy}
-            toggleMedicationCheck={toggleMedicationCheck}
+            onEdit={setSelectedMedicationId}
+            onDelete={deleteSingleMedication}
+            onSelectedDay={setSelectedDay}
+            onCopyDay={saveCopy}
+            onToggle={toggleMedicationCheck}
           />
         </Route>
         <Route path="/medications/form">
           <FormPage
-            medications={activeMedications}
-            onSubmit={handleSubmit}
-            medicationToEditId={medicationToEditId}
-            setMedicationToEditId={setMedicationToEditId}
-            selectedDay={selectedDay}
+            medication={selectedMedication}
+            onSubmit={saveMedication}
+            setSelectedMedicationId={setSelectedMedicationId}
           />
         </Route>
       </Switch>
-      <Navbar />
     </Grid>
   )
 }
 
 const Grid = styled.div`
-  height: 100vh;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
 `

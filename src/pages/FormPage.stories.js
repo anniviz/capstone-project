@@ -12,29 +12,21 @@ export default {
 
 export const Default = args => <FormPage {...args} />
 Default.args = {
-  selectedDay: new Date(),
-  medications: [],
-  medicationToEditId: null,
+  medication: {
+    time: '',
+    meds: [],
+  },
 }
 
 export const Edit = args => <FormPage {...args} />
 Edit.args = {
-  selectedDay: new Date(),
-  medications: [
-    {
-      id: '01234',
-      time: '8:00',
-      meds: [
-        { id: '01234', medName: 'ASS' },
-        { id: '01235', medName: 'Metoprolol' },
-        { id: '01236', medName: 'Magnesium' },
-      ],
-    },
-    {
-      id: '01235',
-      time: '9:00',
-      meds: [{ id: '01234', medName: 'Tacrolimus' }],
-    },
-  ],
-  medicationToEditId: '01234',
+  medication: {
+    id: '01234',
+    time: '8:00',
+    meds: [
+      { id: '01234', medName: 'ASS' },
+      { id: '01235', medName: 'Metoprolol' },
+      { id: '01236', medName: 'Magnesium' },
+    ],
+  },
 }

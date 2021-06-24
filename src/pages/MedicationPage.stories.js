@@ -5,7 +5,6 @@ export default {
   title: 'pages/Medication',
   component: MedicationPage,
   argTypes: {
-    setActivePage: { action: 'setActivePage' },
     editMode: { type: 'boolean' },
     showCalendar: { type: 'boolean' },
     copyMode: { type: 'boolean' },

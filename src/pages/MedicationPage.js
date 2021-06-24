@@ -9,10 +9,10 @@ import styled from 'styled-components/macro'
 import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
-import Header from '../components/Header'
 import MedicationGroup from '../components/MedicationGroup'
 import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
+import copyDayIcon from '../icons/copyDay.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
 
 MedicationPage.propTypes = {
@@ -26,26 +26,22 @@ MedicationPage.propTypes = {
       isChecked: PropTypes.bool,
     })
   ),
-  deleteSingleMedication: PropTypes.func.isRequired,
-  setMedicationToEditId: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date),
-  setSelectedDay: PropTypes.func.isRequired,
-  copyToDay: PropTypes.instanceOf(Date),
-  setCopyToDay: PropTypes.func.isRequired,
-  saveCopy: PropTypes.func.isRequired,
-  toggleMedicationCheck: PropTypes.func.isRequired,
+  onSelectedDay: PropTypes.func.isRequired,
+  onCopyDay: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 }
 
 export default function MedicationPage({
   medications,
-  deleteSingleMedication,
-  setMedicationToEditId,
   selectedDay,
-  setSelectedDay,
-  copyToDay,
-  setCopyToDay,
-  saveCopy,
-  toggleMedicationCheck,
+  onEdit,
+  onDelete,
+  onSelectedDay,
+  onCopyDay,
+  onToggle,
 }) {
   const sortedMedications = medications.slice().sort(function (a, b) {
     if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
@@ -56,6 +52,7 @@ export default function MedicationPage({
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
   const [copyMode, setCopyMode] = useState(false)
+  const [targetDate, setTargetDate] = useState(new Date())
 
   const modifiers = {
     copyFromDay: selectedDay,
@@ -65,10 +62,9 @@ export default function MedicationPage({
 
   return (
     <Grid showCalendar={showCalendar}>
-      <Header selectedDay={selectedDay} />
       <ButtonWrapper>
-        {copyMode ? (
-          <EmptyFlexElement />
+        {copyMode || editMode ? (
+          <Spacer width="20px" />
         ) : (
           <IconButton onClick={() => setShowCalendar(!showCalendar)}>
             <img src={calendarIcon} alt="" height="20px" />
@@ -79,10 +75,10 @@ export default function MedicationPage({
             <>
               <IconButton
                 align="right"
-                onClick={handleCopyClick}
+                onClick={handleOpenCopyCalenderClick}
                 aria-label="Tag kopieren"
               >
-                <Text>Tag kopieren</Text>
+                <img src={copyDayIcon} alt="" height="20px" />
               </IconButton>
               <IconButton align="right" onClick={handleBackClick}>
                 <img src={backIcon} alt="" height="20px" />
@@ -105,8 +101,8 @@ export default function MedicationPage({
       {copyMode && (
         <CopyWrapper>
           <StyledDayPicker
-            onDayClick={handlecopyToDayClick}
-            selectedDays={copyToDay}
+            onDayClick={handleCopyDayClick}
+            selectedDays={targetDate}
             modifiers={modifiers}
             localeUtils={MomentLocaleUtils}
             locale="de"
@@ -125,9 +121,9 @@ export default function MedicationPage({
             meds={meds}
             isChecked={isChecked}
             editMode={editMode}
-            handleDeleteClick={deleteSingleMedication}
+            handleDeleteClick={onDelete}
             handleEditClick={handleEditClick}
-            handleCheckClick={toggleMedicationCheck}
+            handleCheckClick={onToggle}
           />
         ))}
       </Flexbox>
@@ -136,7 +132,7 @@ export default function MedicationPage({
   )
 
   function handleDayClick(day) {
-    setSelectedDay(day)
+    onSelectedDay(day)
   }
 
   function convertToMinutes(time) {
@@ -146,25 +142,25 @@ export default function MedicationPage({
   }
 
   function handleEditClick(id) {
-    setMedicationToEditId(id)
+    onEdit(id)
     history.push('/medications/form')
   }
 
-  function handleCopyClick() {
+  function handleOpenCopyCalenderClick() {
     setCopyMode(!copyMode)
     setShowCalendar(false)
   }
 
-  function handlecopyToDayClick(day) {
-    setCopyToDay(day)
+  function handleCopyDayClick(day) {
+    setTargetDate(day)
   }
 
   function handleSaveCopyClick() {
-    saveCopy()
+    onCopyDay(targetDate)
     setEditMode(false)
     setCopyMode(false)
-    setSelectedDay(copyToDay)
-    setCopyToDay(new Date())
+    onSelectedDay(targetDate)
+    setTargetDate(new Date())
   }
 
   function handleBackClick() {
@@ -172,12 +168,11 @@ export default function MedicationPage({
     setCopyMode(false)
   }
 }
-const Grid = styled.div`
+const Grid = styled.main`
   position: relative;
   display: grid;
-  /* height: 100vh; */
   grid-template-rows: ${props =>
-    props.showCalendar ? 'auto 30px auto 1fr' : 'auto 30px 1fr'};
+    props.showCalendar ? 'auto auto 1fr' : 'auto 1fr'};
 `
 
 const Flexbox = styled.div`
@@ -192,11 +187,11 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding: 0 26px;
+  padding: 20px 26px 10px 26px;
 `
 
-const EmptyFlexElement = styled.div`
-  width: 20px;
+const Spacer = styled.div`
+  width: ${props => props.width};
 `
 
 const Text = styled.span`
