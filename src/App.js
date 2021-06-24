@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
+import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
@@ -39,6 +40,7 @@ export default function App() {
             onCopyDay={saveCopy}
             onToggle={toggleMedicationCheck}
           />
+          <Navbar />
         </Route>
         <Route path="/medications/form">
           <FormPage
@@ -54,6 +56,6 @@ export default function App() {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   height: 100vh;
 `

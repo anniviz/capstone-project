@@ -6,7 +6,6 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import MedicationGroup from '../components/MedicationGroup'
@@ -127,7 +126,6 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
-      {/* <AddLink to="/medications/form" /> */}
     </Grid>
   )
 
@@ -173,6 +171,7 @@ const Grid = styled.main`
   display: grid;
   grid-template-rows: ${props =>
     props.showCalendar ? 'auto auto 1fr' : 'auto 1fr'};
+  overflow: auto;
 `
 
 const Flexbox = styled.div`
@@ -192,10 +191,6 @@ const ButtonWrapper = styled.div`
 
 const Spacer = styled.div`
   width: ${props => props.width};
-`
-
-const Text = styled.span`
-  color: var(--color-tertiary);
 `
 
 const StyledDayPicker = styled(DayPicker)`
