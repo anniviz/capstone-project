@@ -1,0 +1,38 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="453" height="120.83" viewBox="0 0 453 120.83">
+  <defs>
+    <filter id="Tab_Bar" x="0" y="0" width="453" height="120.83" filterUnits="userSpaceOnUse">
+      <feOffset dy="-5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur"/>
+      <feFlood flood-color="#768673" flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Tab_Bar)">
+    <path id="Tab_Bar-2" data-name="Tab Bar" d="M414,0V81.83H0V0H143.906a22.725,22.725,0,0,1,21.343,15.079A44.4,44.4,0,0,0,207,44.37a44.394,44.394,0,0,0,41.74-29.291A22.727,22.727,0,0,1,270.084,0Z" transform="translate(19.5 24.5)" fill="#e0ecde"/>
+  </g>
+</svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="147" height="106" viewBox="0 0 147 106">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="147" height="106" transform="translate(-11300 -7375.785)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <filter id="Tab_Bar" x="-152.485" y="-3.5" width="451.971" height="124" filterUnits="userSpaceOnUse">
+      <feOffset dy="-5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6.5" result="blur"/>
+      <feFlood flood-color="#768673" flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(11300 7375.785)" clip-path="url(#clip-path)">
+    <g id="Tab_Bar-2" data-name="Tab Bar" transform="translate(-11432.985 -7354.785)">
+      <g transform="matrix(1, 0, 0, 1, 132.99, -21)" filter="url(#Tab_Bar)">
+        <path id="Tab_Bar-3" data-name="Tab Bar" d="M412.971,0V85H0V0H143.548a22.743,22.743,0,0,1,21.29,15.663C171,33.4,187.318,46.089,206.486,46.089S241.964,33.4,248.122,15.663A22.745,22.745,0,0,1,269.413,0Z" transform="translate(-132.99 21)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>
+
+
+

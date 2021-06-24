@@ -131,7 +131,7 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
-      <AddLink to="/medications/form" />
+      {/* <AddLink to="/medications/form" /> */}
     </Grid>
   )
 
@@ -175,7 +175,7 @@ export default function MedicationPage({
 const Grid = styled.div`
   position: relative;
   display: grid;
-  height: 100vh;
+  /* height: 100vh; */
   grid-template-rows: ${props =>
     props.showCalendar ? 'auto 30px auto 1fr' : 'auto 30px 1fr'};
 `

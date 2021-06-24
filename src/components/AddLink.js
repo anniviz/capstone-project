@@ -14,7 +14,7 @@ const LinkStyled = styled(Link)`
   display: flex;
   position: absolute;
   right: 0;
-  bottom: 12px;
+  bottom: 48px;
   left: 0;
   justify-content: center;
   align-items: center;

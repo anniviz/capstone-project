@@ -139,7 +139,7 @@ export default function FormPage({
 
 const Grid = styled.div`
   display: grid;
-  height: 100vh;
+  /* height: 100vh; */
   grid-template-rows: auto 1fr;
 `
 
