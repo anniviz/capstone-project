@@ -1,39 +1,34 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
-import Header from '../components/Header'
 import useFormValidation from '../hooks/useFormValidation'
-import useMedicationGroup from '../hooks/useMedicationGroup'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  medications: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      time: PropTypes.node,
-      meds: PropTypes.arrayOf(
-        PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
-      ),
-    })
-  ),
-  selectedDay: PropTypes.instanceOf(Date),
-  medicationToEditId: PropTypes.string,
-  setMedicationToEditId: PropTypes.func.isRequired,
+  medication: PropTypes.shape({
+    id: PropTypes.string,
+    time: PropTypes.node,
+    meds: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.node, medName: PropTypes.string })
+    ),
+  }),
+  setSelectedMedicationId: PropTypes.func.isRequired,
 }
 
 export default function FormPage({
   onSubmit,
-  medications,
-  selectedDay,
-  medicationToEditId,
-  setMedicationToEditId,
+  medication,
+  setSelectedMedicationId,
 }) {
-  const { medGroupInputs, setMedGroupInputs } = useMedicationGroup(
-    medications,
-    medicationToEditId
-  )
+  const medsString = medication.meds?.map(med => med.medName).join('\n') ?? []
+
+  const [medGroupInputs, setMedGroupInputs] = useState({
+    time: medication.time,
+    meds: medsString,
+  })
 
   const {
     isTimeValid,
@@ -45,53 +40,49 @@ export default function FormPage({
   let history = useHistory()
 
   return (
-    <Grid>
-      <Header selectedDay={selectedDay} />
-
-      <FormWrapper
-        onSubmit={handleSubmit}
-        aria-label="Medikationsgruppe erstellen"
-        role="form"
-      >
-        <Label timeField>
-          Uhrzeit:
-          <Input
-            name="time"
-            placeholder="8:00"
+    <FormWrapper
+      onSubmit={handleSubmit}
+      aria-label="Medikationsgruppe erstellen"
+      role="form"
+    >
+      <Label timeField>
+        Uhrzeit:
+        <Input
+          name="time"
+          placeholder="8:00"
+          onChange={handleChange}
+          isTimeValid={isTimeValid}
+          value={medGroupInputs.time}
+        />
+        <Warning isTimeValid={isTimeValid}>
+          Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
+        </Warning>
+      </Label>
+      <Label>
+        Medikamente:
+        <TextareaWithPlaceholderWrapper>
+          <Textarea
+            name="meds"
+            rows="10"
             onChange={handleChange}
-            isTimeValid={isTimeValid}
-            value={medGroupInputs.time}
+            value={medGroupInputs.meds}
           />
-          <Warning isTimeValid={isTimeValid}>
-            Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
-          </Warning>
-        </Label>
-        <Label>
-          Medikamente:
-          <TextareaWithPlaceholderWrapper>
-            <Textarea
-              name="meds"
-              rows="10"
-              onChange={handleChange}
-              value={medGroupInputs.meds}
-            />
-            {medGroupInputs.meds === '' && (
-              <Placeholder>
-                ASS (50mg)
-                <br /> Magnesium (80mg)
-                <br /> Metoprolol (23,75mg)
-              </Placeholder>
-            )}
-          </TextareaWithPlaceholderWrapper>
-        </Label>
-        <Flexbox>
-          <Button onClick={handleBackClick} type="button">
-            zurück
-          </Button>
-          <Button disabled={isDisabled}>speichern</Button>
-        </Flexbox>
-      </FormWrapper>
-    </Grid>
+          {medGroupInputs.meds === '' && (
+            <Placeholder>
+              ASS (50mg)
+              <br /> Magnesium (80mg)
+              <br /> Metoprolol (23,75mg)
+            </Placeholder>
+          )}
+        </TextareaWithPlaceholderWrapper>
+      </Label>
+      <Flexbox>
+        <Button onClick={handleBackClick} type="button">
+          zurück
+        </Button>
+        <Button disabled={isDisabled}>speichern</Button>
+      </Flexbox>
+    </FormWrapper>
   )
 
   function handleSubmit(event) {
@@ -109,25 +100,20 @@ export default function FormPage({
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
-    const index = medications.findIndex(
-      medication => medication.id === medicationToEditId
-    )
-    if (medicationToEditId) {
-      const medicationToEdit = medications[index]
+    if (medication.id) {
       onSubmit({
-        id: medicationToEdit.id,
+        id: medication.id,
         time: time.value,
         meds: medsArrayWithId,
       })
     } else {
       onSubmit({ id: uuidv4(), time: time.value, meds: medsArrayWithId })
     }
-    setMedicationToEditId(null)
     history.push('/medications')
   }
 
   function handleBackClick() {
-    setMedicationToEditId(null)
+    setSelectedMedicationId(null)
     history.push('/medications')
   }
 
@@ -136,12 +122,6 @@ export default function FormPage({
     setMedGroupInputs({ ...medGroupInputs, [name]: value })
   }
 }
-
-const Grid = styled.div`
-  display: grid;
-  height: 100vh;
-  grid-template-rows: auto 1fr;
-`
 
 const FormWrapper = styled.form`
   display: flex;

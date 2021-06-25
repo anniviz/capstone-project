@@ -24,19 +24,15 @@ describe('MedicationPage', () => {
               meds: [{ id: '01234', medName: 'Tacrolimus' }],
             },
           ]}
-          deleteSingleMedication={jest.fn()}
-          setMedicationToEditId={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={jest.fn()}
           selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-          setSelectedDay={jest.fn()}
-          setCopyToDay={jest.fn()}
-          saveCopy={jest.fn()}
-          toggleMedicationCheck={jest.fn()}
+          onSelectedDay={jest.fn()}
+          onCopyDay={jest.fn()}
+          onToggle={jest.fn()}
         />
       </MemoryRouter>
     )
-
-    const header = screen.getByRole('heading')
-    expect(header).toBeInTheDocument()
 
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(4)
@@ -51,7 +47,6 @@ describe('MedicationPage', () => {
     expect(AddLink).toBeInTheDocument()
   })
   it('sets activePage to form when AddButton is clicked', () => {
-    const setActivePage = jest.fn()
     render(
       <MemoryRouter>
         <MedicationPage
@@ -71,14 +66,12 @@ describe('MedicationPage', () => {
               meds: [{ id: '01234', medName: 'Tacrolimus' }],
             },
           ]}
-          setActivePage={setActivePage}
-          deleteSingleMedication={jest.fn()}
-          setMedicationToEditId={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={jest.fn()}
           selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-          setSelectedDay={jest.fn()}
-          setCopyToDay={jest.fn()}
-          saveCopy={jest.fn()}
-          toggleMedicationCheck={jest.fn()}
+          onSelectedDay={jest.fn()}
+          onCopyDay={jest.fn()}
+          onToggle={jest.fn()}
         />
       </MemoryRouter>
     )
@@ -107,14 +100,12 @@ describe('MedicationPage', () => {
               meds: [{ id: '01234', medName: 'Tacrolimus' }],
             },
           ]}
-          setActivePage={jest.fn()}
-          deleteSingleMedication={jest.fn()}
-          setMedicationToEditId={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={jest.fn()}
           selectedDay={new Date('2021-06-07T10:36:41.617Z')}
-          setSelectedDay={jest.fn()}
-          setCopyToDay={jest.fn()}
-          saveCopy={jest.fn()}
-          toggleMedicationCheck={jest.fn()}
+          onSelectedDay={jest.fn()}
+          onCopyDay={jest.fn()}
+          onToggle={jest.fn()}
         />
       </MemoryRouter>
     )

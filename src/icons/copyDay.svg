@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="76.234" height="25.958" viewBox="0 0 76.234 25.958">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #205072;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1 {
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-width: 1.667px;
+      }
+    </style>
+  </defs>
+  <g id="Group_31" data-name="Group 31" transform="translate(-157.909 -111.768)">
+    <g id="calendar" transform="translate(158.909 112.768)">
+      <g id="Date">
+        <rect id="Rectangle" class="cls-1" width="23" height="5.75" transform="translate(0 2.875)"/>
+        <path id="Path" class="cls-1" d="M.479,0V2.875" transform="translate(6.229)"/>
+        <path id="Path-2" data-name="Path" class="cls-1" d="M.479,0V2.875" transform="translate(15.813)"/>
+        <path id="Path-3" data-name="Path" class="cls-1" d="M23,0H0V15.333H18.975l.862-.862A10.882,10.882,0,0,0,23,6.8Z" transform="translate(0 8.625)"/>
+        <path id="Path-4" data-name="Path" class="cls-1" d="M0,8.625V3.833H0a5.368,5.368,0,0,0,3.833-2.4L4.792,0" transform="translate(18.208 15.333)"/>
+      </g>
+    </g>
+    <g id="calendar-2" data-name="calendar" transform="translate(209.757 112.768)">
+      <g id="Date-2" data-name="Date">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="23" height="5.75" transform="translate(0 2.875)"/>
+        <path id="Path-5" data-name="Path" class="cls-1" d="M.479,0V2.875" transform="translate(6.229)"/>
+        <path id="Path-6" data-name="Path" class="cls-1" d="M.479,0V2.875" transform="translate(15.813)"/>
+        <path id="Path-7" data-name="Path" class="cls-1" d="M23,0H0V15.333H18.975l.862-.862A10.882,10.882,0,0,0,23,6.8Z" transform="translate(0 8.625)"/>
+        <path id="Path-8" data-name="Path" class="cls-1" d="M0,8.625V3.833H0a5.368,5.368,0,0,0,3.833-2.4L4.792,0" transform="translate(18.208 15.333)"/>
+      </g>
+    </g>
+    <g id="Icon_feather-arrow-right" data-name="Icon feather-arrow-right" transform="translate(185.833 114.746)">
+      <path id="Path_29" data-name="Path 29" class="cls-2" d="M4.167,10H15.833"/>
+      <path id="Path_30" data-name="Path 30" class="cls-2" d="M10,4.167,15.833,10,10,15.833"/>
+    </g>
+  </g>
+</svg>
