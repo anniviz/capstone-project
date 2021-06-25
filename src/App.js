@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
+import ObservationPage from './pages/ObservationPage'
 import createDateString from './services/createDayString'
 
 export default function App() {
@@ -45,6 +46,9 @@ export default function App() {
             onSubmit={saveMedication}
             setSelectedMedicationId={setSelectedMedicationId}
           />
+        </Route>
+        <Route exact path={'/observations'}>
+          <ObservationPage />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}
