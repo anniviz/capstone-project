@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
@@ -12,6 +12,7 @@ export default function App() {
   const today = new Date()
   const [selectedDay, setSelectedDay] = useState(today)
   const selectedDayString = createDateString(selectedDay)
+  const location = useLocation()
 
   const {
     selectedMedications,
@@ -27,9 +28,6 @@ export default function App() {
     <Grid>
       <Header selectedDay={selectedDay} />
       <Switch>
-        {/* <Route exact path="/">
-          <Redirect to="/medications" />
-        </Route> */}
         <Route exact path={['/medications', '/']}>
           <MedicationPage
             medications={selectedMedications}
@@ -49,7 +47,7 @@ export default function App() {
           />
         </Route>
       </Switch>
-      <Navbar />
+      {location.pathname.includes('form') || <Navbar />}
     </Grid>
   )
 }
