@@ -53,6 +53,7 @@ export default function FormPage({
           onChange={handleChange}
           isTimeValid={isTimeValid}
           value={medGroupInputs.time}
+          autoComplete="off"
         />
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
@@ -66,6 +67,7 @@ export default function FormPage({
             rows="10"
             onChange={handleChange}
             value={medGroupInputs.meds}
+            autoComplete="off"
           />
           {medGroupInputs.meds === '' && (
             <Placeholder>
