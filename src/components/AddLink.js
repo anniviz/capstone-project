@@ -29,5 +29,4 @@ const LinkStyled = styled(Link)`
     var(--color-gradient-2)
   );
   box-shadow: 26px 26px 68px var(--color-shadow-21);
-  z-index: 1;
 `
