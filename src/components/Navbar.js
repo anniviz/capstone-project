@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import AddLink from './AddLink'
+import AddLink from './links/AddLink'
 import { ReactComponent as MedicationsIcon } from '../icons/pill.svg'
 import { ReactComponent as ObservationsIcon } from '../icons/observations.svg'
 
