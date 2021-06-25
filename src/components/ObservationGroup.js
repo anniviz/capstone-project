@@ -36,7 +36,7 @@ export default function ObservationGroup({ time, name, value }) {
   )
 }
 
-const Wrapper = styled.section`
+const Wrapper = styled.li`
   display: flex;
   position: relative;
   flex-direction: column;

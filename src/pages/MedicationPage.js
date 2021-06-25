@@ -140,12 +140,6 @@ export default function MedicationPage({
     onSelectedDay(day)
   }
 
-  // function convertToMinutes(time) {
-  //   const timeArray = time.split(':')
-  //   const minutes = timeArray[0] * 60 + timeArray[1]
-  //   return Number(minutes)
-  // }
-
   function handleEditClick(id) {
     onEdit(id)
     history.push('/medications/form')
