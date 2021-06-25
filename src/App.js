@@ -3,6 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
+import NavbarTest from './components/NavbarTest'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
@@ -51,7 +52,7 @@ export default function App() {
           <ObservationPage />
         </Route>
       </Switch>
-      {location.pathname.includes('form') || <Navbar />}
+      {location.pathname.includes('form') || <NavbarTest />}
     </Grid>
   )
 }
@@ -60,4 +61,5 @@ const Grid = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
+  position: relative;
 `
