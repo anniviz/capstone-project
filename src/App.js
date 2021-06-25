@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
+import ObservationFormPickerPage from './pages/ObservationFormPickerPage'
 import ObservationPage from './pages/ObservationPage'
 import createDateString from './services/createDayString'
 
@@ -49,6 +50,9 @@ export default function App() {
         </Route>
         <Route exact path={'/observations'}>
           <ObservationPage />
+        </Route>
+        <Route exact path={'/observations/form'}>
+          <ObservationFormPickerPage />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

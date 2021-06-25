@@ -14,7 +14,7 @@ export default function ObservationFormPickerPage() {
   ]
   return (
     <Grid>
-      Bitte wählen
+      <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
           <OutlineButton key={observationType}>{observationType}</OutlineButton>
@@ -29,6 +29,7 @@ const Grid = styled.main`
   display: grid;
   grid-template-rows: 1fr auto;
   align-items: end;
+  gap: 40px;
 `
 
 const ButtonGrid = styled.div`
@@ -37,4 +38,10 @@ const ButtonGrid = styled.div`
   grid-template-rows: repeat(4, auto);
   row-gap: 20px;
   justify-items: center;
+  margin-bottom: 40px;
+`
+
+const Heading = styled.h3`
+  color: var(--color-primary);
+  justify-self: center;
 `
