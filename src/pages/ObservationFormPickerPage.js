@@ -4,14 +4,14 @@ import OutlineLink from '../components/links/OutlineLink'
 
 export default function ObservationFormPickerPage() {
   const observationTypes = [
-    'Größe',
-    'Gewicht',
-    'Temperatur',
-    'Blutdruck',
-    'Blutzucker',
-    'Urin',
-    'FEV1',
-    'Notizen',
+    { name: 'Größe', path: 'height' },
+    { name: 'Gewicht', path: 'weight' },
+    { name: 'Temperatur', path: 'temprature' },
+    { name: 'Blutdruck', path: 'bloudpressure' },
+    { name: 'Blutzucker', path: 'bloudsugar' },
+    { name: 'Urin', path: 'urin' },
+    { name: 'FEV1', path: 'fev1' },
+    { name: 'Notizen', path: 'notes' },
   ]
   return (
     <Grid>
@@ -19,7 +19,12 @@ export default function ObservationFormPickerPage() {
       <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
-          <OutlineLink key={observationType}>{observationType}</OutlineLink>
+          <OutlineLink
+            key={observationType.path}
+            to={`/observations/form/${observationType.path}`}
+          >
+            {observationType.name}
+          </OutlineLink>
         ))}
       </ButtonGrid>
     </Grid>
