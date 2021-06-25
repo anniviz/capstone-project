@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.984" height="24.984" viewBox="0 0 24.984 24.984">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #cde0c9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Icons_pill" data-name="Icons/ pill" transform="translate(0.992 0.992)">
+    <g id="Icons_pill-2" data-name="Icons/ pill" transform="translate(0.008 0.008)">
+      <path id="Path" class="cls-1" d="M1.608,21.376h0a5.686,5.686,0,0,1,0-7.926L13.45,1.608a5.686,5.686,0,0,1,7.926,0h0a5.686,5.686,0,0,1,0,7.926L9.534,21.376A5.686,5.686,0,0,1,1.608,21.376Z"/>
+      <path id="Path-2" data-name="Path" class="cls-1" d="M0,0,7.646,7.646" transform="translate(7.762 7.762)"/>
+    </g>
+  </g>
+</svg>

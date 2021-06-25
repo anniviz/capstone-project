@@ -27,10 +27,10 @@ export default function App() {
     <Grid>
       <Header selectedDay={selectedDay} />
       <Switch>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Redirect to="/medications" />
-        </Route>
-        <Route exact path="/medications">
+        </Route> */}
+        <Route exact path={['/medications', '/']}>
           <MedicationPage
             medications={selectedMedications}
             selectedDay={selectedDay}
@@ -40,7 +40,6 @@ export default function App() {
             onCopyDay={saveCopy}
             onToggle={toggleMedicationCheck}
           />
-          <Navbar />
         </Route>
         <Route path="/medications/form">
           <FormPage
@@ -50,6 +49,7 @@ export default function App() {
           />
         </Route>
       </Switch>
+      <Navbar />
     </Grid>
   )
 }
