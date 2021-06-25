@@ -96,6 +96,7 @@ const Meds = styled.ul`
   display: flex;
   flex-direction: column;
   margin: 0;
+  margin-right: 32px;
   padding: 0;
   list-style: none;
   gap: 6px;
