@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import OutlineButton from '../components/buttons/OutlineButton'
+import OutlineLink from '../components/links/OutlineLink'
 
 export default function ObservationFormPickerPage() {
   const observationTypes = [
@@ -19,7 +19,7 @@ export default function ObservationFormPickerPage() {
       <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
-          <OutlineButton key={observationType}>{observationType}</OutlineButton>
+          <OutlineLink key={observationType}>{observationType}</OutlineLink>
         ))}
       </ButtonGrid>
     </Grid>

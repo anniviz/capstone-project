@@ -2,7 +2,7 @@ import React from 'react'
 import AddLink from './AddLink'
 
 export default {
-  title: 'AddLink',
+  title: 'links/AddLink',
   component: AddLink,
 }
 

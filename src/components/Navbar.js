@@ -29,14 +29,14 @@ export default function Navbar() {
 }
 
 const Nav = styled.nav`
-  width: 100vw;
-  height: 80px;
   display: flex;
+  position: relative;
   justify-content: space-around;
   align-items: center;
+  width: 100vw;
+  height: 80px;
   background-color: var(--color-basis);
   box-shadow: 26px 26px 68px var(--color-shadow-21);
-  position: relative;
 `
 
 const MedicationsIconStyled = styled(MedicationsIcon)`
