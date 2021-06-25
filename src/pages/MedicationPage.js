@@ -65,7 +65,10 @@ export default function MedicationPage({
         {copyMode || editMode ? (
           <Spacer width="20px" />
         ) : (
-          <IconButton onClick={() => setShowCalendar(!showCalendar)}>
+          <IconButton
+            onClick={() => setShowCalendar(!showCalendar)}
+            aria-label="Kalender anzeigen"
+          >
             <img src={calendarIcon} alt="" height="20px" />
           </IconButton>
         )}
@@ -79,18 +82,25 @@ export default function MedicationPage({
               >
                 <img src={copyDayIcon} alt="" height="20px" />
               </IconButton>
-              <IconButton align="right" onClick={handleBackClick}>
+              <IconButton
+                align="right"
+                onClick={handleBackClick}
+                aria-label="Bearbeiten beenden"
+              >
                 <img src={backIcon} alt="" height="20px" />
               </IconButton>
             </>
           ) : (
-            <IconButton onClick={() => setEditMode(true)}>
+            <IconButton
+              onClick={() => setEditMode(true)}
+              aria-label="Medikationen bearbeiten"
+            >
               <img src={editRectangleIcon} alt="" height="20px" />
             </IconButton>
           ))}
       </ButtonWrapper>
       {showCalendar && (
-        <StyledDayPicker
+        <DayPickerStyled
           onDayClick={handleDayClick}
           selectedDays={selectedDay}
           localeUtils={MomentLocaleUtils}
@@ -99,7 +109,7 @@ export default function MedicationPage({
       )}
       {copyMode && (
         <CopyWrapper>
-          <StyledDayPicker
+          <DayPickerStyled
             onDayClick={handleCopyDayClick}
             selectedDays={targetDate}
             modifiers={modifiers}
@@ -167,7 +177,6 @@ export default function MedicationPage({
   }
 }
 const Grid = styled.main`
-  position: relative;
   display: grid;
   grid-template-rows: ${props =>
     props.showCalendar ? 'auto auto 1fr' : 'auto 1fr'};
@@ -193,7 +202,7 @@ const Spacer = styled.div`
   width: ${props => props.width};
 `
 
-const StyledDayPicker = styled(DayPicker)`
+const DayPickerStyled = styled(DayPicker)`
   margin: 16px;
   border-radius: 20px;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
