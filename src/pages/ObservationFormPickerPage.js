@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import OutlineButton from '../components/buttons/OutlineButton'
 
@@ -14,6 +15,7 @@ export default function ObservationFormPickerPage() {
   ]
   return (
     <Grid>
+      <LinkStyled to="/observations">zurück</LinkStyled>
       <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
@@ -27,7 +29,7 @@ export default function ObservationFormPickerPage() {
 const Grid = styled.main`
   height: 100%;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
   align-items: end;
   gap: 40px;
 `
@@ -39,6 +41,10 @@ const ButtonGrid = styled.div`
   row-gap: 20px;
   justify-items: center;
   margin-bottom: 40px;
+`
+const LinkStyled = styled(Link)`
+  color: var(--color-tertiary);
+  margin: 12px 24px;
 `
 
 const Heading = styled.h3`

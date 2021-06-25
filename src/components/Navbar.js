@@ -23,7 +23,7 @@ export default function Navbar() {
           <ObservationsIconStyled isActive={false} />
         )}
       </NavLink>
-      <AddLink to="/medications/form"></AddLink>
+      <AddLink to={`${location.pathname}/form`}></AddLink>
     </Nav>
   )
 }
