@@ -13,13 +13,7 @@ export default function ObservationPage() {
   return (
     <Flexbox>
       {observations.map(({ id, time, name, value }) => (
-        <ObservationGroup
-          key={id}
-          id={id}
-          time={time}
-          name={name}
-          value={value}
-        />
+        <ObservationGroup key={id} time={time} name={name} value={value} />
       ))}
     </Flexbox>
   )
