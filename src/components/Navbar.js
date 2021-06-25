@@ -1,30 +1,28 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import AddLink from './AddLink'
-import medicationsDisabled from '../icons/pill-disabled.svg'
-import medicationsEnabled from '../icons/pill-enabled.svg'
-import observationsDisabled from '../icons/observations-disabled.svg'
-import observationsEnabled from '../icons/observations-enabled.svg'
+import { ReactComponent as MedicationsIcon } from '../icons/pill.svg'
+import { ReactComponent as ObservationsIcon } from '../icons/observations.svg'
 
 export default function Navbar() {
   const location = useLocation()
 
   return (
     <Nav>
-      <NavLinkStyled exact to="/medications">
+      <NavLink exact to="/medications">
         {location.pathname.includes('medications') ? (
-          <img src={medicationsEnabled} alt="" height="32px" />
+          <MedicationsIconStyled isActive={true} />
         ) : (
-          <img src={medicationsDisabled} alt="" height="32px" />
+          <MedicationsIconStyled isActive={false} />
         )}
-      </NavLinkStyled>
-      <NavLinkStyled exact to="/observations">
+      </NavLink>
+      <NavLink exact to="/observations">
         {location.pathname.includes('observations') ? (
-          <img src={observationsEnabled} alt="" height="32px" />
+          <ObservationsIconStyled isActive={true} />
         ) : (
-          <img src={observationsDisabled} alt="" height="32px" />
+          <ObservationsIconStyled isActive={false} />
         )}
-      </NavLinkStyled>
+      </NavLink>
       <AddLink to="/medications/form"></AddLink>
     </Nav>
   )
@@ -41,6 +39,16 @@ const Nav = styled.nav`
   position: relative;
 `
 
-const NavLinkStyled = styled(NavLink)`
-  cursor: default;
+const MedicationsIconStyled = styled(MedicationsIcon)`
+  stroke: ${prop =>
+    prop.isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
+  width: 33px;
+  height: 60px;
+`
+
+const ObservationsIconStyled = styled(ObservationsIcon)`
+  stroke: ${prop =>
+    prop.isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
+  width: 30px;
+  height: 40px;
 `
