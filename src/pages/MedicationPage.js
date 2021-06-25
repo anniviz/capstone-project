@@ -13,6 +13,7 @@ import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
 import copyDayIcon from '../icons/copyDay.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
+import sortByTime from '../utils/sortByTime'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -42,11 +43,7 @@ export default function MedicationPage({
   onCopyDay,
   onToggle,
 }) {
-  const sortedMedications = medications.slice().sort(function (a, b) {
-    if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
-    if (convertToMinutes(a.time) < convertToMinutes(b.time)) return -1
-    return 0
-  })
+  const sortedMedications = sortByTime(medications)
 
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -143,11 +140,11 @@ export default function MedicationPage({
     onSelectedDay(day)
   }
 
-  function convertToMinutes(time) {
-    const timeArray = time.split(':')
-    const minutes = timeArray[0] * 60 + timeArray[1]
-    return Number(minutes)
-  }
+  // function convertToMinutes(time) {
+  //   const timeArray = time.split(':')
+  //   const minutes = timeArray[0] * 60 + timeArray[1]
+  //   return Number(minutes)
+  // }
 
   function handleEditClick(id) {
     onEdit(id)

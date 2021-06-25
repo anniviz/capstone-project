@@ -1,6 +1,7 @@
 import 'react-day-picker/lib/style.css'
 import styled from 'styled-components/macro'
 import ObservationGroup from '../components/ObservationGroup'
+import sortByTime from '../utils/sortByTime'
 
 export default function ObservationPage() {
   const observations = [
@@ -10,9 +11,11 @@ export default function ObservationPage() {
     { id: 3, time: '10:00', name: 'FEV1', value: '1,11' },
   ]
 
+  const sortedObservations = sortByTime(observations)
+
   return (
     <Flexbox>
-      {observations.map(({ id, time, name, value }) => (
+      {sortedObservations.map(({ id, time, name, value }) => (
         <ObservationGroup key={id} time={time} name={name} value={value} />
       ))}
     </Flexbox>
