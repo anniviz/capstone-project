@@ -98,7 +98,7 @@ export default function FormPage({
       return
     }
     const medsArrayWithId = meds.value
-      .replace(/^\s*\n/gm)
+      .replace(/^\s*\n/gm, '')
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))
 
