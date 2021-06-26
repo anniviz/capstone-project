@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function useFormValidation(medGroupInputs) {
+export default function useFormValidation(inputs) {
   const [isDisabled, setIsDisabled] = useState(true)
   const [isTimeValid, setIsTimeValid] = useState(true)
 
@@ -8,12 +8,11 @@ export default function useFormValidation(medGroupInputs) {
     validateForm()
     setIsTimeValid(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [medGroupInputs])
+  }, [inputs])
 
   function validateForm() {
     setIsDisabled(
-      medGroupInputs.time.trim().length === 0 ||
-        medGroupInputs.meds.trim().length === 0
+      inputs.time.trim().length === 0 || inputs.inputValue.trim().length === 0
     )
   }
 
