@@ -15,6 +15,11 @@ export default function useObservations(selectedDayString) {
   const dateIndex = observationsDiary.findIndex(
     day => day.date === selectedDayString
   )
+  const selectedObservations = dateIndex > -1 ? findActiveObservations() : []
+
+  function findActiveObservations() {
+    return observationsDiary[dateIndex].observations
+  }
 
   function saveObservation(newObservation) {
     const doesDayExist = dateIndex > -1
@@ -38,6 +43,7 @@ export default function useObservations(selectedDayString) {
   }
 
   return {
+    selectedObservations,
     observationsDiary,
     saveObservation,
   }

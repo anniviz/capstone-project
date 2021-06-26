@@ -28,7 +28,9 @@ export default function App() {
     toggleMedicationCheck,
   } = useMedications(selectedDayString)
 
-  const { saveObservation } = useObservations(selectedDayString)
+  const { selectedObservations, saveObservation } = useObservations(
+    selectedDayString
+  )
 
   return (
     <Grid>
@@ -56,7 +58,7 @@ export default function App() {
           />
         </Route>
         <Route exact path={'/observations'}>
-          <ObservationPage />
+          <ObservationPage observations={selectedObservations} />
         </Route>
         <Route exact path={'/observations/form'}>
           <ObservationFormPickerPage />
@@ -67,9 +69,9 @@ export default function App() {
             '/observations/form/size',
             '/observations/form/weight',
             '/observations/form/temperature',
-            '/observations/form/bloudpressure',
+            '/observations/form/bloodpressure',
             '/observations/form/fev1',
-            '/observations/form/bloudsugar',
+            '/observations/form/bloodsugar',
           ]}
         >
           <ObservationFormPageDefault

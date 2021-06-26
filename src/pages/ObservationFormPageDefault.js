@@ -93,6 +93,7 @@ export default function ObservationFormPageDefault({
       id: uuidv4(),
       time: time.value,
       type,
+      name,
       observationValue: inputValue.value,
     })
 
