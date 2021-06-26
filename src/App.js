@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
+import useObservations from './hooks/useObservations'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 import ObservationFormPageDefault from './pages/ObservationFormPageDefault'
@@ -16,7 +17,6 @@ export default function App() {
   const today = new Date()
   const [selectedDay, setSelectedDay] = useState(today)
   const selectedDayString = createDateString(selectedDay)
-  // const [observationType, setObservationType] = useState('notes')
 
   const {
     selectedMedications,
@@ -28,11 +28,16 @@ export default function App() {
     toggleMedicationCheck,
   } = useMedications(selectedDayString)
 
+  const { saveObservation } = useObservations(selectedDayString)
+
   return (
     <Grid>
       <Header selectedDay={selectedDay} />
       <Switch>
-        <Route exact path={['/medications', '/']}>
+        <Route exact path="/">
+          <Redirect to="/medications" />
+        </Route>
+        <Route exact path="/medications">
           <MedicationPage
             medications={selectedMedications}
             selectedDay={selectedDay}
@@ -67,7 +72,10 @@ export default function App() {
             '/observations/form/bloudsugar',
           ]}
         >
-          <ObservationFormPageDefault observationType={getLastSegmentOfUrl()} />
+          <ObservationFormPageDefault
+            observationType={getLastSegmentOfUrl()}
+            onSubmit={saveObservation}
+          />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

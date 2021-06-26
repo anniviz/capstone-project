@@ -7,10 +7,13 @@ import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
 import observationTypes from '../observationTypes'
 
-export default function ObservationFormPageDefault({ observationType }) {
+export default function ObservationFormPageDefault({
+  observationType,
+  onSubmit,
+}) {
   let history = useHistory()
   const today = new Date()
-  const { name, unit } = observationTypes.find(
+  const { name, type, unit } = observationTypes.find(
     element => element.type === observationType
   )
 
@@ -24,6 +27,9 @@ export default function ObservationFormPageDefault({ observationType }) {
     isDisabled,
     setIsTimeValid,
     validateTime,
+    validateTypeInput,
+    isObservationInputValid,
+    setIsObservationInputValid,
   } = useFormValidation(inputs)
 
   return (
@@ -73,11 +79,22 @@ export default function ObservationFormPageDefault({ observationType }) {
     event.preventDefault()
     const form = event.target
     const { time, inputValue } = form.elements
+    if (!validateTypeInput(inputValue.value, type)) {
+      setIsObservationInputValid(false)
+      inputValue.focus()
+    }
     if (!validateTime(time.value)) {
       setIsTimeValid(false)
       time.focus()
       return
     }
+
+    onSubmit({
+      id: uuidv4(),
+      time: time.value,
+      type,
+      observationValue: inputValue.value,
+    })
 
     history.push('/observations')
   }
