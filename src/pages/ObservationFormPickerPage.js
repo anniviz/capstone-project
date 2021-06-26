@@ -4,7 +4,7 @@ import OutlineLink from '../components/links/OutlineLink'
 
 export default function ObservationFormPickerPage() {
   const observationTypes = [
-    { name: 'Größe', path: 'height' },
+    { name: 'Größe', path: 'size' },
     { name: 'Gewicht', path: 'weight' },
     { name: 'Temperatur', path: 'temprature' },
     { name: 'Blutdruck', path: 'bloudpressure' },

@@ -37,6 +37,7 @@ const Nav = styled.nav`
   height: 80px;
   background-color: var(--color-basis);
   box-shadow: 26px 26px 68px var(--color-shadow-21);
+  gap: 60px;
 `
 
 const MedicationsIconStyled = styled(MedicationsIcon)`
