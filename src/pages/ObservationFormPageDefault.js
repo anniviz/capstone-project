@@ -5,10 +5,14 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
+import observationTypes from '../observationTypes'
 
-export default function ObservationFormPageDefault({ onSubmit }) {
+export default function ObservationFormPageDefault({ observationType }) {
   let history = useHistory()
   const today = new Date()
+  const { name, unit } = observationTypes.find(
+    element => element.type === observationType
+  )
 
   const [inputs, setInputs] = useState({
     time: `${today.getUTCHours()}:${today.getUTCMinutes()}`,
@@ -29,7 +33,7 @@ export default function ObservationFormPageDefault({ onSubmit }) {
       role="form"
     >
       <Label>
-        Dynamisch:
+        {name}:
         <InputWrapper>
           <Input
             name="inputValue"
@@ -37,7 +41,7 @@ export default function ObservationFormPageDefault({ onSubmit }) {
             value={inputs.inputValue}
             autoComplete="off"
           />
-          <Unit>dynamisch</Unit>
+          <Unit>{unit}</Unit>
         </InputWrapper>
       </Label>
       <Label timeField>

@@ -6,15 +6,17 @@ import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
+import ObservationFormPageDefault from './pages/ObservationFormPageDefault'
 import ObservationFormPickerPage from './pages/ObservationFormPickerPage'
 import ObservationPage from './pages/ObservationPage'
 import createDateString from './services/createDayString'
 
 export default function App() {
+  const location = useLocation()
   const today = new Date()
   const [selectedDay, setSelectedDay] = useState(today)
   const selectedDayString = createDateString(selectedDay)
-  const location = useLocation()
+  // const [observationType, setObservationType] = useState('notes')
 
   const {
     selectedMedications,
@@ -54,10 +56,27 @@ export default function App() {
         <Route exact path={'/observations/form'}>
           <ObservationFormPickerPage />
         </Route>
+        <Route
+          exact
+          path={[
+            '/observations/form/size',
+            '/observations/form/weight',
+            '/observations/form/temperature',
+            '/observations/form/bloudpressure',
+            '/observations/form/fev1',
+            '/observations/form/bloudsugar',
+          ]}
+        >
+          <ObservationFormPageDefault observationType={getLastSegmentOfUrl()} />
+        </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}
     </Grid>
   )
+
+  function getLastSegmentOfUrl() {
+    return location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
+  }
 }
 
 const Grid = styled.div`

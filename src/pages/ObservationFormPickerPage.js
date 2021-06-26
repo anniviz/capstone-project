@@ -1,18 +1,9 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import OutlineLink from '../components/links/OutlineLink'
+import observationTypes from '../observationTypes'
 
 export default function ObservationFormPickerPage() {
-  const observationTypes = [
-    { name: 'Größe', path: 'size' },
-    { name: 'Gewicht', path: 'weight' },
-    { name: 'Temperatur', path: 'temprature' },
-    { name: 'Blutdruck', path: 'bloudpressure' },
-    { name: 'Blutzucker', path: 'bloudsugar' },
-    { name: 'Urin', path: 'urin' },
-    { name: 'FEV1', path: 'fev1' },
-    { name: 'Notizen', path: 'notes' },
-  ]
   return (
     <Grid>
       <LinkStyled to="/observations">zurück</LinkStyled>
@@ -20,8 +11,8 @@ export default function ObservationFormPickerPage() {
       <ButtonGrid>
         {observationTypes.map(observationType => (
           <OutlineLink
-            key={observationType.path}
-            to={`/observations/form/${observationType.path}`}
+            key={observationType.type}
+            to={`/observations/form/${observationType.type}`}
           >
             {observationType.name}
           </OutlineLink>
