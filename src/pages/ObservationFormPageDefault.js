@@ -5,14 +5,19 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
-import observationTypes from '../observationTypes'
 
 ObservationFormPageDefault.propTypes = {
+  observationTypes: PropTypes.arrayOf({
+    name: PropTypes.string,
+    type: PropTypes.string,
+    unit: PropTypes.string,
+  }),
   observationType: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 }
 
 export default function ObservationFormPageDefault({
+  observationTypes,
   observationType,
   onSubmit,
 }) {
@@ -23,7 +28,11 @@ export default function ObservationFormPageDefault({
   )
 
   const [inputs, setInputs] = useState({
-    time: `${today.getUTCHours()}:${today.getUTCMinutes()}`,
+    time: `${today.getUTCHours()}:${
+      today.getUTCMinutes() < 10
+        ? '0' + today.getUTCMinutes()
+        : today.getUTCMinutes()
+    }`,
     inputValue: '',
   })
 

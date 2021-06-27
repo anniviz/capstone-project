@@ -28,9 +28,11 @@ export default function App() {
     toggleMedicationCheck,
   } = useMedications(selectedDayString)
 
-  const { selectedObservations, saveObservation } = useObservations(
-    selectedDayString
-  )
+  const {
+    observationTypes,
+    selectedObservations,
+    saveObservation,
+  } = useObservations(selectedDayString)
 
   return (
     <Grid>
@@ -58,10 +60,13 @@ export default function App() {
           />
         </Route>
         <Route exact path={'/observations'}>
-          <ObservationPage observations={selectedObservations} />
+          <ObservationPage
+            observations={selectedObservations}
+            observationTypes={observationTypes}
+          />
         </Route>
         <Route exact path={'/observations/form'}>
-          <ObservationFormPickerPage />
+          <ObservationFormPickerPage observationTypes={observationTypes} />
         </Route>
         <Route
           exact
@@ -77,6 +82,7 @@ export default function App() {
           <ObservationFormPageDefault
             observationType={getLastSegmentOfUrl()}
             onSubmit={saveObservation}
+            observationTypes={observationTypes}
           />
         </Route>
       </Switch>

@@ -1,9 +1,17 @@
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import OutlineLink from '../components/links/OutlineLink'
-import observationTypes from '../observationTypes'
 
-export default function ObservationFormPickerPage() {
+ObservationFormPickerPage.propTypes = {
+  observationTypes: PropTypes.arrayOf({
+    name: PropTypes.string,
+    type: PropTypes.string,
+    unit: PropTypes.string,
+  }),
+}
+
+export default function ObservationFormPickerPage(observationTypes) {
   return (
     <Grid>
       <LinkStyled to="/observations">zurück</LinkStyled>
