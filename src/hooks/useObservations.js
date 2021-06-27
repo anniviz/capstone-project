@@ -4,12 +4,17 @@ import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
 export default function useObservations(selectedDayString) {
   const observationTypes = [
-    { name: 'Größe', type: 'size', unit: 'cm' },
-    { name: 'Gewicht', type: 'weight', unit: 'kg' },
-    { name: 'Temperatur', type: 'temperature', unit: '°C' },
-    { name: 'Blutdruck', type: 'bloodpressure', unit: 'mmHg' },
-    { name: 'FEV1', type: 'fev1', unit: 'l/s' },
-    { name: 'Blutzucker', type: 'bloodsugar', unit: 'mmol/l' },
+    { name: 'Größe', type: 'size', unit: 'cm', format: '134' },
+    { name: 'Gewicht', type: 'weight', unit: 'kg', format: '25,95 ' },
+    { name: 'Temperatur', type: 'temperature', unit: '°C', format: '36,7' },
+    {
+      name: 'Blutdruck',
+      type: 'bloodpressure',
+      unit: 'mmHg',
+      format: '104/57',
+    },
+    { name: 'FEV1', type: 'fev1', unit: 'l/s', format: '1,26' },
+    { name: 'Blutzucker', type: 'bloodsugar', unit: 'mmol/l', format: '6,7' },
     { name: 'Urin', type: 'urin', unit: '' },
     { name: 'Notizen', type: 'notes', unit: '' },
   ]

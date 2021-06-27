@@ -13,7 +13,7 @@ ObservationFormPageDefault.propTypes = {
       name: PropTypes.string,
       type: PropTypes.string,
       unit: PropTypes.string,
-    })
+    }).isRequired
   ),
   observationType: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
@@ -25,7 +25,7 @@ export default function ObservationFormPageDefault({
   onSubmit,
 }) {
   let history = useHistory()
-  const { name, type, unit } = observationTypes.find(
+  const { name, type, unit, format } = observationTypes.find(
     element => element.type === observationType
   )
 
@@ -56,25 +56,29 @@ export default function ObservationFormPageDefault({
           <Input
             name="inputValue"
             onChange={handleChange}
+            isInputValid={isObservationInputValid}
             value={inputs.inputValue}
             autoComplete="off"
           />
           <Unit>{unit}</Unit>
         </InputWrapper>
+        <Warning isInputValid={isObservationInputValid}>
+          {name} bitte in einem Format wie "{format}" angeben!
+        </Warning>
       </Label>
-      <Label timeField>
+      <Label>
         Uhrzeit:
         <InputWrapper>
-          <InputTime
+          <Input
             name="time"
             onChange={handleChange}
-            isTimeValid={isTimeValid}
+            isInputValid={isTimeValid}
             value={inputs.time}
             autoComplete="off"
           />
           <Unit>Uhr</Unit>
         </InputWrapper>
-        <Warning isTimeValid={isTimeValid}>
+        <Warning isInputValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
         </Warning>
       </Label>
@@ -94,6 +98,7 @@ export default function ObservationFormPageDefault({
     if (!validateTypeInput(inputValue.value, type)) {
       setIsObservationInputValid(false)
       inputValue.focus()
+      return
     }
     if (!validateTime(time.value)) {
       setIsTimeValid(false)
@@ -134,7 +139,7 @@ const FormWrapper = styled.form`
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  height: ${props => props.timeField && '92px'};
+  height: 92px;
   color: var(--color-primary);
   font-weight: bold;
   font-size: 1.1em;
@@ -148,6 +153,7 @@ const Input = styled.input`
   padding: 4px;
   width: 100px;
   border: 1px solid var(--color-secondary);
+  border-color: ${props => props.isInputValid || 'var(--color-warning)'};
   border-radius: 16px;
   color: var(--color-primary);
   font-size: 0.9em;
@@ -160,17 +166,13 @@ const Input = styled.input`
   }
 `
 
-const InputTime = styled(Input)`
-  border-color: ${props => props.isTimeValid || 'var(--color-warning)'};
-`
-
 const Flexbox = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
 const Warning = styled.p`
-  display: ${props => (props.isTimeValid ? 'none' : 'block')};
+  display: ${props => (props.isInputValid ? 'none' : 'block')};
   margin: 0;
   color: var(--color-warning);
   font-weight: 300;

@@ -10,7 +10,7 @@ ObservationPage.propTypes = {
       name: PropTypes.string,
       type: PropTypes.string,
       unit: PropTypes.string,
-    })
+    }).isRequired
   ),
   observations: PropTypes.arrayOf(
     PropTypes.shape({

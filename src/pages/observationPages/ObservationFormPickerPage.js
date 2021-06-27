@@ -9,7 +9,7 @@ ObservationFormPickerPage.propTypes = {
       name: PropTypes.string,
       type: PropTypes.string,
       unit: PropTypes.string,
-    })
+    }).isRequired
   ),
 }
 
