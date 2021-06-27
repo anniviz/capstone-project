@@ -3,7 +3,7 @@ import { useImmer } from 'use-immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
 export default function useObservations(selectedDayString) {
-  const observationsTypes = [
+  const observationTypes = [
     { name: 'Größe', type: 'size', unit: 'cm' },
     { name: 'Gewicht', type: 'weight', unit: 'kg' },
     { name: 'Temperatur', type: 'temperature', unit: '°C' },
@@ -54,7 +54,7 @@ export default function useObservations(selectedDayString) {
   }
 
   return {
-    observationsTypes,
+    observationTypes,
     selectedObservations,
     observationsDiary,
     saveObservation,

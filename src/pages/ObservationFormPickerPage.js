@@ -4,14 +4,16 @@ import styled from 'styled-components/macro'
 import OutlineLink from '../components/links/OutlineLink'
 
 ObservationFormPickerPage.propTypes = {
-  observationTypes: PropTypes.arrayOf({
-    name: PropTypes.string,
-    type: PropTypes.string,
-    unit: PropTypes.string,
-  }),
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+    })
+  ),
 }
 
-export default function ObservationFormPickerPage(observationTypes) {
+export default function ObservationFormPickerPage({ observationTypes }) {
   return (
     <Grid>
       <LinkStyled to="/observations">zurück</LinkStyled>
