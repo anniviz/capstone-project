@@ -5,6 +5,13 @@ import ObservationGroup from '../components/ObservationGroup'
 import sortByTime from '../utils/sortByTime'
 
 ObservationPage.propTypes = {
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+    })
+  ),
   observations: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -15,7 +22,7 @@ ObservationPage.propTypes = {
   ),
 }
 
-export default function ObservationPage({ observations }) {
+export default function ObservationPage({ observations, observationTypes }) {
   const sortedObservations = sortByTime(observations)
 
   return (
@@ -23,6 +30,7 @@ export default function ObservationPage({ observations }) {
       {sortedObservations.map(({ id, time, name, observationValue }) => (
         <ObservationGroup
           key={id}
+          observationTypes={observationTypes}
           time={time}
           name={name}
           value={observationValue}

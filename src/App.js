@@ -8,6 +8,7 @@ import useObservations from './hooks/useObservations'
 import FormPage from './pages/FormPage'
 import MedicationPage from './pages/MedicationPage'
 import ObservationFormPageDefault from './pages/ObservationFormPageDefault'
+import ObservationFormPageNote from './pages/ObservationFormPageNote'
 import ObservationFormPickerPage from './pages/ObservationFormPickerPage'
 import ObservationPage from './pages/ObservationPage'
 import createDateString from './services/createDayString'
@@ -84,6 +85,9 @@ export default function App() {
             onSubmit={saveObservation}
             observationTypes={observationTypes}
           />
+        </Route>
+        <Route exact path={'/observations/form/notes'}>
+          <ObservationFormPageNote onSubmit={saveObservation} />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

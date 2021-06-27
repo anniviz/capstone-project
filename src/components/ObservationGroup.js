@@ -1,29 +1,12 @@
 import styled from 'styled-components/macro'
 
-export default function ObservationGroup({ time, name, value }) {
-  let unit = ''
-  switch (name) {
-    case 'Blutdruck':
-      unit = 'mmHg'
-      break
-    case 'Temperatur':
-      unit = '°C'
-      break
-    case 'Gewicht':
-      unit = 'kg'
-      break
-    case 'FEV1':
-      unit = 'l/s'
-      break
-    case 'Größe':
-      unit = 'cm'
-      break
-    case 'Blutzucker':
-      unit = 'mmol/l'
-      break
-    default:
-      unit = ''
-  }
+export default function ObservationGroup({
+  time,
+  name,
+  value,
+  observationTypes,
+}) {
+  const { unit } = observationTypes.find(element => element.name === name)
 
   return (
     <Wrapper>
@@ -60,4 +43,5 @@ const Time = styled.time`
 
 const Value = styled.div`
   color: var(--color-primary);
+  white-space: pre-wrap;
 `
