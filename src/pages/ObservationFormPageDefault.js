@@ -7,6 +7,11 @@ import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
 import observationTypes from '../observationTypes'
 
+ObservationFormPageDefault.propTypes = {
+  observationType: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+}
+
 export default function ObservationFormPageDefault({
   observationType,
   onSubmit,

@@ -1,16 +1,21 @@
+import PropTypes from 'prop-types'
 import 'react-day-picker/lib/style.css'
 import styled from 'styled-components/macro'
 import ObservationGroup from '../components/ObservationGroup'
 import sortByTime from '../utils/sortByTime'
 
-export default function ObservationPage({ observations }) {
-  // const observations = [
-  //   { id: 1, time: '8:00', name: 'Blutdruck', value: '94/50' },
-  //   { id: 2, time: '8:00', name: 'Temperatur', value: '36,5' },
-  //   { id: 3, time: '8:00', name: 'Gewicht', value: '22,5' },
-  //   { id: 4, time: '10:00', name: 'FEV1', value: '1,11' },
-  // ]
+ObservationPage.propTypes = {
+  observations: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      time: PropTypes.string,
+      type: PropTypes.string,
+      observationValue: PropTypes.string,
+    })
+  ),
+}
 
+export default function ObservationPage({ observations }) {
   const sortedObservations = sortByTime(observations)
 
   return (
