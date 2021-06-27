@@ -5,13 +5,16 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/buttons/Button'
 import useFormValidation from '../hooks/useFormValidation'
+import getCurrentTime from '../utils/getCurrentTime'
 
 ObservationFormPageDefault.propTypes = {
-  observationTypes: PropTypes.arrayOf({
-    name: PropTypes.string,
-    type: PropTypes.string,
-    unit: PropTypes.string,
-  }),
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+    })
+  ),
   observationType: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 }
@@ -22,17 +25,12 @@ export default function ObservationFormPageDefault({
   onSubmit,
 }) {
   let history = useHistory()
-  const today = new Date()
   const { name, type, unit } = observationTypes.find(
     element => element.type === observationType
   )
 
   const [inputs, setInputs] = useState({
-    time: `${today.getUTCHours()}:${
-      today.getUTCMinutes() < 10
-        ? '0' + today.getUTCMinutes()
-        : today.getUTCMinutes()
-    }`,
+    time: getCurrentTime(),
     inputValue: '',
   })
 
