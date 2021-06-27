@@ -3,31 +3,16 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
-import Button from '../components/buttons/Button'
-import useFormValidation from '../hooks/useFormValidation'
-import getCurrentTime from '../utils/getCurrentTime'
+import Button from '../../components/buttons/Button'
+import useFormValidation from '../../hooks/useFormValidation'
+import getCurrentTime from '../../utils/getCurrentTime'
 
-ObservationFormPageDefault.propTypes = {
-  observationTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      unit: PropTypes.string,
-    })
-  ),
-  observationType: PropTypes.string,
+ObservationFormPageNote.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default function ObservationFormPageDefault({
-  observationTypes,
-  observationType,
-  onSubmit,
-}) {
+export default function ObservationFormPageNote({ onSubmit }) {
   let history = useHistory()
-  const { name, type, unit } = observationTypes.find(
-    element => element.type === observationType
-  )
 
   const [inputs, setInputs] = useState({
     time: getCurrentTime(),
@@ -39,9 +24,6 @@ export default function ObservationFormPageDefault({
     isDisabled,
     setIsTimeValid,
     validateTime,
-    validateTypeInput,
-    isObservationInputValid,
-    setIsObservationInputValid,
   } = useFormValidation(inputs)
 
   return (
@@ -51,16 +33,14 @@ export default function ObservationFormPageDefault({
       role="form"
     >
       <Label>
-        {name}:
-        <InputWrapper>
-          <Input
-            name="inputValue"
-            onChange={handleChange}
-            value={inputs.inputValue}
-            autoComplete="off"
-          />
-          <Unit>{unit}</Unit>
-        </InputWrapper>
+        Notizen:
+        <Textarea
+          name="inputValue"
+          rows="10"
+          onChange={handleChange}
+          value={inputs.inputValue}
+          autoComplete="off"
+        />
       </Label>
       <Label timeField>
         Uhrzeit:
@@ -91,10 +71,6 @@ export default function ObservationFormPageDefault({
     event.preventDefault()
     const form = event.target
     const { time, inputValue } = form.elements
-    if (!validateTypeInput(inputValue.value, type)) {
-      setIsObservationInputValid(false)
-      inputValue.focus()
-    }
     if (!validateTime(time.value)) {
       setIsTimeValid(false)
       time.focus()
@@ -104,9 +80,9 @@ export default function ObservationFormPageDefault({
     onSubmit({
       id: uuidv4(),
       time: time.value,
-      type,
-      name,
-      observationValue: inputValue.value,
+      type: 'notes',
+      name: 'Notizen',
+      observationValue: inputValue.value.replace(/^\s*\n/gm, ''),
     })
 
     history.push('/observations')
@@ -162,6 +138,19 @@ const Input = styled.input`
 
 const InputTime = styled(Input)`
   border-color: ${props => props.isTimeValid || 'var(--color-warning)'};
+`
+
+const Textarea = styled.textarea`
+  width: 100%;
+  padding: 4px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 16px;
+  overflow: auto;
+  color: var(--color-primary);
+  font-size: 1em;
+  line-height: 1.5em;
+  resize: none;
+  box-shadow: 34px 34px 89px var(--color-shadow-13);
 `
 
 const Flexbox = styled.div`

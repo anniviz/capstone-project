@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import OutlineLink from '../components/links/OutlineLink'
+import OutlineLink from '../../components/links/OutlineLink'
 
 ObservationFormPickerPage.propTypes = {
   observationTypes: PropTypes.arrayOf(

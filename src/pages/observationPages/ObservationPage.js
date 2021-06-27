@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import 'react-day-picker/lib/style.css'
 import styled from 'styled-components/macro'
-import ObservationGroup from '../components/ObservationGroup'
-import sortByTime from '../utils/sortByTime'
+import ObservationGroup from '../../components/ObservationGroup'
+import sortByTime from '../../utils/sortByTime'
 
 ObservationPage.propTypes = {
   observationTypes: PropTypes.arrayOf(
