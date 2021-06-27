@@ -1,9 +1,9 @@
 import React from 'react'
-import ObservationFormPageNote from './ObservationFormPageNote'
+import ObservationFormPageUrin from './ObservationFormPageUrin'
 
 export default {
-  title: 'pages/observation forms/notes',
-  component: ObservationFormPageNote,
+  title: 'pages/observation forms/urin',
+  component: ObservationFormPageUrin,
   argTypes: {
     isDisabled: { type: 'boolean' },
   },
@@ -23,5 +23,5 @@ export default {
   ],
 }
 
-export const Default = args => <ObservationFormPageNote {...args} />
+export const Default = args => <ObservationFormPageUrin {...args} />
 Default.args = {}

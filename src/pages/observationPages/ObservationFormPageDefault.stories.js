@@ -2,7 +2,7 @@ import React from 'react'
 import ObservationFormPageDefault from './ObservationFormPageDefault'
 
 export default {
-  title: 'pages/ObservationFormPageDefault',
+  title: 'pages/observation forms/default',
   component: ObservationFormPageDefault,
   argTypes: {
     isDisabled: { type: 'boolean' },

@@ -2,7 +2,7 @@ import React from 'react'
 import ObservationFormPickerPage from './ObservationFormPickerPage'
 
 export default {
-  title: 'pages/ObservationFormPickerPage',
+  title: 'pages/observation forms/form picker',
   component: ObservationFormPickerPage,
 }
 
