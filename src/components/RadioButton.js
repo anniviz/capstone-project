@@ -1,4 +1,14 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+
+RadioButton.propTypes = {
+  label: PropTypes.string,
+  id: PropTypes.string,
+  value: PropTypes.string,
+  name: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
+}
 
 export default function RadioButton({
   label,

@@ -1,4 +1,19 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+
+ObservationGroup.propTypes = {
+  time: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+      format: PropTypes.string,
+    })
+  ),
+}
 
 export default function ObservationGroup({
   time,
