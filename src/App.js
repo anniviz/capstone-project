@@ -65,6 +65,8 @@ export default function App() {
           <ObservationPage
             observations={selectedObservations}
             observationTypes={observationTypes}
+            selectedDay={selectedDay}
+            onSelectedDay={setSelectedDay}
           />
         </Route>
         <Route exact path={'/observations/form'}>
