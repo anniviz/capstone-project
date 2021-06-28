@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import ObservationGroup from './ObservationGroup'
 
 describe('ObservationGroup', () => {
@@ -34,8 +33,6 @@ describe('ObservationGroup', () => {
           { name: 'Urin', type: 'urine', unit: '' },
           { name: 'Notizen', type: 'notes', unit: '' },
         ]}
-        handleEditClick={jest.fn()}
-        handleCheckClick={jest.fn()}
       />
     )
 
