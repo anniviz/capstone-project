@@ -70,7 +70,7 @@ export default function MedicationPage({
           </IconButton>
         )}
         {medications.length !== 0 &&
-          (editMode === true ? (
+          (editMode ? (
             <>
               <IconButton
                 align="right"

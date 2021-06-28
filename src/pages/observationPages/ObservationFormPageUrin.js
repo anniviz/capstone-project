@@ -157,7 +157,7 @@ export default function ObservationFormPageUrin({ onSubmit }) {
   }
 
   function handleBackClick() {
-    history.push('/observations/form')
+    history.goBack()
   }
 }
 

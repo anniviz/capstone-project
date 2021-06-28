@@ -95,7 +95,7 @@ export default function ObservationFormPageNote({ onSubmit }) {
   }
 
   function handleBackClick() {
-    history.push('/observations/form')
+    history.goBack()
   }
 }
 

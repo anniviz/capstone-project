@@ -124,7 +124,7 @@ export default function ObservationFormPageDefault({
   }
 
   function handleBackClick() {
-    history.push('/observations/form')
+    history.goBack()
   }
 }
 
