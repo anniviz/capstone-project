@@ -33,6 +33,7 @@ export default function App() {
   const {
     observationTypes,
     selectedObservations,
+    selectedObservation,
     selectedObservationId,
     setSelectedObservationId,
     saveObservation,
@@ -88,9 +89,11 @@ export default function App() {
           ]}
         >
           <ObservationFormPageDefault
+            observation={selectedObservation}
             observationType={getLastSegmentOfUrl()}
             onSubmit={saveObservation}
             observationTypes={observationTypes}
+            setSelectedObservationId={setSelectedObservationId}
           />
         </Route>
         <Route path={'/observations/form/notes'}>

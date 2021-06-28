@@ -17,12 +17,15 @@ ObservationFormPageDefault.propTypes = {
   ),
   observationType: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
+  setSelectedObservationId: PropTypes.func.isRequired,
 }
 
 export default function ObservationFormPageDefault({
+  observation,
   observationTypes,
   observationType,
   onSubmit,
+  setSelectedObservationId,
 }) {
   let history = useHistory()
   const { name, type, unit, format } = observationTypes.find(
@@ -30,8 +33,8 @@ export default function ObservationFormPageDefault({
   )
 
   const [inputs, setInputs] = useState({
-    time: getCurrentTime(),
-    inputValue: '',
+    time: observation?.time || getCurrentTime(),
+    inputValue: observation?.observationValue || '',
   })
 
   const {
@@ -107,13 +110,23 @@ export default function ObservationFormPageDefault({
       return
     }
 
-    onSubmit({
-      id: uuidv4(),
-      time: time.value,
-      type,
-      name,
-      observationValue: inputValue.value,
-    })
+    if (observation.id) {
+      onSubmit({
+        id: observation.id,
+        time: time.value,
+        type,
+        name,
+        observationValue: inputValue.value,
+      })
+    } else {
+      onSubmit({
+        id: uuidv4(),
+        time: time.value,
+        type,
+        name,
+        observationValue: inputValue.value,
+      })
+    }
 
     history.push('/observations')
   }
@@ -124,6 +137,7 @@ export default function ObservationFormPageDefault({
   }
 
   function handleBackClick() {
+    setSelectedObservationId(null)
     history.goBack()
   }
 }

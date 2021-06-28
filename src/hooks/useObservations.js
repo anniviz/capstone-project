@@ -35,6 +35,11 @@ export default function useObservations(selectedDayString) {
   const selectedObservations = dateIndex > -1 ? findActiveObservations() : []
 
   const [selectedObservationId, setSelectedObservationId] = useState(null)
+  const selectedObservationIndex = selectedObservations.findIndex(
+    observation => observation.id === selectedObservationId
+  )
+  const selectedObservation =
+    selectedObservations[selectedObservationIndex] ?? {}
 
   function findActiveObservations() {
     return observationsDiary[dateIndex].observations
@@ -47,9 +52,30 @@ export default function useObservations(selectedDayString) {
     } else {
       addObbservationToNewDay(newObservation)
     }
+    setSelectedObservationId(null)
   }
 
   function updateSelectedDay(newObservation) {
+    const observationsIndex = selectedObservations.findIndex(
+      observation => observation.id === newObservation.id
+    )
+
+    const doesObservationExist = observationsIndex > -1
+
+    if (doesObservationExist) {
+      updateExistingObservation(observationsIndex, newObservation)
+    } else {
+      addObservationToExistingDay(newObservation)
+    }
+  }
+
+  function updateExistingObservation(observationsIndex, newObservation) {
+    updateObservationsDiary(draft => {
+      draft[dateIndex].observations[observationsIndex] = newObservation
+    })
+  }
+
+  function addObservationToExistingDay(newObservation) {
     updateObservationsDiary(draft => {
       draft[dateIndex].observations.push(newObservation)
     })
@@ -77,6 +103,7 @@ export default function useObservations(selectedDayString) {
   return {
     observationTypes,
     selectedObservations,
+    selectedObservation,
     selectedObservationId,
     setSelectedObservationId,
     saveObservation,
