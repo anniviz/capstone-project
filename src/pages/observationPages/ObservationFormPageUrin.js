@@ -14,20 +14,19 @@ ObservationFormPageUrin.propTypes = {
 
 export default function ObservationFormPageUrin({ onSubmit }) {
   let history = useHistory()
+  const [leukos, setLeukos] = useState('neg.')
+  const [nitrit, setNitrit] = useState('neg.')
 
   const [inputs, setInputs] = useState({
     time: getCurrentTime(),
-    inputValue: '',
+    inputValue: `${leukos}\n${nitrit}`,
   })
-
-  const [leukos, setLeukos] = useState('neg')
-  const [nitrit, setNitrit] = useState('neg')
 
   const {
     isTimeValid,
-    isDisabled,
     setIsTimeValid,
     validateTime,
+    isDisabled,
   } = useFormValidation(inputs)
 
   return (
@@ -44,34 +43,34 @@ export default function ObservationFormPageUrin({ onSubmit }) {
             <RadioButton
               label="neg."
               id="neg"
-              value="neg"
+              value="neg."
               name="leukos"
               handleChange={handleLeukosChange}
-              isSelected={leukos === 'neg'}
+              isSelected={leukos === 'neg.'}
             />
             <RadioButton
               label="1+"
               id="1"
-              value="1"
+              value="1+"
               name="leukos"
               handleChange={handleLeukosChange}
-              isSelected={leukos === '1'}
+              isSelected={leukos === '1+'}
             />
             <RadioButton
               label="2+"
               id="2"
-              value="2"
+              value="2+"
               name="leukos"
               handleChange={handleLeukosChange}
-              isSelected={leukos === '2'}
+              isSelected={leukos === '2+'}
             />
             <RadioButton
               label="3+"
               id="3"
-              value="3"
+              value="3+"
               name="leukos"
               handleChange={handleLeukosChange}
-              isSelected={leukos === '3'}
+              isSelected={leukos === '3+'}
             />
           </Fieldset>
           <Fieldset>
@@ -79,18 +78,18 @@ export default function ObservationFormPageUrin({ onSubmit }) {
             <RadioButton
               label="neg."
               id="negNit"
-              value="neg"
+              value="neg."
               name="nitrit"
               handleChange={handleNitritChange}
-              isSelected={nitrit === 'neg'}
+              isSelected={nitrit === 'neg.'}
             />
             <RadioButton
               label="pos."
               id="pos"
-              value="pos"
+              value="pos."
               name="nitrit"
               handleChange={handleNitritChange}
-              isSelected={nitrit === 'pos'}
+              isSelected={nitrit === 'pos.'}
             />
           </Fieldset>
         </RadioWrapper>
@@ -100,7 +99,7 @@ export default function ObservationFormPageUrin({ onSubmit }) {
         <InputWrapper>
           <InputTime
             name="time"
-            onChange={handleChange}
+            onChange={handleTimeChange}
             isTimeValid={isTimeValid}
             value={inputs.time}
             autoComplete="off"
@@ -121,17 +120,26 @@ export default function ObservationFormPageUrin({ onSubmit }) {
   )
 
   function handleLeukosChange(event) {
-    setLeukos(event.target.value)
+    const { value } = event.target
+    setLeukos(value)
+    setInputs({ ...inputs, inputValue: `${value}\n${nitrit}` })
   }
+
   function handleNitritChange(event) {
-    setNitrit(event.target.value)
+    const { value } = event.target
+    setNitrit(value)
+    setInputs({ ...inputs, inputValue: `${leukos}\n${value}` })
+  }
+
+  function handleTimeChange(event) {
+    const { value } = event.target
+    setInputs({ ...inputs, time: value })
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-    const form = event.target
-    const { time, inputValue } = form.elements
-    if (!validateTime(time.value)) {
+    const { time, inputValue } = inputs
+    if (!validateTime(time)) {
       setIsTimeValid(false)
       time.focus()
       return
@@ -139,18 +147,13 @@ export default function ObservationFormPageUrin({ onSubmit }) {
 
     onSubmit({
       id: uuidv4(),
-      time: time.value,
-      type: 'notes',
-      name: 'Notizen',
-      observationValue: inputValue.value.replace(/^\s*\n/gm, ''),
+      time: time,
+      type: 'urine',
+      name: 'Urin',
+      observationValue: inputValue,
     })
 
     history.push('/observations')
-  }
-
-  function handleChange(event) {
-    const { name, value } = event.target
-    setInputs({ ...inputs, [name]: value })
   }
 
   function handleBackClick() {

@@ -8,7 +8,6 @@ export default function RadioButton({
   handleChange,
   isSelected,
 }) {
-  console.log(isSelected)
   return (
     <>
       <RadioInput
@@ -19,7 +18,7 @@ export default function RadioButton({
         onChange={handleChange}
         checked={isSelected}
       />
-      <RadioLabel for={id}>{label}</RadioLabel>
+      <RadioLabel htmlFor={id}>{label}</RadioLabel>
     </>
   )
 }

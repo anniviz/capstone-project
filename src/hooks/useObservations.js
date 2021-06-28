@@ -15,7 +15,7 @@ export default function useObservations(selectedDayString) {
     },
     { name: 'FEV1', type: 'fev1', unit: 'l/s', format: '1,26' },
     { name: 'Blutzucker', type: 'bloodsugar', unit: 'mmol/l', format: '6,7' },
-    { name: 'Urin', type: 'urin', unit: '' },
+    { name: 'Urin', type: 'urine', unit: '' },
     { name: 'Notizen', type: 'notes', unit: '' },
   ]
 

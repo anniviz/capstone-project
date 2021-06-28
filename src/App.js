@@ -89,7 +89,7 @@ export default function App() {
         <Route path={'/observations/form/notes'}>
           <ObservationFormPageNote onSubmit={saveObservation} />
         </Route>
-        <Route path={'/observations/form/urin'}>
+        <Route path={'/observations/form/urine'}>
           <ObservationFormPageUrin onSubmit={saveObservation} />
         </Route>
       </Switch>
