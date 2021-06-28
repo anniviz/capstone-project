@@ -23,6 +23,8 @@ describe('ObservationPage', () => {
             { name: 'Urin', type: 'urin', unit: '' },
             { name: 'Notizen', type: 'notes', unit: '' },
           ]}
+          selectedDay={new Date('2021-06-07T10:36:41.617Z')}
+          onSelectedDay={jest.fn()}
         />
       </MemoryRouter>
     )

@@ -28,50 +28,45 @@ describe('ObservationFormPageNote', () => {
     expect(button).toHaveLength(2)
   })
 
-  //   it('submits the form', () => {
-  //     const handleSubmit = jest.fn()
-  //     render(
-  //       <MemoryRouter>
-  //         <ObservationFormPageNote onSubmit={handleSubmit} />
-  //       </MemoryRouter>
-  //     )
-  //     const time = screen.getByRole('textbox', { name: 'Uhrzeit: Uhr' })
-  //     const notes = screen.getByRole('textbox', { name: 'Notizen:' })
-  //     userEvent.type(time, '8:00')
-  //     userEvent.type(notes, 'Übelkeit am Morgen')
+  it('submits the form', () => {
+    const handleSubmit = jest.fn()
+    render(
+      <MemoryRouter>
+        <ObservationFormPageNote onSubmit={handleSubmit} />
+      </MemoryRouter>
+    )
+    const time = screen.getByRole('textbox', { name: 'Uhrzeit: Uhr' })
+    const notes = screen.getByRole('textbox', { name: 'Notizen:' })
+    time.value = ''
+    userEvent.type(time, '8:00')
+    userEvent.type(notes, 'Übelkeit am Morgen')
 
-  //     const button = screen.getByRole('button', { name: 'speichern' })
-  //     userEvent.click(button)
-  //     expect(handleSubmit).toHaveBeenCalledWith({
-  //       id: '01234',
-  //       time: '8:00',
-  //       type: 'notes',
-  //       name: 'Notizen',
-  //       observationValue: 'Übelkeit am Morgen',
-  //     })
-  //   })
+    const button = screen.getByRole('button', { name: 'speichern' })
+    userEvent.click(button)
+    expect(handleSubmit).toHaveBeenCalledWith({
+      id: '01234',
+      time: '8:00',
+      type: 'notes',
+      name: 'Notizen',
+      observationValue: 'Übelkeit am Morgen',
+    })
+  })
 
-  //   it('does not submit when one of the input fields is empty', () => {
-  //     const handleSubmit = jest.fn()
+  it('does not submit when one of the input fields is empty', () => {
+    const handleSubmit = jest.fn()
 
-  //     render(
-  //       <MemoryRouter>
-  //         <FormPage
-  //           onSubmit={handleSubmit}
-  //           medication={{
-  //             time: '',
-  //             meds: [],
-  //           }}
-  //           setSelectedMedicationId={jest.fn()}
-  //         />
-  //       </MemoryRouter>
-  //     )
-  //     const form = screen.getByRole('form')
+    render(
+      <MemoryRouter>
+        <ObservationFormPageNote onSubmit={handleSubmit} />
+      </MemoryRouter>
+    )
+    const form = screen.getByRole('form')
 
-  //     const button = screen.getByRole('button', { name: 'speichern' })
-  //     expect(button).toBeDisabled()
-  //     fireEvent.submit(form)
+    const button = screen.getByRole('button', { name: 'speichern' })
+    expect(button).toBeDisabled()
+    fireEvent.submit(form)
+    // screen.debug()
 
-  //     expect(handleSubmit).toHaveBeenCalledTimes(0)
-  //   })
+    expect(handleSubmit).toHaveBeenCalledTimes(0)
+  })
 })

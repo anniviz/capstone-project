@@ -69,6 +69,7 @@ export default function ObservationFormPageNote({ onSubmit }) {
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (isDisabled) return
     const form = event.target
     const { time, inputValue } = form.elements
     if (!validateTime(time.value)) {

@@ -93,6 +93,7 @@ export default function ObservationFormPageDefault({
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (isDisabled) return
     const form = event.target
     const { time, inputValue } = form.elements
     if (!validateTypeInput(inputValue.value, type)) {

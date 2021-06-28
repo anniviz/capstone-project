@@ -93,12 +93,12 @@ describe('ObservationFormPageDefault', () => {
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit: Uhr' })
     const inputValue = screen.getByRole('textbox', { name: 'FEV1: l/s' })
-    // userEvent.type(time, '8:00')
+    time.value = ''
+
+    userEvent.type(time, '8:00')
     userEvent.type(inputValue, '1,12')
-    // const form = screen.getByRole('form')
-    // fireEvent.submit(form)
     const button = screen.getByRole('button', { name: 'speichern' })
-    screen.debug()
+
     userEvent.click(button)
     expect(handleSubmit).toHaveBeenCalledWith({
       id: '01234',
@@ -109,27 +109,48 @@ describe('ObservationFormPageDefault', () => {
     })
   })
 
-  //   it('does not submit when one of the input fields is empty', () => {
-  //     const handleSubmit = jest.fn()
+  it('does not submit when one of the input fields is empty', () => {
+    const handleSubmit = jest.fn()
 
-  //     render(
-  //       <MemoryRouter>
-  //         <FormPage
-  //           onSubmit={handleSubmit}
-  //           medication={{
-  //             time: '',
-  //             meds: [],
-  //           }}
-  //           setSelectedMedicationId={jest.fn()}
-  //         />
-  //       </MemoryRouter>
-  //     )
-  //     const form = screen.getByRole('form')
+    render(
+      <MemoryRouter>
+        <ObservationFormPageDefault
+          onSubmit={handleSubmit}
+          observationType={'fev1'}
+          observationTypes={[
+            { name: 'Größe', type: 'size', unit: 'cm', format: '134' },
+            { name: 'Gewicht', type: 'weight', unit: 'kg', format: '25,95 ' },
+            {
+              name: 'Temperatur',
+              type: 'temperature',
+              unit: '°C',
+              format: '36,7',
+            },
+            {
+              name: 'Blutdruck',
+              type: 'bloodpressure',
+              unit: 'mmHg',
+              format: '104/57',
+            },
+            { name: 'FEV1', type: 'fev1', unit: 'l/s', format: '1,26' },
+            {
+              name: 'Blutzucker',
+              type: 'bloodsugar',
+              unit: 'mmol/l',
+              format: '6,7',
+            },
+            { name: 'Urin', type: 'urine', unit: '' },
+            { name: 'Notizen', type: 'notes', unit: '' },
+          ]}
+        />
+      </MemoryRouter>
+    )
+    const form = screen.getByRole('form')
 
-  //     const button = screen.getByRole('button', { name: 'speichern' })
-  //     expect(button).toBeDisabled()
-  //     fireEvent.submit(form)
+    const button = screen.getByRole('button', { name: 'speichern' })
+    expect(button).toBeDisabled()
+    fireEvent.submit(form)
 
-  //     expect(handleSubmit).toHaveBeenCalledTimes(0)
-  //   })
+    expect(handleSubmit).toHaveBeenCalledTimes(0)
+  })
 })
