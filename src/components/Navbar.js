@@ -10,18 +10,14 @@ export default function Navbar() {
   return (
     <Nav>
       <NavLink exact to="/medications">
-        {location.pathname.includes('medications') ? (
-          <MedicationsIconStyled isActive={true} />
-        ) : (
-          <MedicationsIconStyled isActive={false} />
-        )}
+        <MedicationsIconStyled
+          isActive={location.pathname.includes('medications')}
+        />
       </NavLink>
       <NavLink exact to="/observations">
-        {location.pathname.includes('observations') ? (
-          <ObservationsIconStyled isActive={true} />
-        ) : (
-          <ObservationsIconStyled isActive={false} />
-        )}
+        <ObservationsIconStyled
+          isActive={location.pathname.includes('observations')}
+        />
       </NavLink>
       <AddLink to={`${location.pathname}/form`}></AddLink>
     </Nav>
