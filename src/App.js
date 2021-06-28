@@ -33,7 +33,10 @@ export default function App() {
   const {
     observationTypes,
     selectedObservations,
+    selectedObservationId,
+    setSelectedObservationId,
     saveObservation,
+    deleteSingleObservation,
   } = useObservations(selectedDayString)
 
   return (
@@ -67,6 +70,8 @@ export default function App() {
             observationTypes={observationTypes}
             selectedDay={selectedDay}
             onSelectedDay={setSelectedDay}
+            onEdit={setSelectedObservationId}
+            onDelete={deleteSingleObservation}
           />
         </Route>
         <Route exact path={'/observations/form'}>

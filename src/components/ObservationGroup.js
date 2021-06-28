@@ -19,7 +19,7 @@ ObservationGroup.propTypes = {
   ),
   editMode: PropTypes.bool,
   handleEditClick: PropTypes.func.isRequired,
-  handleCheckClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 }
 
 export default function ObservationGroup({

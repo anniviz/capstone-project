@@ -1,8 +1,8 @@
+import produce from 'immer'
 import { useEffect, useState } from 'react'
 import { useImmer } from 'use-immer'
-import produce from 'immer'
-import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 import createDateString from '../services/createDayString'
+import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
 export default function useMedications(selectedDayString) {
   const [medicationsDiary, updateMedicationsDiary] = useImmer(

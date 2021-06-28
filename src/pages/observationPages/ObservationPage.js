@@ -30,8 +30,8 @@ ObservationPage.propTypes = {
   ),
   selectedDay: PropTypes.instanceOf(Date),
   onSelectedDay: PropTypes.func.isRequired,
-  onObservationEdit: PropTypes.func.isRequired,
-  onObservationDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default function ObservationPage({
@@ -39,8 +39,8 @@ export default function ObservationPage({
   observationTypes,
   selectedDay,
   onSelectedDay,
-  onObservationEdit,
-  onObservationDelete,
+  onEdit,
+  onDelete,
 }) {
   const sortedObservations = sortByTime(observations)
   const [editMode, setEditMode] = useState(false)
@@ -95,7 +95,7 @@ export default function ObservationPage({
             name={name}
             value={observationValue}
             editMode={editMode}
-            handleDeleteClick={onObservationDelete}
+            handleDeleteClick={onDelete}
             handleEditClick={handleEditClick}
           />
         ))}
@@ -108,7 +108,7 @@ export default function ObservationPage({
   }
 
   function handleEditClick(id, type) {
-    // onObservationEdit(id)
+    onEdit(id)
     history.push('/observations/form/' + type)
   }
 }

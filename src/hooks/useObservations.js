@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import produce from 'immer'
+import { useEffect, useState } from 'react'
 import { useImmer } from 'use-immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
@@ -33,6 +34,8 @@ export default function useObservations(selectedDayString) {
   )
   const selectedObservations = dateIndex > -1 ? findActiveObservations() : []
 
+  const [selectedObservationId, setSelectedObservationId] = useState(null)
+
   function findActiveObservations() {
     return observationsDiary[dateIndex].observations
   }
@@ -58,10 +61,25 @@ export default function useObservations(selectedDayString) {
     })
   }
 
+  function deleteSingleObservation(id) {
+    const dayObservations = observationsDiary[dateIndex].observations
+    const observationsIndex = dayObservations.findIndex(
+      observation => observation.id === id
+    )
+    updateObservationsDiary(
+      produce(observationsDiary, draft => {
+        if (observationsIndex !== -1)
+          draft[dateIndex].observations.splice(observationsIndex, 1)
+      })
+    )
+  }
+
   return {
     observationTypes,
     selectedObservations,
-    observationsDiary,
+    selectedObservationId,
+    setSelectedObservationId,
     saveObservation,
+    deleteSingleObservation,
   }
 }
