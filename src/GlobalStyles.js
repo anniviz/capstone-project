@@ -11,6 +11,8 @@ const GlobalStyles = createGlobalStyle`
     --color-shadow-13: rgba(50, 157, 156, 0.13);
     --color-shadow-21: rgba(50, 157, 156, 0.21);
     --color-warning: #f75010;
+
+    --shadow-navbar: 0 -5px 13px rgba(118, 134, 115, 0.08);
   }
 
   * {

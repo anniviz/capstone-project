@@ -14,7 +14,7 @@ const LinkStyled = styled(Link)`
   display: flex;
   position: absolute;
   right: 0;
-  bottom: 12px;
+  bottom: 40px;
   left: 0;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,6 @@ const LinkStyled = styled(Link)`
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
-  cursor: default;
   background: radial-gradient(
     at top left,
     var(--color-gradient-1),

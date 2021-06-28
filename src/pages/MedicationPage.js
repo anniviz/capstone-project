@@ -6,7 +6,6 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import AddLink from '../components/AddLink'
 import Button from '../components/buttons/Button'
 import IconButton from '../components/buttons/IconButton'
 import MedicationGroup from '../components/MedicationGroup'
@@ -14,6 +13,7 @@ import backIcon from '../icons/back.svg'
 import calendarIcon from '../icons/calendar.svg'
 import copyDayIcon from '../icons/copyDay.svg'
 import editRectangleIcon from '../icons/edit_rectangle.svg'
+import sortByTime from '../utils/sortByTime'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -43,11 +43,7 @@ export default function MedicationPage({
   onCopyDay,
   onToggle,
 }) {
-  const sortedMedications = medications.slice().sort(function (a, b) {
-    if (convertToMinutes(a.time) > convertToMinutes(b.time)) return 1
-    if (convertToMinutes(a.time) < convertToMinutes(b.time)) return -1
-    return 0
-  })
+  const sortedMedications = sortByTime(medications)
 
   const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -66,7 +62,10 @@ export default function MedicationPage({
         {copyMode || editMode ? (
           <Spacer width="20px" />
         ) : (
-          <IconButton onClick={() => setShowCalendar(!showCalendar)}>
+          <IconButton
+            onClick={() => setShowCalendar(!showCalendar)}
+            aria-label="Kalender anzeigen"
+          >
             <img src={calendarIcon} alt="" height="20px" />
           </IconButton>
         )}
@@ -80,18 +79,25 @@ export default function MedicationPage({
               >
                 <img src={copyDayIcon} alt="" height="20px" />
               </IconButton>
-              <IconButton align="right" onClick={handleBackClick}>
+              <IconButton
+                align="right"
+                onClick={handleBackClick}
+                aria-label="Bearbeiten beenden"
+              >
                 <img src={backIcon} alt="" height="20px" />
               </IconButton>
             </>
           ) : (
-            <IconButton onClick={() => setEditMode(true)}>
+            <IconButton
+              onClick={() => setEditMode(true)}
+              aria-label="Medikationen bearbeiten"
+            >
               <img src={editRectangleIcon} alt="" height="20px" />
             </IconButton>
           ))}
       </ButtonWrapper>
       {showCalendar && (
-        <StyledDayPicker
+        <DayPickerStyled
           onDayClick={handleDayClick}
           selectedDays={selectedDay}
           localeUtils={MomentLocaleUtils}
@@ -100,7 +106,7 @@ export default function MedicationPage({
       )}
       {copyMode && (
         <CopyWrapper>
-          <StyledDayPicker
+          <DayPickerStyled
             onDayClick={handleCopyDayClick}
             selectedDays={targetDate}
             modifiers={modifiers}
@@ -127,18 +133,11 @@ export default function MedicationPage({
           />
         ))}
       </Flexbox>
-      <AddLink to="/medications/form" />
     </Grid>
   )
 
   function handleDayClick(day) {
     onSelectedDay(day)
-  }
-
-  function convertToMinutes(time) {
-    const timeArray = time.split(':')
-    const minutes = timeArray[0] * 60 + timeArray[1]
-    return Number(minutes)
   }
 
   function handleEditClick(id) {
@@ -169,10 +168,10 @@ export default function MedicationPage({
   }
 }
 const Grid = styled.main`
-  position: relative;
   display: grid;
   grid-template-rows: ${props =>
     props.showCalendar ? 'auto auto 1fr' : 'auto 1fr'};
+  overflow: auto;
 `
 
 const Flexbox = styled.div`
@@ -194,11 +193,7 @@ const Spacer = styled.div`
   width: ${props => props.width};
 `
 
-const Text = styled.span`
-  color: var(--color-tertiary);
-`
-
-const StyledDayPicker = styled(DayPicker)`
+const DayPickerStyled = styled(DayPicker)`
   margin: 16px;
   border-radius: 20px;
   box-shadow: 34px 34px 89px var(--color-shadow-13);
