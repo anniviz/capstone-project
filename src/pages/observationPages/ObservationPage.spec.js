@@ -7,6 +7,12 @@ describe('ObservationPage', () => {
     render(
       <MemoryRouter>
         <ObservationPage
+          observations={[
+            { id: '1', time: '8:00', name: 'Blutdruck', value: '94/50' },
+            { id: '2', time: '8:00', name: 'Temperatur', value: '36,5' },
+            { id: '3', time: '8:00', name: 'Gewicht', value: '22,5' },
+            { id: '4', time: '10:00', name: 'FEV1', value: '1,11' },
+          ]}
           observationTypes={[
             { name: 'Größe', type: 'size', unit: 'cm' },
             { name: 'Gewicht', type: 'weight', unit: 'kg' },
