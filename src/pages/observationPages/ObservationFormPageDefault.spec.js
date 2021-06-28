@@ -11,6 +11,7 @@ describe('ObservationFormPageDefault', () => {
     render(
       <MemoryRouter>
         <ObservationFormPageDefault
+          observation={{}}
           onSubmit={jest.fn()}
           observationType={'fev1'}
           observationTypes={[
@@ -38,6 +39,7 @@ describe('ObservationFormPageDefault', () => {
             { name: 'Urin', type: 'urine', unit: '' },
             { name: 'Notizen', type: 'notes', unit: '' },
           ]}
+          setSelectedObservationId={jest.fn()}
         />
       </MemoryRouter>
     )
@@ -61,6 +63,8 @@ describe('ObservationFormPageDefault', () => {
     render(
       <MemoryRouter>
         <ObservationFormPageDefault
+          observation={{}}
+          setSelectedObservationId={jest.fn()}
           onSubmit={handleSubmit}
           observationType={'fev1'}
           observationTypes={[
@@ -115,6 +119,7 @@ describe('ObservationFormPageDefault', () => {
     render(
       <MemoryRouter>
         <ObservationFormPageDefault
+          observation={{}}
           onSubmit={handleSubmit}
           observationType={'fev1'}
           observationTypes={[
@@ -142,6 +147,7 @@ describe('ObservationFormPageDefault', () => {
             { name: 'Urin', type: 'urine', unit: '' },
             { name: 'Notizen', type: 'notes', unit: '' },
           ]}
+          setSelectedObservationId={jest.fn()}
         />
       </MemoryRouter>
     )

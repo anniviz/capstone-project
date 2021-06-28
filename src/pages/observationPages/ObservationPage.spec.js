@@ -25,6 +25,8 @@ describe('ObservationPage', () => {
           ]}
           selectedDay={new Date('2021-06-07T10:36:41.617Z')}
           onSelectedDay={jest.fn()}
+          onEdit={jest.fn()}
+          onDelete={jest.fn()}
         />
       </MemoryRouter>
     )

@@ -33,6 +33,8 @@ describe('ObservationGroup', () => {
           { name: 'Urin', type: 'urine', unit: '' },
           { name: 'Notizen', type: 'notes', unit: '' },
         ]}
+        handleEditClick={jest.fn()}
+        handleDeleteClick={jest.fn()}
       />
     )
 

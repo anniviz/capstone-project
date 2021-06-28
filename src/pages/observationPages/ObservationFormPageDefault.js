@@ -8,6 +8,13 @@ import useFormValidation from '../../hooks/useFormValidation'
 import getCurrentTime from '../../utils/getCurrentTime'
 
 ObservationFormPageDefault.propTypes = {
+  observation: PropTypes.shape({
+    id: PropTypes.string,
+    time: PropTypes.string,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    observationValue: PropTypes.string,
+  }).isRequired,
   observationTypes: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
