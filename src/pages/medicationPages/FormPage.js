@@ -37,7 +37,7 @@ export default function FormPage({
     validateTime,
   } = useFormValidation(medGroupInputs)
 
-  let history = useHistory()
+  const history = useHistory()
 
   return (
     <FormWrapper

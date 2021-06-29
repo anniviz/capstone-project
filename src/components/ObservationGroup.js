@@ -5,9 +5,9 @@ import editIcon from '../icons/edit.svg'
 import IconButton from './buttons/IconButton'
 
 ObservationGroup.propTypes = {
-  id: PropTypes.node,
-  time: PropTypes.string,
-  name: PropTypes.string,
+  id: PropTypes.node.isRequired,
+  time: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
   observationTypes: PropTypes.arrayOf(
     PropTypes.shape({
@@ -15,7 +15,7 @@ ObservationGroup.propTypes = {
       type: PropTypes.string,
       unit: PropTypes.string,
       format: PropTypes.string,
-    })
+    }).isRequired
   ),
   editMode: PropTypes.bool,
   handleEditClick: PropTypes.func.isRequired,

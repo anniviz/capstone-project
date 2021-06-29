@@ -19,7 +19,7 @@ ObservationFormPageNote.propTypes = {
 }
 
 export default function ObservationFormPageNote({ observation, onSubmit }) {
-  let history = useHistory()
+  const history = useHistory()
 
   const [inputs, setInputs] = useState({
     time: observation?.time || getCurrentTime(),
@@ -36,7 +36,7 @@ export default function ObservationFormPageNote({ observation, onSubmit }) {
   return (
     <FormWrapper
       onSubmit={handleSubmit}
-      aria-label="dynamisch erstellen"
+      aria-label="Notiz erstellen"
       role="form"
     >
       <Label>
@@ -51,7 +51,7 @@ export default function ObservationFormPageNote({ observation, onSubmit }) {
       </Label>
       <Label timeField>
         Uhrzeit:
-        <InputWrapper>
+        <div>
           <InputTime
             name="time"
             onChange={handleChange}
@@ -60,7 +60,7 @@ export default function ObservationFormPageNote({ observation, onSubmit }) {
             autoComplete="off"
           />
           <Unit>Uhr</Unit>
-        </InputWrapper>
+        </div>
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
         </Warning>
@@ -77,8 +77,10 @@ export default function ObservationFormPageNote({ observation, onSubmit }) {
   function handleSubmit(event) {
     event.preventDefault()
     if (isDisabled) return
+
     const form = event.target
     const { time, inputValue } = form.elements
+
     if (!validateTime(time.value)) {
       setIsTimeValid(false)
       time.focus()
@@ -134,8 +136,6 @@ const Label = styled.label`
   font-size: 1.1em;
   gap: 4px;
 `
-
-const InputWrapper = styled.div``
 
 const Input = styled.input`
   height: 40px;

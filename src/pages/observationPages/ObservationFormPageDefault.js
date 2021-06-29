@@ -34,7 +34,7 @@ export default function ObservationFormPageDefault({
   onSubmit,
   setSelectedObservationId,
 }) {
-  let history = useHistory()
+  const history = useHistory()
   const { name, type, unit, format } = observationTypes.find(
     element => element.type === observationType
   )
@@ -54,15 +54,13 @@ export default function ObservationFormPageDefault({
     setIsObservationInputValid,
   } = useFormValidation(inputs)
 
+  const AriaLabelForm = `Beobachtung von ${name} erstellen`
+
   return (
-    <FormWrapper
-      onSubmit={handleSubmit}
-      aria-label="dynamisch erstellen"
-      role="form"
-    >
+    <FormWrapper onSubmit={handleSubmit} aria-label={AriaLabelForm} role="form">
       <Label>
         {name}:
-        <InputWrapper>
+        <div>
           <Input
             name="inputValue"
             onChange={handleChange}
@@ -71,14 +69,14 @@ export default function ObservationFormPageDefault({
             autoComplete="off"
           />
           <Unit>{unit}</Unit>
-        </InputWrapper>
+        </div>
         <Warning isInputValid={isObservationInputValid}>
           {name} bitte in einem Format wie "{format}" angeben!
         </Warning>
       </Label>
       <Label>
         Uhrzeit:
-        <InputWrapper>
+        <div>
           <Input
             name="time"
             onChange={handleChange}
@@ -87,7 +85,7 @@ export default function ObservationFormPageDefault({
             autoComplete="off"
           />
           <Unit>Uhr</Unit>
-        </InputWrapper>
+        </div>
         <Warning isInputValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
         </Warning>
@@ -104,8 +102,10 @@ export default function ObservationFormPageDefault({
   function handleSubmit(event) {
     event.preventDefault()
     if (isDisabled) return
+
     const form = event.target
     const { time, inputValue } = form.elements
+
     if (!validateTypeInput(inputValue.value, type)) {
       setIsObservationInputValid(false)
       inputValue.focus()
@@ -167,8 +167,6 @@ const Label = styled.label`
   font-size: 1.1em;
   gap: 4px;
 `
-
-const InputWrapper = styled.div``
 
 const Input = styled.input`
   height: 40px;

@@ -54,7 +54,7 @@ export default function MedicationPage({
     copyFromDay: selectedDay,
   }
 
-  let history = useHistory()
+  const history = useHistory()
 
   return (
     <Grid showCalendar={showCalendar}>
