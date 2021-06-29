@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import useObservations from './hooks/useObservations'
+import ChartPage from './pages/chartPages/ChartPage'
 import FormPage from './pages/medicationPages/FormPage'
 import MedicationPage from './pages/medicationPages/MedicationPage'
 import ObservationFormPageDefault from './pages/observationPages/ObservationFormPageDefault'
@@ -117,6 +118,9 @@ export default function App() {
               observationTypes.length - 1
             )}
           />
+        </Route>
+        <Route exact path={'/charts/fev1'}>
+          <ChartPage />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}
