@@ -12,21 +12,24 @@ ObservationPickerPage.propTypes = {
       unit: PropTypes.string,
     }).isRequired
   ),
+  leadingPath: PropTypes.string.isRequired,
 }
 
-export default function ObservationPickerPage({ observationTypes }) {
+export default function ObservationPickerPage({
+  observationTypes,
+  leadingPath,
+}) {
   const history = useHistory()
 
   return (
     <Grid>
       <TextButton onClick={() => history.goBack()}>zurück</TextButton>
-      {/* <LinkStyled to={() => history.goBack()}>zurück</LinkStyled> */}
       <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
           <OutlineLink
             key={observationType.type}
-            to={`/observations/form/${observationType.type}`}
+            to={`${leadingPath}/${observationType.type}`}
           >
             {observationType.name}
           </OutlineLink>

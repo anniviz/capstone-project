@@ -77,8 +77,8 @@ export default function App() {
         </Route>
         <Route exact path={'/observations/form'}>
           <ObservationPickerPage
-            lastPath={location.pathname}
             observationTypes={observationTypes}
+            leadingPath={'/observations/form'}
           />
         </Route>
         <Route
@@ -117,6 +117,7 @@ export default function App() {
               0,
               observationTypes.length - 1
             )}
+            leadingPath={'/charts'}
           />
         </Route>
         <Route exact path={'/charts/fev1'}>
