@@ -133,7 +133,10 @@ export default function App() {
             '/charts/urine',
           ]}
         >
-          <ChartPage observationsDiary={observationsDiary} />
+          <ChartPage
+            observationsDiary={observationsDiary}
+            observationType={getLastSegmentOfUrl()}
+          />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}
