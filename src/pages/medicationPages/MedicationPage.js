@@ -6,14 +6,14 @@ import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Button from '../components/buttons/Button'
-import IconButton from '../components/buttons/IconButton'
-import MedicationGroup from '../components/MedicationGroup'
-import backIcon from '../icons/back.svg'
-import calendarIcon from '../icons/calendar.svg'
-import copyDayIcon from '../icons/copyDay.svg'
-import editRectangleIcon from '../icons/edit_rectangle.svg'
-import sortByTime from '../utils/sortByTime'
+import Button from '../../components/buttons/Button'
+import IconButton from '../../components/buttons/IconButton'
+import MedicationGroup from '../../components/MedicationGroup'
+import backIcon from '../../icons/back.svg'
+import calendarIcon from '../../icons/calendar.svg'
+import copyDayIcon from '../../icons/copyDay.svg'
+import editRectangleIcon from '../../icons/edit_rectangle.svg'
+import sortByTime from '../../utils/sortByTime'
 
 MedicationPage.propTypes = {
   medications: PropTypes.arrayOf(
@@ -54,7 +54,7 @@ export default function MedicationPage({
     copyFromDay: selectedDay,
   }
 
-  let history = useHistory()
+  const history = useHistory()
 
   return (
     <Grid showCalendar={showCalendar}>

@@ -1,29 +1,27 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
-export default function ObservationGroup({ time, name, value }) {
-  let unit = ''
-  switch (name) {
-    case 'Blutdruck':
-      unit = 'mmHg'
-      break
-    case 'Temperatur':
-      unit = '°C'
-      break
-    case 'Gewicht':
-      unit = 'kg'
-      break
-    case 'FEV1':
-      unit = 'l/s'
-      break
-    case 'Größe':
-      unit = 'cm'
-      break
-    case 'Blutzucker':
-      unit = 'mmol/l'
-      break
-    default:
-      unit = ''
-  }
+ObservationGroup.propTypes = {
+  time: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+      format: PropTypes.string,
+    })
+  ).isRequired,
+}
+
+export default function ObservationGroup({
+  time,
+  name,
+  value,
+  observationTypes,
+}) {
+  const { unit } = observationTypes.find(element => element.name === name)
 
   return (
     <Wrapper>
@@ -60,4 +58,5 @@ const Time = styled.time`
 
 const Value = styled.div`
   color: var(--color-primary);
+  white-space: pre-wrap;
 `

@@ -5,7 +5,6 @@ export default {
   title: 'pages/Form',
   component: FormPage,
   argTypes: {
-    setActivePage: { action: 'setActivePage' },
     isDisabled: { type: 'boolean' },
   },
 }

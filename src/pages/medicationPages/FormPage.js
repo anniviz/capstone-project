@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
-import Button from '../components/buttons/Button'
-import useFormValidation from '../hooks/useFormValidation'
+import Button from '../../components/buttons/Button'
+import useFormValidation from '../../hooks/useFormValidation'
 
 FormPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ export default function FormPage({
 
   const [medGroupInputs, setMedGroupInputs] = useState({
     time: medication.time,
-    meds: medsString,
+    inputValue: medsString,
   })
 
   const {
@@ -37,7 +37,7 @@ export default function FormPage({
     validateTime,
   } = useFormValidation(medGroupInputs)
 
-  let history = useHistory()
+  const history = useHistory()
 
   return (
     <FormWrapper
@@ -63,13 +63,13 @@ export default function FormPage({
         Medikamente:
         <TextareaWithPlaceholderWrapper>
           <Textarea
-            name="meds"
+            name="inputValue"
             rows="10"
             onChange={handleChange}
-            value={medGroupInputs.meds}
+            value={medGroupInputs.inputValue}
             autoComplete="off"
           />
-          {medGroupInputs.meds === '' && (
+          {medGroupInputs.inputValue === '' && (
             <Placeholder>
               ASS (50mg)
               <br /> Magnesium (80mg)
@@ -91,13 +91,13 @@ export default function FormPage({
     event.preventDefault()
     if (isDisabled) return
     const form = event.target
-    const { time, meds } = form.elements
+    const { time, inputValue } = form.elements
     if (!validateTime(time.value)) {
       setIsTimeValid(false)
       time.focus()
       return
     }
-    const medsArrayWithId = meds.value
+    const medsArrayWithId = inputValue.value
       .replace(/^\s*\n/gm, '')
       .split('\n')
       .map(medName => ({ id: uuidv4(), medName: medName }))

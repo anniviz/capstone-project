@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import plusIcon from '../icons/plus.svg'
+import plusIcon from '../../icons/plus.svg'
 
 export default function AddLink({ to }) {
   return (
