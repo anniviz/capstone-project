@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import TextButton from '../../components/buttons/TextButton'
 import OutlineLink from '../../components/links/OutlineLink'
 
-ObservationFormPickerPage.propTypes = {
+ObservationPickerPage.propTypes = {
   observationTypes: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -13,10 +14,13 @@ ObservationFormPickerPage.propTypes = {
   ),
 }
 
-export default function ObservationFormPickerPage({ observationTypes }) {
+export default function ObservationPickerPage({ observationTypes }) {
+  const history = useHistory()
+
   return (
     <Grid>
-      <LinkStyled to="/observations">zurück</LinkStyled>
+      <TextButton onClick={() => history.goBack()}>zurück</TextButton>
+      {/* <LinkStyled to={() => history.goBack()}>zurück</LinkStyled> */}
       <Heading>Bitte auswählen</Heading>
       <ButtonGrid>
         {observationTypes.map(observationType => (
@@ -47,10 +51,6 @@ const ButtonGrid = styled.div`
   row-gap: 20px;
   justify-items: center;
   margin-bottom: 40px;
-`
-const LinkStyled = styled(Link)`
-  color: var(--color-tertiary);
-  margin: 12px 24px;
 `
 
 const Heading = styled.h3`

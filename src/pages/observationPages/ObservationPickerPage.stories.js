@@ -1,12 +1,12 @@
 import React from 'react'
-import ObservationFormPickerPage from './ObservationFormPickerPage'
+import ObservationPickerPage from './ObservationPickerPage'
 
 export default {
-  title: 'pages/observation forms/form picker',
-  component: ObservationFormPickerPage,
+  title: 'pages/observation forms/observation picker',
+  component: ObservationPickerPage,
 }
 
-export const Default = args => <ObservationFormPickerPage {...args} />
+export const Default = args => <ObservationPickerPage {...args} />
 Default.args = {
   observationTypes: [
     { name: 'Größe', type: 'size', unit: 'cm' },

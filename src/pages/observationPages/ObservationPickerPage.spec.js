@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import ObservationFormPickerPage from './ObservationFormPickerPage'
+import ObservationPickerPage from './ObservationPickerPage'
 
 describe('ObservationFormPickerPage', () => {
-  it('renders the observation options', () => {
+  it('renders the observation options and a back button', () => {
     render(
       <MemoryRouter>
-        <ObservationFormPickerPage
+        <ObservationPickerPage
           observationTypes={[
             { name: 'Größe', type: 'size', unit: 'cm', format: '134' },
             { name: 'Gewicht', type: 'weight', unit: 'kg', format: '25,95 ' },
@@ -37,6 +37,8 @@ describe('ObservationFormPickerPage', () => {
     )
 
     const links = screen.getAllByRole('link')
-    expect(links).toHaveLength(9)
+    expect(links).toHaveLength(8)
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(1)
   })
 })
