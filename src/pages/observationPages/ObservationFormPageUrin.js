@@ -53,6 +53,7 @@ export default function ObservationFormPageUrin({ observation, onSubmit }) {
             <Legend>Leukozyten:</Legend>
             {leukoArray.map(element => (
               <RadioButton
+                key={element}
                 label={element}
                 id={element}
                 value={element}
@@ -66,6 +67,7 @@ export default function ObservationFormPageUrin({ observation, onSubmit }) {
             <Legend>Nitrit:</Legend>
             {nitritArray.map(element => (
               <RadioButton
+                key={element}
                 label={element}
                 id={element + 'Nit'}
                 value={element}
