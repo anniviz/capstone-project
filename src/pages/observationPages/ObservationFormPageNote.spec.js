@@ -10,7 +10,7 @@ describe('ObservationFormPageNote', () => {
   it('renders a FormPage with 2 inputs/textareas, 2 labels and 2 buttons', () => {
     render(
       <MemoryRouter>
-        <ObservationFormPageNote onSubmit={jest.fn()} />
+        <ObservationFormPageNote observation={{}} onSubmit={jest.fn()} />
       </MemoryRouter>
     )
     const form = screen.getByRole('form')
@@ -32,7 +32,7 @@ describe('ObservationFormPageNote', () => {
     const handleSubmit = jest.fn()
     render(
       <MemoryRouter>
-        <ObservationFormPageNote onSubmit={handleSubmit} />
+        <ObservationFormPageNote observation={{}} onSubmit={handleSubmit} />
       </MemoryRouter>
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit: Uhr' })
@@ -57,7 +57,7 @@ describe('ObservationFormPageNote', () => {
 
     render(
       <MemoryRouter>
-        <ObservationFormPageNote onSubmit={handleSubmit} />
+        <ObservationFormPageNote observation={{}} onSubmit={handleSubmit} />
       </MemoryRouter>
     )
     const form = screen.getByRole('form')

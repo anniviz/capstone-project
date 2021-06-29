@@ -8,15 +8,22 @@ import useFormValidation from '../../hooks/useFormValidation'
 import getCurrentTime from '../../utils/getCurrentTime'
 
 ObservationFormPageNote.propTypes = {
+  observation: PropTypes.shape({
+    id: PropTypes.string,
+    time: PropTypes.string,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    observationValue: PropTypes.string,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default function ObservationFormPageNote({ onSubmit }) {
+export default function ObservationFormPageNote({ observation, onSubmit }) {
   let history = useHistory()
 
   const [inputs, setInputs] = useState({
-    time: getCurrentTime(),
-    inputValue: '',
+    time: observation?.time || getCurrentTime(),
+    inputValue: observation?.observationValue || '',
   })
 
   const {
@@ -78,13 +85,23 @@ export default function ObservationFormPageNote({ onSubmit }) {
       return
     }
 
-    onSubmit({
-      id: uuidv4(),
-      time: time.value,
-      type: 'notes',
-      name: 'Notizen',
-      observationValue: inputValue.value.replace(/^\s*\n/gm, ''),
-    })
+    if (observation.id) {
+      onSubmit({
+        id: observation.id,
+        time: time.value,
+        type: 'notes',
+        name: 'Notizen',
+        observationValue: inputValue.value.replace(/^\s*\n/gm, ''),
+      })
+    } else {
+      onSubmit({
+        id: uuidv4(),
+        time: time.value,
+        type: 'notes',
+        name: 'Notizen',
+        observationValue: inputValue.value.replace(/^\s*\n/gm, ''),
+      })
+    }
 
     history.push('/observations')
   }

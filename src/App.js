@@ -34,7 +34,6 @@ export default function App() {
     observationTypes,
     selectedObservations,
     selectedObservation,
-    selectedObservationId,
     setSelectedObservationId,
     saveObservation,
     deleteSingleObservation,
@@ -97,7 +96,10 @@ export default function App() {
           />
         </Route>
         <Route path={'/observations/form/notes'}>
-          <ObservationFormPageNote onSubmit={saveObservation} />
+          <ObservationFormPageNote
+            onSubmit={saveObservation}
+            observation={selectedObservation}
+          />
         </Route>
         <Route path={'/observations/form/urine'}>
           <ObservationFormPageUrin onSubmit={saveObservation} />
