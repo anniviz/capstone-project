@@ -97,12 +97,15 @@ export default function App() {
         </Route>
         <Route path={'/observations/form/notes'}>
           <ObservationFormPageNote
-            onSubmit={saveObservation}
             observation={selectedObservation}
+            onSubmit={saveObservation}
           />
         </Route>
         <Route path={'/observations/form/urine'}>
-          <ObservationFormPageUrin onSubmit={saveObservation} />
+          <ObservationFormPageUrin
+            observation={selectedObservation}
+            onSubmit={saveObservation}
+          />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

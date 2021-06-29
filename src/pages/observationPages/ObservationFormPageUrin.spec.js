@@ -10,7 +10,7 @@ describe('ObservationFormPageUrin', () => {
   it('renders a FormPage with 1 input, 2 radio groups and 2 buttons', () => {
     render(
       <MemoryRouter>
-        <ObservationFormPageUrin onSubmit={jest.fn()} />
+        <ObservationFormPageUrin observation={{}} onSubmit={jest.fn()} />
       </MemoryRouter>
     )
     const form = screen.getByRole('form')
@@ -35,7 +35,7 @@ describe('ObservationFormPageUrin', () => {
     const handleSubmit = jest.fn()
     render(
       <MemoryRouter>
-        <ObservationFormPageUrin onSubmit={handleSubmit} />
+        <ObservationFormPageUrin observation={{}} onSubmit={handleSubmit} />
       </MemoryRouter>
     )
     const time = screen.getByRole('textbox', { name: 'Uhrzeit: Uhr' })

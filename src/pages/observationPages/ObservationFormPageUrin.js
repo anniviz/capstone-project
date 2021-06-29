@@ -9,18 +9,25 @@ import useFormValidation from '../../hooks/useFormValidation'
 import getCurrentTime from '../../utils/getCurrentTime'
 
 ObservationFormPageUrin.propTypes = {
+  observation: PropTypes.shape({
+    id: PropTypes.string,
+    time: PropTypes.string,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    observationValue: PropTypes.string,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default function ObservationFormPageUrin({ onSubmit }) {
+export default function ObservationFormPageUrin({ observation, onSubmit }) {
   let history = useHistory()
-  const [leukos, setLeukos] = useState('neg.')
-  const [nitrit, setNitrit] = useState('neg.')
-
   const [inputs, setInputs] = useState({
-    time: getCurrentTime(),
-    inputValue: `${leukos}\n${nitrit}`,
+    time: observation?.time || getCurrentTime(),
+    inputValue: observation?.observationValue || 'neg.\nneg.',
   })
+  const inputValueArray = inputs.inputValue.split('\n')
+  const leukos = inputValueArray[0]
+  const nitrit = inputValueArray[1]
 
   const {
     isTimeValid,
@@ -121,13 +128,11 @@ export default function ObservationFormPageUrin({ onSubmit }) {
 
   function handleLeukosChange(event) {
     const { value } = event.target
-    setLeukos(value)
     setInputs({ ...inputs, inputValue: `${value}\n${nitrit}` })
   }
 
   function handleNitritChange(event) {
     const { value } = event.target
-    setNitrit(value)
     setInputs({ ...inputs, inputValue: `${leukos}\n${value}` })
   }
 
@@ -145,13 +150,23 @@ export default function ObservationFormPageUrin({ onSubmit }) {
       return
     }
 
-    onSubmit({
-      id: uuidv4(),
-      time: time,
-      type: 'urine',
-      name: 'Urin',
-      observationValue: inputValue,
-    })
+    if (observation.id) {
+      onSubmit({
+        id: observation.id,
+        time: time,
+        type: 'urine',
+        name: 'Urin',
+        observationValue: inputValue,
+      })
+    } else {
+      onSubmit({
+        id: uuidv4(),
+        time: time,
+        type: 'urine',
+        name: 'Urin',
+        observationValue: inputValue,
+      })
+    }
 
     history.push('/observations')
   }
