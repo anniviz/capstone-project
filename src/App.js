@@ -120,7 +120,18 @@ export default function App() {
             leadingPath={'/charts'}
           />
         </Route>
-        <Route exact path={'/charts/fev1'}>
+        <Route
+          exact
+          path={[
+            '/charts/size',
+            '/charts/weight',
+            '/charts/temperature',
+            '/charts/bloodpressure',
+            '/charts/fev1',
+            '/charts/bloodsugar',
+            '/charts/urine',
+          ]}
+        >
           <ChartPage />
         </Route>
       </Switch>
