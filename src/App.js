@@ -10,8 +10,8 @@ import MedicationPage from './pages/medicationPages/MedicationPage'
 import ObservationFormPageDefault from './pages/observationPages/ObservationFormPageDefault'
 import ObservationFormPageNote from './pages/observationPages/ObservationFormPageNote'
 import ObservationFormPageUrin from './pages/observationPages/ObservationFormPageUrin'
-import ObservationFormPickerPage from './pages/observationPages/ObservationFormPickerPage'
 import ObservationPage from './pages/observationPages/ObservationPage'
+import ObservationPickerPage from './pages/observationPages/ObservationPickerPage'
 import createDateString from './services/createDayString'
 
 export default function App() {
@@ -75,7 +75,10 @@ export default function App() {
           />
         </Route>
         <Route exact path={'/observations/form'}>
-          <ObservationFormPickerPage observationTypes={observationTypes} />
+          <ObservationPickerPage
+            lastPath={location.pathname}
+            observationTypes={observationTypes}
+          />
         </Route>
         <Route
           path={[
@@ -105,6 +108,14 @@ export default function App() {
           <ObservationFormPageUrin
             observation={selectedObservation}
             onSubmit={saveObservation}
+          />
+        </Route>
+        <Route exact path={'/charts'}>
+          <ObservationPickerPage
+            observationTypes={observationTypes.slice(
+              0,
+              observationTypes.length - 1
+            )}
           />
         </Route>
       </Switch>
