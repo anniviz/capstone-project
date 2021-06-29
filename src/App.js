@@ -32,6 +32,7 @@ export default function App() {
   } = useMedications(selectedDayString)
 
   const {
+    observationsDiary,
     observationTypes,
     selectedObservations,
     selectedObservation,
@@ -132,7 +133,7 @@ export default function App() {
             '/charts/urine',
           ]}
         >
-          <ChartPage />
+          <ChartPage observationsDiary={observationsDiary} />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

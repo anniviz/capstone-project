@@ -101,6 +101,7 @@ export default function useObservations(selectedDayString) {
   }
 
   return {
+    observationsDiary,
     observationTypes,
     selectedObservations,
     selectedObservation,

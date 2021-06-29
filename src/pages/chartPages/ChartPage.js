@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import * as d3 from 'd3'
 
-export default function ChartPage() {
+export default function ChartPage(observationsDiary) {
   return (
     <Grid>
       <Canvas></Canvas>
