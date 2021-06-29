@@ -13,7 +13,7 @@ ObservationFormPageUrin.propTypes = {
 }
 
 export default function ObservationFormPageUrin({ onSubmit }) {
-  let history = useHistory()
+  const history = useHistory()
   const [leukos, setLeukos] = useState('neg.')
   const [nitrit, setNitrit] = useState('neg.')
 
@@ -29,10 +29,13 @@ export default function ObservationFormPageUrin({ onSubmit }) {
     isDisabled,
   } = useFormValidation(inputs)
 
+  const leukoArray = ['neg.', '1+', '2+', '3+']
+  const nitritArray = ['neg.', 'pos.']
+
   return (
     <FormWrapper
       onSubmit={handleSubmit}
-      aria-label="dynamisch erstellen"
+      aria-label="Beobachtung von Urin erstellen"
       role="form"
     >
       <div>
@@ -40,63 +43,35 @@ export default function ObservationFormPageUrin({ onSubmit }) {
         <RadioWrapper>
           <Fieldset>
             <Legend>Leukozyten:</Legend>
-            <RadioButton
-              label="neg."
-              id="neg"
-              value="neg."
-              name="leukos"
-              handleChange={handleLeukosChange}
-              isSelected={leukos === 'neg.'}
-            />
-            <RadioButton
-              label="1+"
-              id="1"
-              value="1+"
-              name="leukos"
-              handleChange={handleLeukosChange}
-              isSelected={leukos === '1+'}
-            />
-            <RadioButton
-              label="2+"
-              id="2"
-              value="2+"
-              name="leukos"
-              handleChange={handleLeukosChange}
-              isSelected={leukos === '2+'}
-            />
-            <RadioButton
-              label="3+"
-              id="3"
-              value="3+"
-              name="leukos"
-              handleChange={handleLeukosChange}
-              isSelected={leukos === '3+'}
-            />
+            {leukoArray.map(element => (
+              <RadioButton
+                label={element}
+                id={element}
+                value={element}
+                name="leukos"
+                handleChange={handleLeukosChange}
+                isSelected={leukos === element}
+              />
+            ))}
           </Fieldset>
           <Fieldset>
             <Legend>Nitrit:</Legend>
-            <RadioButton
-              label="neg."
-              id="negNit"
-              value="neg."
-              name="nitrit"
-              handleChange={handleNitritChange}
-              isSelected={nitrit === 'neg.'}
-            />
-            <RadioButton
-              label="pos."
-              id="pos"
-              value="pos."
-              name="nitrit"
-              handleChange={handleNitritChange}
-              isSelected={nitrit === 'pos.'}
-            />
+            {nitritArray.map(element => (
+              <RadioButton
+                label={element}
+                id={element + 'Nit'}
+                value={element}
+                name="nitrit"
+                handleChange={handleNitritChange}
+                isSelected={nitrit === element}
+              />
+            ))}
           </Fieldset>
         </RadioWrapper>
       </div>
       <Label timeField>
         Uhrzeit:
-        <InputWrapper>
+        <div>
           <InputTime
             name="time"
             onChange={handleTimeChange}
@@ -105,7 +80,7 @@ export default function ObservationFormPageUrin({ onSubmit }) {
             autoComplete="off"
           />
           <Unit>Uhr</Unit>
-        </InputWrapper>
+        </div>
         <Warning isTimeValid={isTimeValid}>
           Bitte gib eine Uhrzeit im Format h:mm oder hh:mm an!
         </Warning>
@@ -139,6 +114,7 @@ export default function ObservationFormPageUrin({ onSubmit }) {
   function handleSubmit(event) {
     event.preventDefault()
     const { time, inputValue } = inputs
+
     if (!validateTime(time)) {
       setIsTimeValid(false)
       time.focus()
@@ -201,8 +177,6 @@ const Label = styled.label`
   font-size: 1.1em;
   gap: 4px;
 `
-
-const InputWrapper = styled.div``
 
 const Input = styled.input`
   height: 40px;

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
 ObservationGroup.propTypes = {
-  time: PropTypes.string,
-  name: PropTypes.string,
+  time: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
   observationTypes: PropTypes.arrayOf(
     PropTypes.shape({
@@ -12,7 +12,7 @@ ObservationGroup.propTypes = {
       unit: PropTypes.string,
       format: PropTypes.string,
     })
-  ),
+  ).isRequired,
 }
 
 export default function ObservationGroup({

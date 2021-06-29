@@ -65,7 +65,6 @@ describe('ObservationFormPageNote', () => {
     const button = screen.getByRole('button', { name: 'speichern' })
     expect(button).toBeDisabled()
     fireEvent.submit(form)
-    // screen.debug()
 
     expect(handleSubmit).toHaveBeenCalledTimes(0)
   })
