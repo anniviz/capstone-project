@@ -1,6 +1,13 @@
-import styled from 'styled-components/macro'
 import * as d3 from 'd3'
 import { useEffect, useRef, useState } from 'react'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import styled from 'styled-components/macro'
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate,
+} from 'react-day-picker/moment'
+
+import 'moment/locale/de'
 
 export default function ChartPage({ observationsDiary, observationType }) {
   const parseTime = d3.timeParse('%Y-%m-%d')
@@ -16,7 +23,31 @@ export default function ChartPage({ observationsDiary, observationType }) {
       ?.observationValue.replace(',', '.'),
   }))
 
-  const observationsWithoutUndefined = observationValueArray.filter(
+  const [startDate, setStartDate] = useState(
+    d3.min(observationValueArray, d => d.date)
+  )
+  const [endDate, setEndDate] = useState(
+    d3.max(observationValueArray, d => d.date)
+  )
+  const [
+    filteredObservationValueArray,
+    setFilteredObservationValueArray,
+  ] = useState(
+    observationValueArray.filter(
+      observationDay =>
+        observationDay.date >= startDate && observationDay.date <= endDate
+    )
+  )
+  useEffect(() => {
+    setFilteredObservationValueArray(
+      observationValueArray.filter(
+        observationDay =>
+          observationDay.date >= startDate && observationDay.date <= endDate
+      )
+    )
+  }, [startDate, endDate])
+
+  const observationsWithoutUndefined = filteredObservationValueArray.filter(
     observation => observation.observationValue
   )
 
@@ -43,7 +74,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(observationValueArray, d => d.date))
+    .domain([startDate, endDate])
+    // .domain(d3.extent(observationValueArray, d => d.date))
     .range([0, innerWidth])
     .nice()
 
@@ -66,6 +98,28 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   return (
     <Grid>
+      <DayPickerWrapper>
+        <DayPickerInput
+          value={startDate}
+          onDayChange={handleStartDayChange}
+          formatDate={formatDate}
+          parseDate={parseDate}
+          dayPickerProps={{
+            locale: 'de',
+            localeUtils: MomentLocaleUtils,
+          }}
+        />
+        <DayPickerInput
+          value={endDate}
+          onDayChange={handleEndDayChange}
+          formatDate={formatDate}
+          parseDate={parseDate}
+          dayPickerProps={{
+            locale: 'de',
+            localeUtils: MomentLocaleUtils,
+          }}
+        />
+      </DayPickerWrapper>
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
           {xScale.ticks(6).map(tickValue => (
@@ -98,6 +152,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           </AxisLabel>
           {yScale.ticks(8).map(tickValue => (
             <g
+              key={yScale(tickValue)}
               className="tick"
               translateY={yScale(tickValue)}
               transform={`translate(0,${yScale(tickValue)})`}
@@ -128,7 +183,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           >
             Gewicht in kg
           </AxisLabel>
-          <Line d={line(observationsWithoutUndefined)} />
+          <Line d={line(filteredObservationValueArray)} />
           {observationsWithoutUndefined.map(day => (
             <Circle
               key={day.date}
@@ -141,13 +196,34 @@ export default function ChartPage({ observationsDiary, observationType }) {
       </Canvas>
     </Grid>
   )
+
+  function handleStartDayChange(day) {
+    setStartDate(day)
+  }
+
+  function handleEndDayChange(day) {
+    setEndDate(day)
+  }
 }
 
 const Grid = styled.main`
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto 1fr;
   overflow: auto;
   align-items: center;
+`
+
+const DayPickerWrapper = styled.div`
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  /* justify-self: center; */
+  padding: 12px;
+`
+
+const DayPickerInputStyled = styled(DayPickerInput)`
+  .DayPickerInput-OverlayWrapper {
+  }
 `
 
 const Canvas = styled.svg`
