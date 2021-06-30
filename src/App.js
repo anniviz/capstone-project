@@ -14,6 +14,7 @@ import ObservationFormPageUrin from './pages/observationPages/ObservationFormPag
 import ObservationPage from './pages/observationPages/ObservationPage'
 import ObservationPickerPage from './pages/observationPages/ObservationPickerPage'
 import createDateString from './services/createDayString'
+import getLastSegmentOfUrl from './utils/getLastSegmentOfUrl'
 
 export default function App() {
   const location = useLocation()
@@ -43,7 +44,7 @@ export default function App() {
 
   return (
     <Grid>
-      <Header selectedDay={selectedDay} />
+      <Header selectedDay={selectedDay} observationTypes={observationTypes} />
       <Switch>
         <Route exact path="/">
           <Redirect to="/medications" />
@@ -94,7 +95,7 @@ export default function App() {
         >
           <ObservationFormPageDefault
             observation={selectedObservation}
-            observationType={getLastSegmentOfUrl()}
+            observationType={getLastSegmentOfUrl(location)}
             onSubmit={saveObservation}
             observationTypes={observationTypes}
             setSelectedObservationId={setSelectedObservationId}
@@ -135,7 +136,7 @@ export default function App() {
         >
           <ChartPage
             observationsDiary={observationsDiary}
-            observationType={getLastSegmentOfUrl()}
+            observationType={getLastSegmentOfUrl(location)}
           />
         </Route>
       </Switch>
@@ -145,9 +146,9 @@ export default function App() {
     </Grid>
   )
 
-  function getLastSegmentOfUrl() {
-    return location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
-  }
+  // function getLastSegmentOfUrl() {
+  //   return location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
+  // }
 }
 
 const Grid = styled.div`

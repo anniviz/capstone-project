@@ -1,12 +1,31 @@
-import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import { useLocation } from 'react-router-dom'
+import styled from 'styled-components/macro'
+import getLastSegmentOfUrl from '../utils/getLastSegmentOfUrl'
 
 Header.propTypes = {
   selectedDay: PropTypes.instanceOf(Date),
+  observationTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string,
+      unit: PropTypes.string,
+    }).isRequired
+  ),
 }
 
-export default function Header({ selectedDay }) {
-  return <HeaderStyled>{formatDate(selectedDay)}</HeaderStyled>
+export default function Header({ selectedDay, observationTypes }) {
+  const location = useLocation()
+  let headerText = formatDate(selectedDay)
+  if (location.pathname.includes('charts')) {
+    headerText =
+      getLastSegmentOfUrl(location) === 'charts'
+        ? 'Diagramme'
+        : observationTypes.find(
+            element => element.type === getLastSegmentOfUrl(location)
+          ).name
+  }
+  return <HeaderStyled>{headerText}</HeaderStyled>
 
   function formatDate(date) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' }
