@@ -3,8 +3,24 @@ import * as d3 from 'd3'
 import { useEffect, useRef, useState } from 'react'
 
 export default function ChartPage({ observationsDiary, observationType }) {
-  const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
   const parseTime = d3.timeParse('%Y-%m-%d')
+
+  const sortedObbservationsDiary = observationsDiary
+    .slice()
+    .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
+  console.log(observationsDiary)
+  console.log(sortedObbservationsDiary)
+
+  const observationValueArray = sortedObbservationsDiary.map(day => ({
+    date: parseTime(day.date),
+    observationValue: +day.observations
+      .find(observation => observation.type === observationType)
+      ?.observationValue.replace(',', '.'),
+  }))
+
+  const observationsWithoutUndefined = observationValueArray.filter(
+    observation => observation.observationValue
+  )
 
   const canvasRef = useRef(null)
   const [width, setWidth] = useState(0)
@@ -17,34 +33,18 @@ export default function ChartPage({ observationsDiary, observationType }) {
     setHeight(canvasRef.current.getBoundingClientRect().height)
   }, [canvasRef])
 
-  const margin = { top: 20, right: 30, bottom: 80, left: 40 }
+  const margin = { top: 20, right: 30, bottom: 100, left: 80 }
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
   // console.log(innerHeight)
 
-  const xAxisLabelOffset = 50
-  const yAxisLabelOffset = 45
+  const xAxisLabelOffset = 72
+  const yAxisLabelOffset = 48
 
-  const observationValueArray = observationsDiary.map(day => ({
-    date: parseTime(day.date),
-    observationValue: +day.observations
-      .find(observation => observation.type === observationType)
-      ?.observationValue.replace(',', '.'),
-  }))
+  console.log(observationValueArray)
 
-  const observationsWithoutUndefined = observationValueArray.filter(
-    observation => observation.observationValue
-  )
-
-  console.log([
-    new Date(
-      d3.extent(observationValueArray, d => d.date)[0].getTime()
-    ).setDate(d3.extent(observationValueArray, d => d.date)[0].getDate() - 1),
-    new Date(
-      d3.extent(observationValueArray, d => d.date)[0].getTime()
-    ).setDate(d3.extent(observationValueArray, d => d.date)[0].getDate() + 1),
-  ])
+  const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
 
   const xScale = d3
     .scaleTime()
@@ -68,15 +68,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
     .defined(d => !isNaN(d.observationValue))
     .x(d => xScale(d.date))
     .y(d => yScale(d.observationValue))
-  // .curve(d3.curveNatural)
-
-  // console.log(xScale.ticks(4))
 
   return (
     <Grid>
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
-          {xScale.ticks().map(tickValue => (
+          {xScale.ticks(6).map(tickValue => (
             <XAxis
               translateY={xScale(tickValue)}
               key={tickValue}
@@ -100,6 +97,14 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </XAxisTickMarks>
             </XAxis>
           ))}
+          <AxisLabel
+            className="axis-label"
+            textAnchor="middle"
+            x={innerWidth / 2}
+            y={innerHeight + xAxisLabelOffset}
+          >
+            Tag
+          </AxisLabel>
           {yScale.ticks(8).map(tickValue => (
             <g
               className="tick"
@@ -123,7 +128,16 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </YAxisTickMarks>
             </g>
           ))}
-          <Line d={line(observationValueArray)} />
+          <AxisLabel
+            className="axis-label"
+            textAnchor="middle"
+            transform={`translate(${-yAxisLabelOffset},${
+              innerHeight / 2
+            }) rotate(-90)`}
+          >
+            Gewicht in kg
+          </AxisLabel>
+          <Line d={line(observationsWithoutUndefined)} />
           {observationsWithoutUndefined.map(day => (
             <circle
               key={day.date}
@@ -142,7 +156,7 @@ const Grid = styled.main`
   display: grid;
   grid-template-rows: 1fr;
   overflow: auto;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `
 
@@ -179,4 +193,9 @@ const YAxisTickMarks = styled.text`
   fill: var(--color-primary);
   font-size: 0.8em;
   text-anchor: end;
+`
+
+const AxisLabel = styled.text`
+  fill: var(--color-primary);
+  font-weight: 500;
 `
