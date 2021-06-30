@@ -57,6 +57,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
     setWidth(canvasRef.current.getBoundingClientRect().width)
   }, [canvasRef])
 
+  // const calenderRef = useRef(null)
+  // const [calenderWidth, setCalenderWidth] = useState(0)
+  // useEffect(() => {
+  //   setWidth(calenderRef.current.getBoundingClientRect().width)
+  // }, [calenderRef])
+
   const [height, setHeight] = useState(0)
   useEffect(() => {
     setHeight(canvasRef.current.getBoundingClientRect().height)
@@ -99,26 +105,32 @@ export default function ChartPage({ observationsDiary, observationType }) {
   return (
     <Grid>
       <DayPickerWrapper>
-        <DayPickerInput
-          value={startDate}
-          onDayChange={handleStartDayChange}
-          formatDate={formatDate}
-          parseDate={parseDate}
-          dayPickerProps={{
-            locale: 'de',
-            localeUtils: MomentLocaleUtils,
-          }}
-        />
-        <DayPickerInput
-          value={endDate}
-          onDayChange={handleEndDayChange}
-          formatDate={formatDate}
-          parseDate={parseDate}
-          dayPickerProps={{
-            locale: 'de',
-            localeUtils: MomentLocaleUtils,
-          }}
-        />
+        <div>
+          <Legend>Start Datum</Legend>
+          <DayPickerInput
+            value={startDate}
+            onDayChange={handleStartDayChange}
+            formatDate={formatDate}
+            parseDate={parseDate}
+            dayPickerProps={{
+              locale: 'de',
+              localeUtils: MomentLocaleUtils,
+            }}
+          />
+        </div>
+        <div>
+          <Legend>End Datum</Legend>
+          <DayPickerInput
+            value={endDate}
+            onDayChange={handleEndDayChange}
+            formatDate={formatDate}
+            parseDate={parseDate}
+            dayPickerProps={{
+              locale: 'de',
+              localeUtils: MomentLocaleUtils,
+            }}
+          />
+        </div>
       </DayPickerWrapper>
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
@@ -208,22 +220,33 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
 const Grid = styled.main`
   display: grid;
-  grid-template-rows: auto 1fr;
+  margin-top: 40px;
   overflow: auto;
-  align-items: center;
+  grid-template-rows: auto 1fr;
+  gap: 40px;
 `
 
 const DayPickerWrapper = styled.div`
   display: flex;
-  /* flex-direction: column; */
+  position: relative;
   justify-content: space-around;
-  /* justify-self: center; */
   padding: 12px;
+
+  .DayPickerInput-OverlayWrapper {
+    width: 240px;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: calc(50vw - 138.5px);
+    top: 80px;
+  }
 `
 
-const DayPickerInputStyled = styled(DayPickerInput)`
-  .DayPickerInput-OverlayWrapper {
-  }
+const Legend = styled.legend`
+  margin-bottom: 8px;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
 `
 
 const Canvas = styled.svg`
