@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import IconButton from '../../components/buttons/IconButton'
+import DayPickerStyled from '../../components/DayPickerStyled'
 import ObservationGroup from '../../components/ObservationGroup'
 import backIcon from '../../icons/back.svg'
 import calendarIcon from '../../icons/calendar.svg'
@@ -132,26 +132,4 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 26px 10px 26px;
-`
-
-const DayPickerStyled = styled(DayPicker)`
-  margin: 16px;
-  border-radius: 20px;
-  box-shadow: 34px 34px 89px var(--color-shadow-13);
-
-  .DayPicker-Day--selected {
-    background: radial-gradient(
-      at top left,
-      var(--color-gradient-1),
-      var(--color-gradient-2)
-    );
-  }
-
-  .DayPicker-Day--today {
-    color: var(--color-tertiary);
-  }
-
-  .DayPicker-Day--copyFromDay {
-    color: var(--color-warning);
-  }
 `
