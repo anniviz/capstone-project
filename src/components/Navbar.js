@@ -5,7 +5,7 @@ import { ReactComponent as MedicationsIcon } from '../icons/pill.svg'
 import { ReactComponent as ObservationsIcon } from '../icons/observations.svg'
 import { ReactComponent as ChartsIcon } from '../icons/heart.svg'
 
-export default function Navbar() {
+export default function Navbar({ isAddActive }) {
   const location = useLocation()
 
   return (
@@ -25,7 +25,7 @@ export default function Navbar() {
           <ChartsIconStyled isActive={location.pathname.includes('charts')} />
         </NavLink>
       </ObservationIconWrapper>
-      <AddLink to={`${location.pathname}/form`}></AddLink>
+      {isAddActive && <AddLink to={`${location.pathname}/form`}></AddLink>}
     </Nav>
   )
 }

@@ -139,7 +139,9 @@ export default function App() {
           />
         </Route>
       </Switch>
-      {location.pathname.includes('form') || <Navbar />}
+      {location.pathname.includes('form') || (
+        <Navbar isAddActive={!location.pathname.includes('charts')} />
+      )}
     </Grid>
   )
 
