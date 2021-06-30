@@ -5,51 +5,41 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const formatTime = d3.timeFormat('%Y-%m-%d')
   const parseTime = d3.timeParse('%Y-%m-%d')
 
-  const observationsDiaryWithAvailableType = observationsDiary.filter(date =>
-    date.observations.find(observation => observation.type === observationType)
-  )
-
-  const sortedObservationsDiaryWithAvailableType = observationsDiary
-    .slice()
-    .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
-
-  const ObservationValueArray = sortedObservationsDiaryWithAvailableType.map(
-    day => ({
-      date: parseTime(day.date),
-      observationValue: +day.observations
-        .find(observation => observation.type === observationType)
-        ?.observationValue.replace(',', '.'),
-    })
-  )
+  const ObservationValueArray = observationsDiary.map(day => ({
+    date: parseTime(day.date),
+    observationValue: +day.observations
+      .find(observation => observation.type === observationType)
+      ?.observationValue.replace(',', '.'),
+  }))
   console.log(ObservationValueArray)
-  console.log(sortedObservationsDiaryWithAvailableType)
+
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(ObservationValueArray, d => d.date))
     .range([0, 300])
     .nice()
 
-  // const yScale = d3
-  //   .scaleLinear()
-  //   .domain(d3.extent(ObservationValueArray, d => d.observationValue))
-  //   .range([350, 0])
-  //   .nice()
+  const yScale = d3
+    .scaleLinear()
+    .domain(d3.extent(ObservationValueArray, d => d.observationValue))
+    .range([350, 0])
+    .nice()
 
-  const yScale = d3.scaleLinear().domain([35.5, 40.0]).range([350, 0]).nice()
+  // const yScale = d3.scaleLinear().domain([35.5, 40.0]).range([350, 0]).nice()
 
   const line = d3
     .line()
     .defined(d => !isNaN(d.observationValue))
     .x(d => xScale(d.date))
     .y(d => yScale(d.observationValue))
-  // .curve(d3.curveNatural)
+    .curve(d3.curveNatural)
   console.log(ObservationValueArray)
   return (
     <Grid>
       <Canvas>
-        {/* <g>
+        <g>
           <path fill="none" stroke="black" d={line(ObservationValueArray)} />
-        </g> */}
+        </g>
         {ObservationValueArray.map(day => (
           <circle
             cx={xScale(day.date)}
@@ -57,7 +47,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
             r="3"
           />
         ))}
-        {/* <circle cx="150" cy="77" r="40" /> */}
       </Canvas>
     </Grid>
   )
