@@ -17,7 +17,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
     setHeight(canvasRef.current.getBoundingClientRect().height)
   }, [canvasRef])
 
-  const margin = { top: 20, right: 30, bottom: 20, left: 10 }
+  const margin = { top: 20, right: 30, bottom: 40, left: 20 }
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
@@ -72,20 +72,22 @@ export default function ChartPage({ observationsDiary, observationType }) {
             />
           ))}
           {xScale.ticks(7).map(tickValue => (
-            <g
-              className="tick"
-              key={tickValue}
-              transform={`translate(${xScale(tickValue)},0)`}
-            >
-              <line y2={innerHeight} />
-              <text
-                style={{ textAnchor: 'middle' }}
-                dy=".71em"
-                y={innerHeight + 7}
+            <>
+              <g
+                className="tick"
+                key={tickValue}
+                transform={`translate(${xScale(tickValue)},0)`}
               >
-                {xAxisTickFormat(tickValue)}
-              </text>
-            </g>
+                <line y2={innerHeight} />
+                <TickMarksBottom
+                  dy=".71em"
+                  y={innerHeight + 7}
+                  translate={xScale(tickValue)}
+                >
+                  {xAxisTickFormat(tickValue)}
+                </TickMarksBottom>
+              </g>
+            </>
           ))}
         </Chart>
       </Canvas>
@@ -109,4 +111,10 @@ const Chart = styled.g`
     ${props => props.marginLeft}px,
     ${props => props.marginTop}px
   );
+`
+
+const TickMarksBottom = styled.text`
+  transform: rotate(-65deg);
+  transform-origin: bottom left;
+  text-anchor: start;
 `
