@@ -37,7 +37,14 @@ export default function ChartPage({ observationsDiary, observationType }) {
     observation => observation.observationValue
   )
 
-  console.log(observationsWithoutUndefined)
+  console.log([
+    new Date(
+      d3.extent(observationValueArray, d => d.date)[0].getTime()
+    ).setDate(d3.extent(observationValueArray, d => d.date)[0].getDate() - 1),
+    new Date(
+      d3.extent(observationValueArray, d => d.date)[0].getTime()
+    ).setDate(d3.extent(observationValueArray, d => d.date)[0].getDate() + 1),
+  ])
 
   const xScale = d3
     .scaleTime()
@@ -47,7 +54,10 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const yScale = d3
     .scaleLinear()
-    .domain(d3.extent(observationValueArray, d => d.observationValue))
+    .domain([
+      d3.extent(observationValueArray, d => d.observationValue)[0] - 0.1,
+      d3.extent(observationValueArray, d => d.observationValue)[1] + 0.1,
+    ])
     .range([innerHeight, 0])
     .nice()
 
@@ -66,37 +76,51 @@ export default function ChartPage({ observationsDiary, observationType }) {
     <Grid>
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
-          {xScale.ticks(7).map(tickValue => (
-            <g
-              className="tick"
+          {xScale.ticks().map(tickValue => (
+            <XAxis
+              translateY={xScale(tickValue)}
               key={tickValue}
-              transform={`translate(${xScale(tickValue)},0)`}
+              // transform={`translate(${xScale(tickValue)},0)`}
             >
-              <line x1="0" y1="0" x2="0" y2={innerHeight} stroke="lightgrey" />
-              <TickMarksBottom
-                x={-4}
-                // y={9}
-                // dy=".71em"
-                y={innerHeight + 7}
+              <line
+                x1="0"
+                y1={-4}
+                x2="0"
+                y2={innerHeight + 4}
+                stroke="lightgrey"
+              />
+              <XAxisTickMarks
+                x={-6}
+                y={innerHeight + 8}
                 translate={xScale(tickValue)}
                 transformOriginX={margin.left}
                 transformOriginY={innerHeight}
               >
                 {xAxisTickFormat(tickValue)}
-              </TickMarksBottom>
-            </g>
+              </XAxisTickMarks>
+            </XAxis>
           ))}
-          {yScale.ticks().map(tickValue => (
-            <g className="tick" transform={`translate(0,${yScale(tickValue)})`}>
-              <line x2={innerWidth} />
-              <TickMarksLeft
+          {yScale.ticks(8).map(tickValue => (
+            <g
+              className="tick"
+              translateY={yScale(tickValue)}
+              transform={`translate(0,${yScale(tickValue)})`}
+            >
+              <line
+                x1={-4}
+                y1="0"
+                x2={innerWidth + 4}
+                y2="0"
+                stroke="lightgrey"
+              />
+              <YAxisTickMarks
                 key={tickValue}
                 style={{ textAnchor: 'end' }}
                 x={-7}
                 dy=".32em"
               >
                 {tickValue}
-              </TickMarksLeft>
+              </YAxisTickMarks>
             </g>
           ))}
           <Line d={line(observationValueArray)} />
@@ -118,11 +142,13 @@ const Grid = styled.main`
   display: grid;
   grid-template-rows: 1fr;
   overflow: auto;
+  justify-content: center;
+  align-items: center;
 `
 
 const Canvas = styled.svg`
   width: 100%;
-  height: 70%;
+  height: 60%;
 `
 
 const Chart = styled.g`
@@ -137,7 +163,11 @@ const Line = styled.path`
   stroke: var(--color-tertiary);
 `
 
-const TickMarksBottom = styled.text`
+const XAxis = styled.g`
+  transform: translate(${props => props.translateY}px, 0);
+`
+
+const XAxisTickMarks = styled.text`
   transform: rotate(-65deg);
   transform-origin: 0px ${props => props.transformOriginY}px;
   text-anchor: end;
@@ -145,7 +175,7 @@ const TickMarksBottom = styled.text`
   fill: var(--color-primary);
 `
 
-const TickMarksLeft = styled.text`
+const YAxisTickMarks = styled.text`
   fill: var(--color-primary);
   font-size: 0.8em;
   text-anchor: end;
