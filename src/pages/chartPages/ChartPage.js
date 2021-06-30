@@ -21,30 +21,33 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
-  console.log(innerHeight)
+  // console.log(innerHeight)
 
   const xAxisLabelOffset = 50
   const yAxisLabelOffset = 45
 
-  const ObservationValueArray = observationsDiary.map(day => ({
+  const observationValueArray = observationsDiary.map(day => ({
     date: parseTime(day.date),
     observationValue: +day.observations
       .find(observation => observation.type === observationType)
       ?.observationValue.replace(',', '.'),
   }))
 
-  //.split(',')
-  console.log(ObservationValueArray)
+  const observationsWithoutUndefined = observationValueArray.filter(
+    observation => observation.observationValue
+  )
+
+  console.log(observationsWithoutUndefined)
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(ObservationValueArray, d => d.date))
+    .domain(d3.extent(observationValueArray, d => d.date))
     .range([0, innerWidth])
     .nice()
 
   const yScale = d3
     .scaleLinear()
-    .domain(d3.extent(ObservationValueArray, d => d.observationValue))
+    .domain(d3.extent(observationValueArray, d => d.observationValue))
     .range([innerHeight, 0])
     .nice()
 
@@ -57,20 +60,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
     .y(d => yScale(d.observationValue))
   // .curve(d3.curveNatural)
 
-  console.log(xScale.ticks(4))
+  // console.log(xScale.ticks(4))
 
   return (
     <Grid>
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
-          {/* {ObservationValueArray.map(day => (
-            <circle
-              key={day.date}
-              cx={xScale(day.date)}
-              cy={yScale(day.observationValue)}
-              r="3"
-            />
-          ))} */}
           {xScale.ticks(7).map(tickValue => (
             <g
               className="tick"
@@ -79,7 +74,9 @@ export default function ChartPage({ observationsDiary, observationType }) {
             >
               <line x1="0" y1="0" x2="0" y2={innerHeight} stroke="lightgrey" />
               <TickMarksBottom
-                dy=".71em"
+                x={-4}
+                // y={9}
+                // dy=".71em"
                 y={innerHeight + 7}
                 translate={xScale(tickValue)}
                 transformOriginX={margin.left}
@@ -89,7 +86,28 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </TickMarksBottom>
             </g>
           ))}
-          <Line d={line(ObservationValueArray)} />
+          {yScale.ticks().map(tickValue => (
+            <g className="tick" transform={`translate(0,${yScale(tickValue)})`}>
+              <line x2={innerWidth} />
+              <TickMarksLeft
+                key={tickValue}
+                style={{ textAnchor: 'end' }}
+                x={-7}
+                dy=".32em"
+              >
+                {tickValue}
+              </TickMarksLeft>
+            </g>
+          ))}
+          <Line d={line(observationValueArray)} />
+          {observationsWithoutUndefined.map(day => (
+            <circle
+              key={day.date}
+              cx={xScale(day.date)}
+              cy={yScale(day.observationValue)}
+              r="2"
+            />
+          ))}
         </Chart>
       </Canvas>
     </Grid>
@@ -124,4 +142,11 @@ const TickMarksBottom = styled.text`
   transform-origin: 0px ${props => props.transformOriginY}px;
   text-anchor: end;
   font-size: 0.8em;
+  fill: var(--color-primary);
+`
+
+const TickMarksLeft = styled.text`
+  fill: var(--color-primary);
+  font-size: 0.8em;
+  text-anchor: end;
 `
