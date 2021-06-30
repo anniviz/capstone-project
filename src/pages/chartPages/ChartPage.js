@@ -8,8 +8,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const sortedObbservationsDiary = observationsDiary
     .slice()
     .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
-  console.log(observationsDiary)
-  console.log(sortedObbservationsDiary)
 
   const observationValueArray = sortedObbservationsDiary.map(day => ({
     date: parseTime(day.date),
@@ -37,12 +35,9 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
-  // console.log(innerHeight)
 
   const xAxisLabelOffset = 72
   const yAxisLabelOffset = 48
-
-  console.log(observationValueArray)
 
   const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
 
@@ -74,11 +69,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
       <Canvas ref={canvasRef}>
         <Chart marginLeft={margin.left} marginTop={margin.top}>
           {xScale.ticks(6).map(tickValue => (
-            <XAxis
-              translateY={xScale(tickValue)}
-              key={tickValue}
-              // transform={`translate(${xScale(tickValue)},0)`}
-            >
+            <XAxis translateY={xScale(tickValue)} key={tickValue}>
               <line
                 x1="0"
                 y1={-4}
@@ -103,7 +94,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
             x={innerWidth / 2}
             y={innerHeight + xAxisLabelOffset}
           >
-            Tag
+            Datum
           </AxisLabel>
           {yScale.ticks(8).map(tickValue => (
             <g
@@ -139,7 +130,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           </AxisLabel>
           <Line d={line(observationsWithoutUndefined)} />
           {observationsWithoutUndefined.map(day => (
-            <circle
+            <Circle
               key={day.date}
               cx={xScale(day.date)}
               cy={yScale(day.observationValue)}
@@ -156,7 +147,6 @@ const Grid = styled.main`
   display: grid;
   grid-template-rows: 1fr;
   overflow: auto;
-  /* justify-content: center; */
   align-items: center;
 `
 
@@ -175,6 +165,10 @@ const Chart = styled.g`
 const Line = styled.path`
   fill: none;
   stroke: var(--color-tertiary);
+`
+
+const Circle = styled.circle`
+  fill: var(--color-primary);
 `
 
 const XAxis = styled.g`
