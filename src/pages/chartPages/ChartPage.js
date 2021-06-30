@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import { useEffect, useRef, useState } from 'react'
 
 export default function ChartPage({ observationsDiary, observationType }) {
-  const formatTime = d3.timeFormat('%Y-%m-%d')
+  const xAxisTickFormat = d3.timeFormat('%d.%m')
   const parseTime = d3.timeParse('%Y-%m-%d')
 
   const canvasRef = useRef(null)
@@ -17,7 +17,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
     setHeight(canvasRef.current.getBoundingClientRect().height)
   }, [canvasRef])
 
-  const margin = { top: 20, right: 30, bottom: 10, left: 10 }
+  const margin = { top: 20, right: 30, bottom: 20, left: 10 }
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
@@ -31,6 +31,9 @@ export default function ChartPage({ observationsDiary, observationType }) {
       .find(observation => observation.type === observationType)
       ?.observationValue.replace(',', '.'),
   }))
+
+  //.split(',')
+  console.log(ObservationValueArray)
 
   const xScale = d3
     .scaleTime()
@@ -53,6 +56,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
     .y(d => yScale(d.observationValue))
   // .curve(d3.curveNatural)
 
+  console.log(xScale.ticks(4))
+
   return (
     <Grid>
       <Canvas ref={canvasRef}>
@@ -65,6 +70,22 @@ export default function ChartPage({ observationsDiary, observationType }) {
               cy={yScale(day.observationValue)}
               r="3"
             />
+          ))}
+          {xScale.ticks(7).map(tickValue => (
+            <g
+              className="tick"
+              key={tickValue}
+              transform={`translate(${xScale(tickValue)},0)`}
+            >
+              <line y2={innerHeight} />
+              <text
+                style={{ textAnchor: 'middle' }}
+                dy=".71em"
+                y={innerHeight + 7}
+              >
+                {xAxisTickFormat(tickValue)}
+              </text>
+            </g>
           ))}
         </Chart>
       </Canvas>
