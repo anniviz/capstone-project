@@ -1,15 +1,16 @@
 import * as d3 from 'd3'
+import 'moment/locale/de'
 import { useEffect, useRef, useState } from 'react'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
-import styled from 'styled-components/macro'
 import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment'
-
-import 'moment/locale/de'
+import styled from 'styled-components/macro'
+import useWindowSize from '../../hooks/useWindowSize'
 
 export default function ChartPage({ observationsDiary, observationType }) {
+  const windowSize = useWindowSize()
   const parseTime = d3.timeParse('%Y-%m-%d')
 
   const sortedObbservationsDiary = observationsDiary
@@ -52,18 +53,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const [width, setWidth] = useState(0)
   useEffect(() => {
     setWidth(canvasRef.current.getBoundingClientRect().width)
-  }, [canvasRef])
-
-  // const calenderRef = useRef(null)
-  // const [calenderWidth, setCalenderWidth] = useState(0)
-  // useEffect(() => {
-  //   setWidth(calenderRef.current.getBoundingClientRect().width)
-  // }, [calenderRef])
+  }, [canvasRef, windowSize])
 
   const [height, setHeight] = useState(0)
   useEffect(() => {
     setHeight(canvasRef.current.getBoundingClientRect().height)
-  }, [canvasRef])
+  }, [canvasRef, windowSize])
 
   const margin = { top: 20, right: 30, bottom: 100, left: 80 }
 
