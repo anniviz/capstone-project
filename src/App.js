@@ -140,15 +140,11 @@ export default function App() {
           />
         </Route>
       </Switch>
-      {/* {location.pathname.includes('form') || ( */}
-      <Navbar isCharts={location.pathname.includes('charts')} />
-      {/* )} */}
+      {location.pathname.includes('form/') || (
+        <Navbar isCharts={location.pathname.includes('charts')} />
+      )}
     </Grid>
   )
-
-  // function getLastSegmentOfUrl() {
-  //   return location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
-  // }
 }
 
 const Grid = styled.div`

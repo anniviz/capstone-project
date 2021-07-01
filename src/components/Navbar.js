@@ -12,17 +12,17 @@ export default function Navbar({ isCharts }) {
     <Nav>
       <NavLink exact to="/medications">
         <MedicationsIconStyled
-          isActive={location.pathname.includes('medications')}
+          $isActive={location.pathname.includes('medications')}
         />
       </NavLink>
       <ObservationIconWrapper>
         <NavLink exact to="/observations">
           <ObservationsIconStyled
-            isActive={location.pathname.includes('observations')}
+            $isActive={location.pathname.includes('observations')}
           />
         </NavLink>
         <NavLink exact to="/charts">
-          <ChartsIconStyled isActive={location.pathname.includes('charts')} />
+          <ChartsIconStyled $isActive={location.pathname.includes('charts')} />
         </NavLink>
       </ObservationIconWrapper>
       <AddLink
@@ -55,21 +55,21 @@ const ObservationIconWrapper = styled.div`
 
 const MedicationsIconStyled = styled(MedicationsIcon)`
   stroke: ${prop =>
-    prop.isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
+    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
   width: 33px;
   height: 60px;
 `
 
 const ObservationsIconStyled = styled(ObservationsIcon)`
   stroke: ${prop =>
-    prop.isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
+    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
   width: 30px;
   height: 40px;
 `
 
 const ChartsIconStyled = styled(ChartsIcon)`
   stroke: ${prop =>
-    prop.isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
+    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary)'};
   width: 30px;
   height: 40px;
 `
