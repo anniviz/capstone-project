@@ -41,6 +41,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           observationDay.date >= from && observationDay.date <= to
       )
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, to])
 
   const modifiers = { start: from, end: to }
@@ -60,15 +61,16 @@ export default function ChartPage({ observationsDiary, observationType }) {
     setHeight(canvasRef.current.getBoundingClientRect().height)
   }, [canvasRef, windowSize])
 
-  const margin = { top: 20, right: 30, bottom: 100, left: 80 }
+  const margin = { top: 20, right: 30, bottom: 100, left: 60 }
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
 
-  const xAxisLabelOffset = 72
-  const yAxisLabelOffset = 48
+  // const xAxisLabelOffset = 72
+  // const yAxisLabelOffset = 48
 
   const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
+  const yAxisTickFormat = d3.format('.1f')
 
   const xScale = d3.scaleTime().domain([from, to]).range([0, innerWidth]).nice()
 
@@ -150,19 +152,17 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </XAxisTickMarks>
             </XAxis>
           ))}
-          <AxisLabel
+          {/* <AxisLabel
             className="axis-label"
             textAnchor="middle"
             x={innerWidth / 2}
             y={innerHeight + xAxisLabelOffset}
           >
             Datum
-          </AxisLabel>
-          {yScale.ticks(8).map(tickValue => (
+          </AxisLabel> */}
+          {yScale.ticks(6).map(tickValue => (
             <g
               key={yScale(tickValue)}
-              className="tick"
-              translateY={yScale(tickValue)}
               transform={`translate(0,${yScale(tickValue)})`}
             >
               <line
@@ -178,11 +178,11 @@ export default function ChartPage({ observationsDiary, observationType }) {
                 x={-7}
                 dy=".32em"
               >
-                {tickValue}
+                {yAxisTickFormat(tickValue)} kg
               </YAxisTickMarks>
             </g>
           ))}
-          <AxisLabel
+          {/* <AxisLabel
             className="axis-label"
             textAnchor="middle"
             transform={`translate(${-yAxisLabelOffset},${
@@ -190,7 +190,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
             }) rotate(-90)`}
           >
             Gewicht in kg
-          </AxisLabel>
+          </AxisLabel> */}
           <Line d={line(filteredObservationValueArray)} />
           {observationsWithoutUndefined.map(day => (
             <Circle
@@ -331,6 +331,7 @@ const XAxisTickMarks = styled.text`
   transform: rotate(-65deg);
   transform-origin: 0px ${props => props.transformOriginY}px;
   text-anchor: end;
+  font-family: monospace;
   font-size: 0.8em;
   fill: var(--color-primary);
 `
@@ -339,9 +340,11 @@ const YAxisTickMarks = styled.text`
   fill: var(--color-primary);
   font-size: 0.8em;
   text-anchor: end;
+  font-family: monospace;
+  letter-spacing: -1px;
 `
 
-const AxisLabel = styled.text`
-  fill: var(--color-primary);
-  font-weight: 500;
-`
+// const AxisLabel = styled.text`
+//   fill: var(--color-primary);
+//   font-weight: 500;
+// `
