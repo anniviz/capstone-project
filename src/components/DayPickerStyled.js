@@ -2,6 +2,7 @@ import DayPicker from 'react-day-picker'
 import styled from 'styled-components/macro'
 
 const DayPickerStyled = styled(DayPicker)`
+  color: var(--color-primary);
   margin: 16px;
   border-radius: 20px;
   box-shadow: 34px 34px 89px var(--color-shadow-13);

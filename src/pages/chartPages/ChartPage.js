@@ -23,29 +23,26 @@ export default function ChartPage({ observationsDiary, observationType }) {
       ?.observationValue.replace(',', '.'),
   }))
 
-  const [startDate, setStartDate] = useState(
-    d3.min(observationValueArray, d => d.date)
-  )
-  const [endDate, setEndDate] = useState(
-    d3.max(observationValueArray, d => d.date)
-  )
+  const [from, setfrom] = useState(d3.min(observationValueArray, d => d.date))
+  const [to, setto] = useState(d3.max(observationValueArray, d => d.date))
   const [
     filteredObservationValueArray,
     setFilteredObservationValueArray,
   ] = useState(
     observationValueArray.filter(
-      observationDay =>
-        observationDay.date >= startDate && observationDay.date <= endDate
+      observationDay => observationDay.date >= from && observationDay.date <= to
     )
   )
   useEffect(() => {
     setFilteredObservationValueArray(
       observationValueArray.filter(
         observationDay =>
-          observationDay.date >= startDate && observationDay.date <= endDate
+          observationDay.date >= from && observationDay.date <= to
       )
     )
-  }, [startDate, endDate])
+  }, [from, to])
+
+  const modifiers = { start: from, end: to }
 
   const observationsWithoutUndefined = filteredObservationValueArray.filter(
     observation => observation.observationValue
@@ -80,7 +77,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const xScale = d3
     .scaleTime()
-    .domain([startDate, endDate])
+    .domain([from, to])
     // .domain(d3.extent(observationValueArray, d => d.date))
     .range([0, innerWidth])
     .nice()
@@ -108,11 +105,15 @@ export default function ChartPage({ observationsDiary, observationType }) {
         <div>
           <Legend>Start Datum</Legend>
           <DayPickerInput
-            value={startDate}
+            value={from}
             onDayChange={handleStartDayChange}
+            format="LL"
             formatDate={formatDate}
             parseDate={parseDate}
             dayPickerProps={{
+              selectedDays: [from, { from, to }],
+              disabledDays: { after: to },
+              modifiers,
               locale: 'de',
               localeUtils: MomentLocaleUtils,
             }}
@@ -121,11 +122,16 @@ export default function ChartPage({ observationsDiary, observationType }) {
         <div>
           <Legend>End Datum</Legend>
           <DayPickerInput
-            value={endDate}
+            // ref={el => (this.to = el)}
+            value={to}
             onDayChange={handleEndDayChange}
+            format="LL"
             formatDate={formatDate}
             parseDate={parseDate}
             dayPickerProps={{
+              selectedDays: [from, { from, to }],
+              disabledDays: { before: from },
+              modifiers,
               locale: 'de',
               localeUtils: MomentLocaleUtils,
             }}
@@ -210,11 +216,11 @@ export default function ChartPage({ observationsDiary, observationType }) {
   )
 
   function handleStartDayChange(day) {
-    setStartDate(day)
+    setfrom(day)
   }
 
   function handleEndDayChange(day) {
-    setEndDate(day)
+    setto(day)
   }
 }
 
@@ -232,6 +238,20 @@ const DayPickerWrapper = styled.div`
   justify-content: space-around;
   padding: 12px;
 
+  .DayPicker {
+    color: var(--color-primary);
+  }
+
+  .DayPickerInput-Overlay {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    background: white;
+    border-radius: 20px;
+    box-shadow: 34px 34px 89px var(--color-shadow-13);
+  }
+
   .DayPickerInput-OverlayWrapper {
     width: 240px;
     position: absolute;
@@ -239,6 +259,48 @@ const DayPickerWrapper = styled.div`
     padding: 0;
     left: calc(50vw - 138.5px);
     top: 80px;
+  }
+
+  .DayPickerInput > input {
+    width: 6rem;
+    color: var(--color-tertiary);
+    font-size: 0.9rem;
+    padding: 2px;
+  }
+  .DayPicker-Day {
+    border-radius: 0%;
+  }
+
+  .DayPicker-Day--today {
+    color: var(--color-tertiary);
+  }
+
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+    background-color: var(--color-tertiary);
+  }
+
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    background-color: var(--color-tertiary);
+  }
+
+  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-primary);
+  }
+
+  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-primary);
+  }
+
+  .DayPicker-Day--start {
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+  }
+
+  .DayPicker-Day--end {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
   }
 `
 
@@ -252,6 +314,7 @@ const Legend = styled.legend`
 const Canvas = styled.svg`
   width: 100%;
   height: 60%;
+  margin: 0 auto;
 `
 
 const Chart = styled.g`
@@ -267,7 +330,7 @@ const Line = styled.path`
 `
 
 const Circle = styled.circle`
-  fill: var(--color-primary);
+  fill: var(--color-tertiary);
 `
 
 const XAxis = styled.g`

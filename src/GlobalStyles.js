@@ -30,41 +30,6 @@ const GlobalStyles = createGlobalStyle`
   textarea {
     font-size: inherit;
   }
-
-  .DayPicker {
-    color: var(--color-primary);
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-    background: radial-gradient(
-      at top left,
-      var(--color-gradient-1),
-      var(--color-gradient-2)
-    );
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    background: radial-gradient(
-      at top left,
-      var(--color-gradient-1),
-      var(--color-gradient-2)
-    );
-  }
-
-  .DayPicker-Day--today {
-    color: var(--color-tertiary);
-  }
-
-  .DayPicker-Day--copyFromDay {
-    color: var(--color-warning);
-  }
-
-  .DayPickerInput > input{
-    width: 6rem;
-    color: var(--color-tertiary);
-    font-size: 0.9rem;
-    padding: 2px;
-  }
-`
+  `
 
 export default GlobalStyles
