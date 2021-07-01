@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import ObservationPickerPage from './ObservationPickerPage'
 
 describe('ObservationFormPickerPage', () => {
-  it('renders the observation options and a back button', () => {
+  it('renders the observation options', () => {
     render(
       <MemoryRouter>
         <ObservationPickerPage
@@ -32,13 +32,12 @@ describe('ObservationFormPickerPage', () => {
             { name: 'Urin', type: 'urine', unit: '' },
             { name: 'Notizen', type: 'notes', unit: '' },
           ]}
+          leadingPath="/observations/form"
         />
       </MemoryRouter>
     )
 
     const links = screen.getAllByRole('link')
     expect(links).toHaveLength(8)
-    const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(1)
   })
 })

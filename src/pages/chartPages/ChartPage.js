@@ -24,8 +24,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
       ?.observationValue.replace(',', '.'),
   }))
 
-  const [from, setfrom] = useState(d3.min(observationValueArray, d => d.date))
-  const [to, setto] = useState(d3.max(observationValueArray, d => d.date))
+  const [from, setFrom] = useState(d3.min(observationValueArray, d => d.date))
+  const [to, setTo] = useState(d3.max(observationValueArray, d => d.date))
   const [
     filteredObservationValueArray,
     setFilteredObservationValueArray,
@@ -70,12 +70,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
 
-  const xScale = d3
-    .scaleTime()
-    .domain([from, to])
-    // .domain(d3.extent(observationValueArray, d => d.date))
-    .range([0, innerWidth])
-    .nice()
+  const xScale = d3.scaleTime().domain([from, to]).range([0, innerWidth]).nice()
 
   const yScale = d3
     .scaleLinear()
@@ -211,11 +206,11 @@ export default function ChartPage({ observationsDiary, observationType }) {
   )
 
   function handleStartDayChange(day) {
-    setfrom(day)
+    setFrom(day)
   }
 
   function handleEndDayChange(day) {
-    setto(day)
+    setTo(day)
   }
 }
 
