@@ -1,16 +1,16 @@
 import * as d3 from 'd3'
 import 'moment/locale/de'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment'
 import styled from 'styled-components/macro'
-import useWindowSize from '../../hooks/useWindowSize'
+import useTimeSpan from '../../hooks/useTimeSpan'
+import useWidthAndHeight from '../../hooks/useWidthAndHeight'
 
 export default function ChartPage({ observationsDiary, observationType }) {
-  const windowSize = useWindowSize()
   const parseTime = d3.timeParse('%Y-%m-%d')
 
   const sortedObbservationsDiary = observationsDiary
@@ -24,25 +24,13 @@ export default function ChartPage({ observationsDiary, observationType }) {
       ?.observationValue.replace(',', '.'),
   }))
 
-  const [from, setFrom] = useState(d3.min(observationValueArray, d => d.date))
-  const [to, setTo] = useState(d3.max(observationValueArray, d => d.date))
-  const [
+  const {
+    from,
+    setFrom,
+    to,
+    setTo,
     filteredObservationValueArray,
-    setFilteredObservationValueArray,
-  ] = useState(
-    observationValueArray.filter(
-      observationDay => observationDay.date >= from && observationDay.date <= to
-    )
-  )
-  useEffect(() => {
-    setFilteredObservationValueArray(
-      observationValueArray.filter(
-        observationDay =>
-          observationDay.date >= from && observationDay.date <= to
-      )
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to])
+  } = useTimeSpan(observationValueArray)
 
   const modifiers = { start: from, end: to }
 
@@ -51,15 +39,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
   )
 
   const canvasRef = useRef(null)
-  const [width, setWidth] = useState(0)
-  useEffect(() => {
-    setWidth(canvasRef.current.getBoundingClientRect().width)
-  }, [canvasRef, windowSize])
-
-  const [height, setHeight] = useState(0)
-  useEffect(() => {
-    setHeight(canvasRef.current.getBoundingClientRect().height)
-  }, [canvasRef, windowSize])
+  const { width, height } = useWidthAndHeight(canvasRef)
 
   const margin = { top: 20, right: 30, bottom: 100, left: 60 }
 
