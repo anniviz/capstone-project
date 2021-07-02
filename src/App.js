@@ -33,7 +33,10 @@ export default function App() {
   const {
     observationTypes,
     selectedObservations,
+    selectedObservation,
+    setSelectedObservationId,
     saveObservation,
+    deleteSingleObservation,
   } = useObservations(selectedDayString)
 
   return (
@@ -67,6 +70,8 @@ export default function App() {
             observationTypes={observationTypes}
             selectedDay={selectedDay}
             onSelectedDay={setSelectedDay}
+            onEdit={setSelectedObservationId}
+            onDelete={deleteSingleObservation}
           />
         </Route>
         <Route exact path={'/observations/form'}>
@@ -83,16 +88,24 @@ export default function App() {
           ]}
         >
           <ObservationFormPageDefault
+            observation={selectedObservation}
             observationType={getLastSegmentOfUrl()}
             onSubmit={saveObservation}
             observationTypes={observationTypes}
+            setSelectedObservationId={setSelectedObservationId}
           />
         </Route>
         <Route path={'/observations/form/notes'}>
-          <ObservationFormPageNote onSubmit={saveObservation} />
+          <ObservationFormPageNote
+            observation={selectedObservation}
+            onSubmit={saveObservation}
+          />
         </Route>
         <Route path={'/observations/form/urine'}>
-          <ObservationFormPageUrin onSubmit={saveObservation} />
+          <ObservationFormPageUrin
+            observation={selectedObservation}
+            onSubmit={saveObservation}
+          />
         </Route>
       </Switch>
       {location.pathname.includes('form') || <Navbar />}

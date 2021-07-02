@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import deleteIcon from '../icons/delete.svg'
+import editIcon from '../icons/edit.svg'
+import IconButton from './buttons/IconButton'
 
 ObservationGroup.propTypes = {
+  id: PropTypes.node.isRequired,
   time: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
@@ -11,17 +15,24 @@ ObservationGroup.propTypes = {
       type: PropTypes.string,
       unit: PropTypes.string,
       format: PropTypes.string,
-    })
-  ).isRequired,
+    }).isRequired
+  ),
+  editMode: PropTypes.bool,
+  handleEditClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 }
 
 export default function ObservationGroup({
+  id,
   time,
   name,
   value,
   observationTypes,
+  editMode,
+  handleEditClick,
+  handleDeleteClick,
 }) {
-  const { unit } = observationTypes.find(element => element.name === name)
+  const { unit, type } = observationTypes.find(element => element.name === name)
 
   return (
     <Wrapper>
@@ -30,6 +41,26 @@ export default function ObservationGroup({
       <Value>
         {value} {unit}
       </Value>
+      {editMode && (
+        <>
+          <IconButton
+            right="10px"
+            top="20px"
+            onClick={() => handleDeleteClick(id)}
+            position="absolute"
+          >
+            <img src={deleteIcon} alt="löschen" height="16px" />
+          </IconButton>
+          <IconButton
+            right="10px"
+            top="52px"
+            onClick={() => handleEditClick(id, type)}
+            position="absolute"
+          >
+            <img src={editIcon} alt="bearbeiten" height="16px" />
+          </IconButton>
+        </>
+      )}
     </Wrapper>
   )
 }

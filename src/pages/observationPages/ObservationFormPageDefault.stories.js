@@ -25,6 +25,7 @@ export default {
 
 export const Default = args => <ObservationFormPageDefault {...args} />
 Default.args = {
+  observation: {},
   observationTypes: [
     { name: 'Größe', type: 'size', unit: 'cm' },
     { name: 'Gewicht', type: 'weight', unit: 'kg' },

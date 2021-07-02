@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import produce from 'immer'
+import { useEffect, useState } from 'react'
 import { useImmer } from 'use-immer'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
@@ -33,6 +34,13 @@ export default function useObservations(selectedDayString) {
   )
   const selectedObservations = dateIndex > -1 ? findActiveObservations() : []
 
+  const [selectedObservationId, setSelectedObservationId] = useState(null)
+  const selectedObservationIndex = selectedObservations.findIndex(
+    observation => observation.id === selectedObservationId
+  )
+  const selectedObservation =
+    selectedObservations[selectedObservationIndex] ?? {}
+
   function findActiveObservations() {
     return observationsDiary[dateIndex].observations
   }
@@ -44,9 +52,30 @@ export default function useObservations(selectedDayString) {
     } else {
       addObbservationToNewDay(newObservation)
     }
+    setSelectedObservationId(null)
   }
 
   function updateSelectedDay(newObservation) {
+    const observationsIndex = selectedObservations.findIndex(
+      observation => observation.id === newObservation.id
+    )
+
+    const doesObservationExist = observationsIndex > -1
+
+    if (doesObservationExist) {
+      updateExistingObservation(observationsIndex, newObservation)
+    } else {
+      addObservationToExistingDay(newObservation)
+    }
+  }
+
+  function updateExistingObservation(observationsIndex, newObservation) {
+    updateObservationsDiary(draft => {
+      draft[dateIndex].observations[observationsIndex] = newObservation
+    })
+  }
+
+  function addObservationToExistingDay(newObservation) {
     updateObservationsDiary(draft => {
       draft[dateIndex].observations.push(newObservation)
     })
@@ -58,10 +87,26 @@ export default function useObservations(selectedDayString) {
     })
   }
 
+  function deleteSingleObservation(id) {
+    const dayObservations = observationsDiary[dateIndex].observations
+    const observationsIndex = dayObservations.findIndex(
+      observation => observation.id === id
+    )
+    updateObservationsDiary(
+      produce(observationsDiary, draft => {
+        if (observationsIndex !== -1)
+          draft[dateIndex].observations.splice(observationsIndex, 1)
+      })
+    )
+  }
+
   return {
     observationTypes,
     selectedObservations,
-    observationsDiary,
+    selectedObservation,
+    selectedObservationId,
+    setSelectedObservationId,
     saveObservation,
+    deleteSingleObservation,
   }
 }

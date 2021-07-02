@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import checkIconDisabled from '../icons/check-disabled.svg'
+import checkIcon from '../icons/check-done.svg'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
-import checkIcon from '../icons/check-done.svg'
-import checkIconDisabled from '../icons/check-disabled.svg'
 import IconButton from './buttons/IconButton'
 
 MedicationGroup.propTypes = {

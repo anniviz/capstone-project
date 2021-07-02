@@ -24,4 +24,4 @@ export default {
 }
 
 export const Default = args => <ObservationFormPageUrin {...args} />
-Default.args = {}
+Default.args = { observation: {} }

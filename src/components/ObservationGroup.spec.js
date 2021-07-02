@@ -5,6 +5,7 @@ describe('ObservationGroup', () => {
   it('renders the date and the observation', () => {
     render(
       <ObservationGroup
+        id="1234"
         time={'8:00'}
         name={'Blutdruck'}
         value={'94/50'}
@@ -33,6 +34,8 @@ describe('ObservationGroup', () => {
           { name: 'Urin', type: 'urine', unit: '' },
           { name: 'Notizen', type: 'notes', unit: '' },
         ]}
+        handleEditClick={jest.fn()}
+        handleDeleteClick={jest.fn()}
       />
     )
 

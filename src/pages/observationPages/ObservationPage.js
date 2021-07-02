@@ -3,10 +3,13 @@ import { useState } from 'react'
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import MomentLocaleUtils from 'react-day-picker/moment'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import IconButton from '../../components/buttons/IconButton'
 import ObservationGroup from '../../components/ObservationGroup'
+import backIcon from '../../icons/back.svg'
 import calendarIcon from '../../icons/calendar.svg'
+import editRectangleIcon from '../../icons/edit_rectangle.svg'
 import sortByTime from '../../utils/sortByTime'
 
 ObservationPage.propTypes = {
@@ -27,6 +30,8 @@ ObservationPage.propTypes = {
   ),
   selectedDay: PropTypes.instanceOf(Date),
   onSelectedDay: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default function ObservationPage({
@@ -34,9 +39,14 @@ export default function ObservationPage({
   observationTypes,
   selectedDay,
   onSelectedDay,
+  onEdit,
+  onDelete,
 }) {
   const sortedObservations = sortByTime(observations)
+  const [editMode, setEditMode] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+
+  let history = useHistory()
 
   return (
     <Grid>
@@ -47,6 +57,25 @@ export default function ObservationPage({
         >
           <img src={calendarIcon} alt="" height="20px" />
         </IconButton>
+        {observations.length !== 0 &&
+          (editMode ? (
+            <>
+              <IconButton
+                align="right"
+                onClick={() => setEditMode(false)}
+                aria-label="Bearbeiten beenden"
+              >
+                <img src={backIcon} alt="" height="20px" />
+              </IconButton>
+            </>
+          ) : (
+            <IconButton
+              onClick={() => setEditMode(true)}
+              aria-label="Medikationen bearbeiten"
+            >
+              <img src={editRectangleIcon} alt="" height="20px" />
+            </IconButton>
+          ))}
       </ButtonWrapper>
       {showCalendar && (
         <DayPickerStyled
@@ -60,10 +89,14 @@ export default function ObservationPage({
         {sortedObservations.map(({ id, time, name, observationValue }) => (
           <ObservationGroup
             key={id}
+            id={id}
             observationTypes={observationTypes}
             time={time}
             name={name}
             value={observationValue}
+            editMode={editMode}
+            handleDeleteClick={onDelete}
+            handleEditClick={handleEditClick}
           />
         ))}
       </Flexbox>
@@ -72,6 +105,11 @@ export default function ObservationPage({
 
   function handleDayClick(day) {
     onSelectedDay(day)
+  }
+
+  function handleEditClick(id, type) {
+    onEdit(id)
+    history.push('/observations/form/' + type)
   }
 }
 
@@ -92,6 +130,7 @@ const Flexbox = styled.ul`
 
 const ButtonWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   padding: 20px 26px 10px 26px;
 `
 
