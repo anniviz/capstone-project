@@ -70,7 +70,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           <Legend>Start Datum</Legend>
           <DayPickerInput
             value={from}
-            onDayChange={handleStartDayChange}
+            onDayChange={day => handleDayChange(day, 'start')}
             format="LL"
             formatDate={formatDate}
             parseDate={parseDate}
@@ -88,7 +88,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
           <DayPickerInput
             // ref={el => (this.to = el)}
             value={to}
-            onDayChange={handleEndDayChange}
+            onDayChange={day => handleDayChange(day, 'end')}
             format="LL"
             formatDate={formatDate}
             parseDate={parseDate}
@@ -178,12 +178,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
     }
   }
 
-  function handleStartDayChange(day) {
-    setFrom(day)
-  }
-
-  function handleEndDayChange(day) {
-    setTo(day)
+  function handleDayChange(day, position) {
+    position === 'start' ? setFrom(day) : setTo(day)
   }
 }
 
