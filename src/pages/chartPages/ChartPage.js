@@ -13,16 +13,11 @@ import useWidthAndHeight from '../../hooks/useWidthAndHeight'
 export default function ChartPage({ observationsDiary, observationType }) {
   const parseTime = d3.timeParse('%Y-%m-%d')
 
-  const sortedObbservationsDiary = observationsDiary
+  const sortedObservationsDiary = observationsDiary
     .slice()
     .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
 
-  const observationValueArray = sortedObbservationsDiary.map(day => ({
-    date: parseTime(day.date),
-    observationValue: +day.observations
-      .find(observation => observation.type === observationType)
-      ?.observationValue.replace(',', '.'),
-  }))
+  const observationValueArray = createObservationValueArray()
 
   const {
     from,
@@ -45,9 +40,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
-
-  // const xAxisLabelOffset = 72
-  // const yAxisLabelOffset = 48
 
   const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
   const yAxisTickFormat = d3.format('.1f')
@@ -132,14 +124,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </XAxisTickMarks>
             </XAxis>
           ))}
-          {/* <AxisLabel
-            className="axis-label"
-            textAnchor="middle"
-            x={innerWidth / 2}
-            y={innerHeight + xAxisLabelOffset}
-          >
-            Datum
-          </AxisLabel> */}
           {yScale.ticks(6).map(tickValue => (
             <g
               key={yScale(tickValue)}
@@ -162,15 +146,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
               </YAxisTickMarks>
             </g>
           ))}
-          {/* <AxisLabel
-            className="axis-label"
-            textAnchor="middle"
-            transform={`translate(${-yAxisLabelOffset},${
-              innerHeight / 2
-            }) rotate(-90)`}
-          >
-            Gewicht in kg
-          </AxisLabel> */}
           <Line d={line(filteredObservationValueArray)} />
           {observationsWithoutUndefined.map(day => (
             <Circle
@@ -184,6 +159,24 @@ export default function ChartPage({ observationsDiary, observationType }) {
       </Canvas>
     </Grid>
   )
+
+  function createObservationValueArray() {
+    return sortedObservationsDiary.map(day => ({
+      date: parseTime(day.date),
+      observationValue: +parseObservationValue(day.observations),
+    }))
+  }
+
+  function parseObservationValue(observationValueArray) {
+    const observationValueRaw = observationValueArray.find(
+      observation => observation.type === observationType
+    )
+    if (observationType === 'bloodpressure') {
+      return observationValueRaw?.observationValue.replace('/', '.')
+    } else {
+      return observationValueRaw?.observationValue.replace(',', '.')
+    }
+  }
 
   function handleStartDayChange(day) {
     setFrom(day)
