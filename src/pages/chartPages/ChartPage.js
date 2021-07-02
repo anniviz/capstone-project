@@ -17,7 +17,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
     .slice()
     .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
 
-  const observationValueArray = createObservationValueArray()
+  const activeObservationValueArray = createObservationValueArray()
 
   const {
     from,
@@ -25,7 +25,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
     to,
     setTo,
     filteredObservationValueArray,
-  } = useTimeSpan(observationValueArray)
+  } = useTimeSpan(activeObservationValueArray)
 
   const modifiers = { start: from, end: to }
 
@@ -34,28 +34,32 @@ export default function ChartPage({ observationsDiary, observationType }) {
   )
 
   const canvasRef = useRef(null)
-  const { width, height } = useWidthAndHeight(canvasRef)
+  const { width: chartWidth, height: chartHeight } = useWidthAndHeight(
+    canvasRef
+  )
 
   const margin = { top: 20, right: 30, bottom: 100, left: 60 }
 
-  const innerWidth = width - margin.left - margin.right
-  const innerHeight = height - margin.top - margin.bottom
+  const chartInnerWidth = chartWidth - margin.left - margin.right
+  const chartInnerHeight = chartHeight - margin.top - margin.bottom
 
   const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
   const yAxisTickFormat = d3.format('.1f')
 
-  const xScale = d3.scaleTime().domain([from, to]).range([0, innerWidth]).nice()
+  const xScale = d3
+    .scaleTime()
+    .domain([from, to])
+    .range([0, chartInnerWidth])
+    .nice()
 
   const yScale = d3
     .scaleLinear()
     .domain([
-      d3.extent(observationValueArray, d => d.observationValue)[0] - 0.1,
-      d3.extent(observationValueArray, d => d.observationValue)[1] + 0.1,
+      d3.extent(activeObservationValueArray, d => d.observationValue)[0] - 0.1,
+      d3.extent(activeObservationValueArray, d => d.observationValue)[1] + 0.1,
     ])
-    .range([innerHeight, 0])
+    .range([chartInnerHeight, 0])
     .nice()
-
-  // const yScale = d3.scaleLinear().domain([35.5, 40.0]).range([height, 0]).nice()
 
   const line = d3
     .line()
@@ -86,7 +90,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
         <div>
           <Legend>End Datum</Legend>
           <DayPickerInput
-            // ref={el => (this.to = el)}
             value={to}
             onDayChange={day => handleDayChange(day, 'end')}
             format="LL"
@@ -110,15 +113,15 @@ export default function ChartPage({ observationsDiary, observationType }) {
                 x1="0"
                 y1={-4}
                 x2="0"
-                y2={innerHeight + 4}
+                y2={chartInnerHeight + 4}
                 stroke="lightgrey"
               />
               <XAxisTickMarks
                 x={-6}
-                y={innerHeight + 8}
+                y={chartInnerHeight + 8}
                 translate={xScale(tickValue)}
                 transformOriginX={margin.left}
-                transformOriginY={innerHeight}
+                transformOriginY={chartInnerHeight}
               >
                 {xAxisTickFormat(tickValue)}
               </XAxisTickMarks>
@@ -132,7 +135,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
               <line
                 x1={-4}
                 y1="0"
-                x2={innerWidth + 4}
+                x2={chartInnerWidth + 4}
                 y2="0"
                 stroke="lightgrey"
               />
