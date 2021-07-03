@@ -1,11 +1,10 @@
 import * as d3 from 'd3'
 import 'moment/locale/de'
-import { useRef } from 'react'
+import PropTypes from 'prop-types'
+import { useRef, useState } from 'react'
 import styled from 'styled-components/macro'
 import LineChart from '../../components/charts/LineChart'
 import DayPickerInputRange from '../../components/DayPickerInputRange'
-import PropTypes from 'prop-types'
-import useTimeSpan from '../../hooks/useTimeSpan'
 
 ChartPage.propTypes = {
   observationsDiary: PropTypes.arrayOf(
@@ -34,13 +33,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
 
   const selectedObservationValueArray = createObservationValueArray()
 
-  const {
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    filteredObservationValueArray,
-  } = useTimeSpan(selectedObservationValueArray)
+  const [startDate, setStartDate] = useState(
+    d3.min(selectedObservationValueArray, d => d.date)
+  )
+  const [endDate, setEndDate] = useState(
+    d3.max(selectedObservationValueArray, d => d.date)
+  )
 
   const canvasRef = useRef(null)
 
@@ -54,7 +52,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
       />
       <Canvas ref={canvasRef}>
         <LineChart
-          filteredObservationValueArray={filteredObservationValueArray}
           selectedObservationValueArray={selectedObservationValueArray}
           startDate={startDate}
           endDate={endDate}
