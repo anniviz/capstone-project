@@ -1,27 +1,57 @@
 import * as d3 from 'd3'
+import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import useWidthAndHeight from '../../hooks/useWidthAndHeight'
+import XAxis from './XAxis'
+import YAxis from './YAxis'
+
+LineChart.propTypes = {
+  selectedObservationValueArray: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date),
+      observationValue: PropTypes.number,
+    })
+  ).isRequired,
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  endDate: PropTypes.instanceOf(Date).isRequired,
+  canvasRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
+}
 
 export default function LineChart({
-  filteredObservationValueArray,
   selectedObservationValueArray,
   startDate,
   endDate,
   canvasRef,
 }) {
+  const [
+    filteredObservationValueArray,
+    setFilteredObservationValueArray,
+  ] = useState(selectedObservationValueArray)
+
+  useEffect(() => {
+    setFilteredObservationValueArray(
+      selectedObservationValueArray.filter(
+        observationDay =>
+          observationDay.date >= startDate && observationDay.date <= endDate
+      )
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startDate, endDate])
+
   const observationsWithoutUndefined = filteredObservationValueArray.filter(
     observation => observation.observationValue
   )
   const { width: chartWidth, height: chartHeight } = useWidthAndHeight(
     canvasRef
   )
-  const margin = { top: 20, right: 30, bottom: 100, left: 60 }
+  const chartMargin = { top: 20, right: 30, bottom: 100, left: 60 }
 
-  const chartInnerWidth = chartWidth - margin.left - margin.right
-  const chartInnerHeight = chartHeight - margin.top - margin.bottom
-
-  const xAxisTickFormat = d3.timeFormat('%d.%m.%y')
-  const yAxisTickFormat = d3.format('.1f')
+  const chartInnerWidth = chartWidth - chartMargin.left - chartMargin.right
+  const chartInnerHeight = chartHeight - chartMargin.top - chartMargin.bottom
 
   const xScale = d3
     .scaleTime()
@@ -47,49 +77,13 @@ export default function LineChart({
     .y(d => yScale(d.observationValue))
 
   return (
-    <Chart marginLeft={margin.left} marginTop={margin.top}>
-      {xScale.ticks(6).map(tickValue => (
-        <XAxis translateY={xScale(tickValue)} key={tickValue}>
-          <line
-            x1="0"
-            y1={-4}
-            x2="0"
-            y2={chartInnerHeight + 4}
-            stroke="lightgrey"
-          />
-          <XAxisTickMarks
-            x={-6}
-            y={chartInnerHeight + 8}
-            translate={xScale(tickValue)}
-            transformOriginX={margin.left}
-            transformOriginY={chartInnerHeight}
-          >
-            {xAxisTickFormat(tickValue)}
-          </XAxisTickMarks>
-        </XAxis>
-      ))}
-      {yScale.ticks(6).map(tickValue => (
-        <g
-          key={yScale(tickValue)}
-          transform={`translate(0,${yScale(tickValue)})`}
-        >
-          <line
-            x1={-4}
-            y1="0"
-            x2={chartInnerWidth + 4}
-            y2="0"
-            stroke="lightgrey"
-          />
-          <YAxisTickMarks
-            key={tickValue}
-            style={{ textAnchor: 'end' }}
-            x={-7}
-            dy=".32em"
-          >
-            {yAxisTickFormat(tickValue)} kg
-          </YAxisTickMarks>
-        </g>
-      ))}
+    <Chart marginLeft={chartMargin.left} marginTop={chartMargin.top}>
+      <XAxis
+        xScale={xScale}
+        chartInnerHeight={chartInnerHeight}
+        marginLeft={chartMargin.left}
+      />
+      <YAxis yScale={yScale} chartInnerWidth={chartInnerWidth} />
       <Line d={line(filteredObservationValueArray)} />
       {observationsWithoutUndefined.map(day => (
         <Circle
@@ -117,25 +111,4 @@ const Line = styled.path`
 
 const Circle = styled.circle`
   fill: var(--color-tertiary);
-`
-
-const XAxis = styled.g`
-  transform: translate(${props => props.translateY}px, 0);
-`
-
-const XAxisTickMarks = styled.text`
-  transform: rotate(-65deg);
-  transform-origin: 0px ${props => props.transformOriginY}px;
-  text-anchor: end;
-  font-family: monospace;
-  font-size: 0.8em;
-  fill: var(--color-primary);
-`
-
-const YAxisTickMarks = styled.text`
-  fill: var(--color-primary);
-  font-size: 0.8em;
-  text-anchor: end;
-  font-family: monospace;
-  letter-spacing: -1px;
 `
