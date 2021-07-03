@@ -106,9 +106,9 @@ const Chart = styled.g`
 
 const Line = styled.path`
   fill: none;
-  stroke: var(--color-tertiary);
+  stroke: var(--color-quaternary);
 `
 
 const Circle = styled.circle`
-  fill: var(--color-tertiary);
+  fill: var(--color-quaternary);
 `

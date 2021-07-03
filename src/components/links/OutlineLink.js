@@ -7,9 +7,9 @@ const OutlineLink = styled(Link)`
   justify-content: center;
   width: 160px;
   height: 52px;
-  border: 2px solid var(--color-tertiary);
+  border: 2px solid var(--color-quaternary);
   border-radius: 20px;
-  color: var(--color-tertiary);
+  color: var(--color-quaternary);
   font-weight: bold;
   text-decoration: none;
 `

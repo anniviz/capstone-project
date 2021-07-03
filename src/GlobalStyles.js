@@ -5,7 +5,9 @@ const GlobalStyles = createGlobalStyle`
     --color-basis: #fff;
     --color-primary: #205072;
     --color-secondary: #e0ecde;
+    --color-secondary-dark: #CDE0C9;
     --color-tertiary: #68b2a0;
+    --color-quaternary: #47CACC;
     --color-gradient-1: #7be495;
     --color-gradient-2: #329d9c;
     --color-shadow-13: rgba(50, 157, 156, 0.13);
