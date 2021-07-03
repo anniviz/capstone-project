@@ -2,24 +2,35 @@ import * as d3 from 'd3'
 import { useEffect, useState } from 'react'
 
 export default function useTimeSpan(observationValueArray) {
-  const [from, setFrom] = useState(d3.min(observationValueArray, d => d.date))
-  const [to, setTo] = useState(d3.max(observationValueArray, d => d.date))
+  const [startDate, setStartDate] = useState(
+    d3.min(observationValueArray, d => d.date)
+  )
+  const [endDate, setEndDate] = useState(
+    d3.max(observationValueArray, d => d.date)
+  )
   const [
     filteredObservationValueArray,
     setFilteredObservationValueArray,
   ] = useState(
     observationValueArray.filter(
-      observationDay => observationDay.date >= from && observationDay.date <= to
+      observationDay =>
+        observationDay.date >= startDate && observationDay.date <= endDate
     )
   )
   useEffect(() => {
     setFilteredObservationValueArray(
       observationValueArray.filter(
         observationDay =>
-          observationDay.date >= from && observationDay.date <= to
+          observationDay.date >= startDate && observationDay.date <= endDate
       )
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to])
-  return { from, setFrom, to, setTo, filteredObservationValueArray }
+  }, [startDate, endDate])
+  return {
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    filteredObservationValueArray,
+  }
 }
