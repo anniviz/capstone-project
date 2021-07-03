@@ -1,9 +1,17 @@
-import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment'
+import styled from 'styled-components/macro'
+
+DayPickerInputRange.propTypes = {
+  from: PropTypes.instanceOf(Date).isRequired,
+  setFrom: PropTypes.func.isRequired,
+  to: PropTypes.instanceOf(Date).isRequired,
+  setTo: PropTypes.func.isRequired,
+}
 
 export default function DayPickerInputRange({ from, setFrom, to, setTo }) {
   const modifiers = { start: from, end: to }
