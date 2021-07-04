@@ -14,7 +14,12 @@ export default function YAxis({ yScale, chartInnerWidth, observationType }) {
   const { unit } = observationTypes.find(
     element => element.type === observationType
   )
-  const yAxisTickFormat = d3.format('.1f')
+  let yAxisTickFormat = d3.format('.1f')
+  if (observationType === 'bloodpressure' || observationType === 'size') {
+    yAxisTickFormat = d3.format('d')
+  } else if (observationType === 'fev1') {
+    yAxisTickFormat = d3.format('.2f')
+  }
 
   return (
     <>
