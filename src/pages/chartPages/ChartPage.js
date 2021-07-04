@@ -31,7 +31,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const selectedObservationValueArray = createObservationValueArray()
   const observationsWithoutUndefined = selectedObservationValueArray.filter(
     observation =>
-      observationType === 'bloodpressure'
+      observationType === 'bloodpressure' || observationType === 'fev1'
         ? observation.observationValue[0]
         : observation.observationValue
   )
@@ -56,6 +56,7 @@ export default function ChartPage({ observationsDiary, observationType }) {
       <Canvas ref={canvasRef}>
         <LineChart
           observationValues={filteredObservationValueArray}
+          observationsWithoutUndefined={observationsWithoutUndefined}
           observationType={observationType}
           startDate={startDate}
           endDate={endDate}
@@ -76,15 +77,24 @@ export default function ChartPage({ observationsDiary, observationType }) {
       date: parseTime(day.date),
       observationValue: parseObservationValue(day.observations),
     }))
-
     return observationValueArray
   }
 
   function parseObservationValue(observationValueArray) {
-    const observationValueRaw = observationValueArray.find(
+    let observationValueRaw = observationValueArray.find(
       observation => observation.type === observationType
     )
-    if (observationType === 'bloodpressure') {
+    if (observationType === 'fev1') {
+      observationValueRaw = observationValueArray.filter(
+        observation => observation.type === observationType
+      )
+    }
+    if (observationType === 'fev1') {
+      return [
+        +observationValueRaw[0]?.observationValue.replace(',', '.'),
+        +observationValueRaw[1]?.observationValue.replace(',', '.'),
+      ]
+    } else if (observationType === 'bloodpressure') {
       return (
         observationValueRaw?.observationValue
           .split('/')
