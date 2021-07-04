@@ -1,22 +1,17 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import OutlineLink from '../../components/links/OutlineLink'
+import getObservationTypes from '../../services/getObservationTypes'
 
 ObservationPickerPage.propTypes = {
-  observationTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      unit: PropTypes.string,
-    }).isRequired
-  ),
   leadingPath: PropTypes.string.isRequired,
 }
 
-export default function ObservationPickerPage({
-  observationTypes,
-  leadingPath,
-}) {
+export default function ObservationPickerPage({ leadingPath }) {
+  const observationTypes = leadingPath.includes('charts')
+    ? getObservationTypes().slice(0, getObservationTypes().length - 1)
+    : getObservationTypes()
+
   const headingText = leadingPath.includes('charts')
     ? 'zeige den Verlauf von'
     : 'erstelle neu'

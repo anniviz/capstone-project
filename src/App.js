@@ -34,7 +34,6 @@ export default function App() {
 
   const {
     observationsDiary,
-    observationTypes,
     selectedObservations,
     selectedObservation,
     setSelectedObservationId,
@@ -44,7 +43,7 @@ export default function App() {
 
   return (
     <Grid>
-      <Header selectedDay={selectedDay} observationTypes={observationTypes} />
+      <Header selectedDay={selectedDay} />
       <Switch>
         <Route exact path="/">
           <Redirect to="/medications" />
@@ -70,7 +69,6 @@ export default function App() {
         <Route exact path={'/observations'}>
           <ObservationPage
             observations={selectedObservations}
-            observationTypes={observationTypes}
             selectedDay={selectedDay}
             onSelectedDay={setSelectedDay}
             onEdit={setSelectedObservationId}
@@ -78,10 +76,7 @@ export default function App() {
           />
         </Route>
         <Route exact path={'/observations/form'}>
-          <ObservationPickerPage
-            observationTypes={observationTypes}
-            leadingPath={'/observations/form'}
-          />
+          <ObservationPickerPage leadingPath={'/observations/form'} />
         </Route>
         <Route
           path={[
@@ -97,7 +92,6 @@ export default function App() {
             observation={selectedObservation}
             observationType={getLastSegmentOfUrl(location)}
             onSubmit={saveObservation}
-            observationTypes={observationTypes}
             setSelectedObservationId={setSelectedObservationId}
           />
         </Route>
@@ -114,13 +108,7 @@ export default function App() {
           />
         </Route>
         <Route exact path={'/charts'}>
-          <ObservationPickerPage
-            observationTypes={observationTypes.slice(
-              0,
-              observationTypes.length - 1
-            )}
-            leadingPath={'/charts'}
-          />
+          <ObservationPickerPage leadingPath={'/charts'} />
         </Route>
         <Route
           exact

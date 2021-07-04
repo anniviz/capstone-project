@@ -13,13 +13,6 @@ import editRectangleIcon from '../../icons/edit_rectangle.svg'
 import sortByTime from '../../utils/sortByTime'
 
 ObservationPage.propTypes = {
-  observationTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      unit: PropTypes.string,
-    }).isRequired
-  ),
   observations: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -36,7 +29,6 @@ ObservationPage.propTypes = {
 
 export default function ObservationPage({
   observations,
-  observationTypes,
   selectedDay,
   onSelectedDay,
   onEdit,
@@ -90,7 +82,6 @@ export default function ObservationPage({
           <ObservationGroup
             key={id}
             id={id}
-            observationTypes={observationTypes}
             time={time}
             name={name}
             value={observationValue}
