@@ -29,6 +29,12 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const parseTime = d3.timeParse('%Y-%m-%d')
 
   const selectedObservationValueArray = createObservationValueArray()
+  const observationsWithoutUndefined = selectedObservationValueArray.filter(
+    observation =>
+      observationType === 'bloodpressure'
+        ? observation.observationValue[0]
+        : observation.observationValue
+  )
 
   const {
     startDate,
@@ -36,11 +42,10 @@ export default function ChartPage({ observationsDiary, observationType }) {
     endDate,
     setEndDate,
     filteredObservationValueArray,
-  } = useTimeSpan(selectedObservationValueArray, observationType)
+  } = useTimeSpan(selectedObservationValueArray, observationsWithoutUndefined)
 
   const canvasRef = useRef(null)
-
-  return (
+  return observationsWithoutUndefined.length > 0 ? (
     <Grid>
       <DayPickerInputRange
         from={startDate}
@@ -58,6 +63,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
         />
       </Canvas>
     </Grid>
+  ) : (
+    <NoObservations>Hier gibt es noch keine Aufzeichnungen</NoObservations>
   )
 
   function createObservationValueArray() {
@@ -101,4 +108,8 @@ const Canvas = styled.svg`
   width: 100%;
   height: 60%;
   margin: 0 auto;
+`
+
+const NoObservations = styled.main`
+  margin: 40px 20px;
 `

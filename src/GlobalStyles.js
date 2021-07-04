@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: var(--color-basis);
+    color: var(--color-primary)
   }
 
   input,

@@ -1,13 +1,16 @@
 import * as d3 from 'd3'
 import { useEffect, useState } from 'react'
 
-export default function useTimeSpan(observationValueArray, observationType) {
-  const observationsWithoutUndefined = observationValueArray.filter(
-    observation =>
-      observationType === 'bloodpressure'
-        ? observation.observationValue[0]
-        : observation.observationValue
-  )
+export default function useTimeSpan(
+  observationValueArray,
+  observationsWithoutUndefined
+) {
+  // const observationsWithoutUndefined = observationValueArray.filter(
+  //   observation =>
+  //     observationType === 'bloodpressure'
+  //       ? observation.observationValue[0]
+  //       : observation.observationValue
+  // )
 
   const [startDate, setStartDate] = useState(
     d3.min(observationsWithoutUndefined, d => d.date)
