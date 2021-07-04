@@ -95,7 +95,12 @@ export default function LineChart({
         chartInnerHeight={chartInnerHeight}
         marginLeft={chartMargin.left}
       />
-      <YAxis yScale={yScale} chartInnerWidth={chartInnerWidth} />
+      <YAxis
+        yScale={yScale}
+        chartInnerWidth={chartInnerWidth}
+        observationType={observationType}
+      />
+
       {observationType === 'bloodpressure' ? (
         <>
           <Line d={lineSystole(observationValues)} />

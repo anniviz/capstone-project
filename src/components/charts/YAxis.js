@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import getObservationTypes from '../../services/getObservationTypes'
 
 YAxis.propTypes = {
   yScale: PropTypes.func.isRequired,
@@ -9,6 +10,10 @@ YAxis.propTypes = {
 }
 
 export default function YAxis({ yScale, chartInnerWidth, observationType }) {
+  const observationTypes = getObservationTypes()
+  const { unit } = observationTypes.find(
+    element => element.type === observationType
+  )
   const yAxisTickFormat = d3.format('.1f')
 
   return (
@@ -35,7 +40,7 @@ export default function YAxis({ yScale, chartInnerWidth, observationType }) {
           </YAxisTickMarks>
         </g>
       ))}
-      <AxisLabel>kg</AxisLabel>
+      <AxisLabel>{unit}</AxisLabel>
     </>
   )
 }
@@ -51,7 +56,7 @@ const YAxisTickMarks = styled.text`
 const AxisLabel = styled.text`
   fill: var(--color-primary);
   font-weight: 500;
-  font-size: 0.8em;
+  font-size: 0.7rem;
   text-anchor: end;
-  transform: translate(-12px, -4px);
+  transform: translate(-4px, -12px);
 `
