@@ -1,18 +1,21 @@
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import useWidthAndHeight from '../../hooks/useWidthAndHeight'
 import XAxis from './XAxis'
 import YAxis from './YAxis'
 
 LineChart.propTypes = {
-  selectedObservationValueArray: PropTypes.arrayOf(
+  observationValues: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.instanceOf(Date),
-      observationValue: PropTypes.number,
+      observationValue: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.array,
+      ]),
     })
   ).isRequired,
+  observationType: PropTypes.string.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date).isRequired,
   canvasRef: PropTypes.oneOfType([
@@ -22,29 +25,18 @@ LineChart.propTypes = {
 }
 
 export default function LineChart({
-  selectedObservationValueArray,
+  observationValues,
+  observationType,
   startDate,
   endDate,
   canvasRef,
 }) {
-  const [
-    filteredObservationValueArray,
-    setFilteredObservationValueArray,
-  ] = useState(selectedObservationValueArray)
-
-  useEffect(() => {
-    setFilteredObservationValueArray(
-      selectedObservationValueArray.filter(
-        observationDay =>
-          observationDay.date >= startDate && observationDay.date <= endDate
-      )
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate])
-
-  const observationsWithoutUndefined = filteredObservationValueArray.filter(
-    observation => observation.observationValue
+  const observationsWithoutUndefined = observationValues.filter(observation =>
+    observationType === 'bloodpressure'
+      ? observation.observationValue[0]
+      : observation.observationValue
   )
+
   const { width: chartWidth, height: chartHeight } = useWidthAndHeight(
     canvasRef
   )
@@ -62,19 +54,39 @@ export default function LineChart({
   const yScale = d3
     .scaleLinear()
     .domain([
-      d3.extent(selectedObservationValueArray, d => d.observationValue)[0] -
-        0.1,
-      d3.extent(selectedObservationValueArray, d => d.observationValue)[1] +
-        0.1,
+      d3.min(observationValues, d =>
+        observationType === 'bloodpressure'
+          ? d.observationValue[1]
+          : d.observationValue
+      ) - 0.1,
+      d3.max(observationValues, d =>
+        observationType === 'bloodpressure'
+          ? d.observationValue[0]
+          : d.observationValue
+      ) + 0.1,
     ])
     .range([chartInnerHeight, 0])
     .nice()
 
-  const line = d3
-    .line()
-    .defined(d => !isNaN(d.observationValue))
-    .x(d => xScale(d.date))
-    .y(d => yScale(d.observationValue))
+  let line, lineSystole, lineDiastole
+  if (observationType === 'bloodpressure') {
+    lineSystole = d3
+      .line()
+      .defined(d => !isNaN(d.observationValue[0]))
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.observationValue[0]))
+    lineDiastole = d3
+      .line()
+      .defined(d => !isNaN(d.observationValue[1]))
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.observationValue[1]))
+  } else {
+    line = d3
+      .line()
+      .defined(d => !isNaN(d.observationValue))
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.observationValue))
+  }
 
   return (
     <Chart marginLeft={chartMargin.left} marginTop={chartMargin.top}>
@@ -84,15 +96,23 @@ export default function LineChart({
         marginLeft={chartMargin.left}
       />
       <YAxis yScale={yScale} chartInnerWidth={chartInnerWidth} />
-      <Line d={line(filteredObservationValueArray)} />
-      {observationsWithoutUndefined.map(day => (
-        <Circle
-          key={day.date}
-          cx={xScale(day.date)}
-          cy={yScale(day.observationValue)}
-          r="2"
-        />
-      ))}
+      {observationType === 'bloodpressure' ? (
+        <>
+          <Line d={lineSystole(observationValues)} />
+          <Line d={lineDiastole(observationValues)} />
+        </>
+      ) : (
+        <Line d={line(observationValues)} />
+      )}
+      {observationType === 'bloodpressure' ||
+        observationsWithoutUndefined.map(day => (
+          <Circle
+            key={day.date}
+            cx={xScale(day.date)}
+            cy={yScale(day.observationValue)}
+            r="2"
+          />
+        ))}
     </Chart>
   )
 }

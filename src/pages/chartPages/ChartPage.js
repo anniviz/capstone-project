@@ -1,10 +1,11 @@
 import * as d3 from 'd3'
 import 'moment/locale/de'
 import PropTypes from 'prop-types'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components/macro'
 import LineChart from '../../components/charts/LineChart'
 import DayPickerInputRange from '../../components/DayPickerInputRange'
+import useTimeSpan from '../../hooks/useTimeSpan'
 
 ChartPage.propTypes = {
   observationsDiary: PropTypes.arrayOf(
@@ -27,18 +28,15 @@ ChartPage.propTypes = {
 export default function ChartPage({ observationsDiary, observationType }) {
   const parseTime = d3.timeParse('%Y-%m-%d')
 
-  const sortedObservationsDiary = observationsDiary
-    .slice()
-    .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
-
   const selectedObservationValueArray = createObservationValueArray()
 
-  const [startDate, setStartDate] = useState(
-    d3.min(selectedObservationValueArray, d => d.date)
-  )
-  const [endDate, setEndDate] = useState(
-    d3.max(selectedObservationValueArray, d => d.date)
-  )
+  const {
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    filteredObservationValueArray,
+  } = useTimeSpan(selectedObservationValueArray, observationType)
 
   const canvasRef = useRef(null)
 
@@ -52,7 +50,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
       />
       <Canvas ref={canvasRef}>
         <LineChart
-          selectedObservationValueArray={selectedObservationValueArray}
+          observationValues={filteredObservationValueArray}
+          observationType={observationType}
           startDate={startDate}
           endDate={endDate}
           canvasRef={canvasRef}
@@ -62,10 +61,16 @@ export default function ChartPage({ observationsDiary, observationType }) {
   )
 
   function createObservationValueArray() {
-    return sortedObservationsDiary.map(day => ({
+    const sortedObservationsDiary = observationsDiary
+      .slice()
+      .sort((a, b) => parseTime(a.date).getTime() - parseTime(b.date).getTime())
+
+    const observationValueArray = sortedObservationsDiary.map(day => ({
       date: parseTime(day.date),
-      observationValue: +parseObservationValue(day.observations),
+      observationValue: parseObservationValue(day.observations),
     }))
+
+    return observationValueArray
   }
 
   function parseObservationValue(observationValueArray) {
@@ -73,9 +78,13 @@ export default function ChartPage({ observationsDiary, observationType }) {
       observation => observation.type === observationType
     )
     if (observationType === 'bloodpressure') {
-      return observationValueRaw?.observationValue.replace('/', '.')
+      return (
+        observationValueRaw?.observationValue
+          .split('/')
+          .map(value => +value) || [NaN, NaN]
+      )
     } else {
-      return observationValueRaw?.observationValue.replace(',', '.')
+      return +observationValueRaw?.observationValue.replace(',', '.')
     }
   }
 }
