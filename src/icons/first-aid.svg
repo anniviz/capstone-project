@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <defs>
+    <style>
+      .cls-2 {
+        fill: none;
+        stroke: inherit;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: inherit;
+      }
+    </style>
+  </defs>
+  <g id="Icons_firstaid" data-name="Icons/ firstaid" transform="translate(1.5 1.5)">
+    <path id="Path" class="cls-2" d="M.75,0V6" transform="translate(18.75 21)"/>
+    <path id="Path-2" data-name="Path" class="cls-2" d="M0,.75H6" transform="translate(16.5 23.25)"/>
+    <path id="Path-3" data-name="Path" class="cls-2" d="M33,30H6a6.018,6.018,0,0,1-6-6V6A6.018,6.018,0,0,1,6,0H33a6.018,6.018,0,0,1,6,6V24A6.018,6.018,0,0,1,33,30Z" transform="translate(0 9)"/>
+    <circle id="Oval" class="cls-2" cx="9" cy="9" r="9" transform="translate(10.5 15)"/>
+    <path id="Path-4" data-name="Path" class="cls-2" d="M15,9H0V6A6.018,6.018,0,0,1,6,0H9a6.018,6.018,0,0,1,6,6Z" transform="translate(12)"/>
+  </g>
+</svg>

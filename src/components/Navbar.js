@@ -2,6 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import AddLink from './links/AddLink'
 import { ReactComponent as MedicationsIcon } from '../icons/pill.svg'
+import { ReactComponent as HospitalIcon } from '../icons/first-aid.svg'
 import { ReactComponent as ObservationsIcon } from '../icons/observations.svg'
 import { ReactComponent as ChartsIcon } from '../icons/heart.svg'
 
@@ -10,11 +11,6 @@ export default function Navbar({ isCharts }) {
 
   return (
     <Nav>
-      <NavLink exact to="/medications">
-        <MedicationsIconStyled
-          $isActive={location.pathname.includes('medications')}
-        />
-      </NavLink>
       <ObservationIconWrapper>
         <NavLink exact to="/observations">
           <ObservationsIconStyled
@@ -23,6 +19,18 @@ export default function Navbar({ isCharts }) {
         </NavLink>
         <NavLink exact to="/charts">
           <ChartsIconStyled $isActive={location.pathname.includes('charts')} />
+        </NavLink>
+      </ObservationIconWrapper>
+      <ObservationIconWrapper>
+        <NavLink exact to="/medications">
+          <MedicationsIconStyled
+            $isActive={location.pathname.includes('medications')}
+          />
+        </NavLink>
+        <NavLink exact to="/hoapital">
+          <HospitalIconStyled
+            $isActive={location.pathname.includes('hospital')}
+          />
         </NavLink>
       </ObservationIconWrapper>
       <AddLink
@@ -56,8 +64,16 @@ const ObservationIconWrapper = styled.div`
 const MedicationsIconStyled = styled(MedicationsIcon)`
   stroke: ${prop =>
     prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
-  width: 33px;
-  height: 60px;
+  width: 30px;
+  height: 40px;
+`
+
+const HospitalIconStyled = styled(HospitalIcon)`
+  stroke: ${prop =>
+    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
+  width: 30px;
+  height: 40px;
+  stroke-width: 3px;
 `
 
 const ObservationsIconStyled = styled(ObservationsIcon)`
