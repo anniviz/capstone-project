@@ -55,21 +55,21 @@ const ObservationIconWrapper = styled.div`
 
 const MedicationsIconStyled = styled(MedicationsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary-dark)'};
+    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
   width: 33px;
   height: 60px;
 `
 
 const ObservationsIconStyled = styled(ObservationsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary-dark)'};
+    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
   width: 30px;
   height: 40px;
 `
 
 const ChartsIconStyled = styled(ChartsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-primary)' : 'var(--color-secondary-dark)'};
+    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
   width: 30px;
   height: 40px;
 `
