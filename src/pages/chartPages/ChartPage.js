@@ -29,12 +29,6 @@ export default function ChartPage({ observationsDiary, observationType }) {
   const parseTime = d3.timeParse('%Y-%m-%d')
 
   const selectedObservationValueArray = createObservationValueArray()
-  const observationsWithoutUndefined = selectedObservationValueArray.filter(
-    observation =>
-      observationType === 'bloodpressure' || observationType === 'fev1'
-        ? observation.observationValue[0]
-        : observation.observationValue
-  )
 
   const {
     startDate,
@@ -42,8 +36,16 @@ export default function ChartPage({ observationsDiary, observationType }) {
     endDate,
     setEndDate,
     filteredObservationValueArray,
-  } = useTimeSpan(selectedObservationValueArray, observationsWithoutUndefined)
+  } = useTimeSpan(selectedObservationValueArray, observationType)
 
+  const observationsWithoutUndefined = filteredObservationValueArray.filter(
+    observation =>
+      observationType === 'bloodpressure' ||
+      observationType === 'fev1' ||
+      observationType === 'urine'
+        ? observation.observationValue[0]
+        : observation.observationValue
+  )
   const canvasRef = useRef(null)
   return observationsWithoutUndefined.length > 0 ? (
     <Grid>
@@ -100,6 +102,8 @@ export default function ChartPage({ observationsDiary, observationType }) {
           .split('/')
           .map(value => +value) || [NaN, NaN]
       )
+    } else if (observationType === 'urine') {
+      return observationValueRaw?.observationValue.split('\n') || [null, null]
     } else {
       return +observationValueRaw?.observationValue.replace(',', '.')
     }

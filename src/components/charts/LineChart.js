@@ -41,6 +41,7 @@ export default function LineChart({
   endDate,
   canvasRef,
 }) {
+  console.log(observationValues)
   const { width: chartWidth, height: chartHeight } = useWidthAndHeight(
     canvasRef
   )
@@ -55,22 +56,31 @@ export default function LineChart({
     .range([0, chartInnerWidth])
     .nice()
 
-  const yScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(observationValues, d =>
-        observationType === 'bloodpressure' || observationType === 'fev1'
-          ? d.observationValue[1]
-          : d.observationValue
-      ) - 0.1,
-      d3.max(observationValues, d =>
-        observationType === 'bloodpressure' || observationType === 'fev1'
-          ? d.observationValue[0]
-          : d.observationValue
-      ) + 0.1,
-    ])
-    .range([chartInnerHeight, 0])
-    .nice()
+  let yScale
+
+  if (observationType === 'urine') {
+    yScale = d3
+      .scaleBand()
+      .domain(['3+', '2+', '1+', 'neg.', 'pos.'])
+      .range([chartInnerHeight, 0])
+  } else {
+    yScale = d3
+      .scaleLinear()
+      .domain([
+        d3.min(observationValues, d =>
+          observationType === 'bloodpressure' || observationType === 'fev1'
+            ? d.observationValue[1]
+            : d.observationValue
+        ) - 0.1,
+        d3.max(observationValues, d =>
+          observationType === 'bloodpressure' || observationType === 'fev1'
+            ? d.observationValue[0]
+            : d.observationValue
+        ) + 0.1,
+      ])
+      .range([chartInnerHeight, 0])
+      .nice()
+  }
 
   let line, line1, line2
   if (observationType === 'bloodpressure' || observationType === 'fev1') {
@@ -82,6 +92,18 @@ export default function LineChart({
     line2 = d3
       .line()
       .defined(d => !isNaN(d.observationValue[1]))
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.observationValue[1]))
+  }
+  if (observationType === 'urine') {
+    line1 = d3
+      .line()
+      .defined(d => typeof d.observationValue[0] === 'string')
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.observationValue[0]))
+    line2 = d3
+      .line()
+      .defined(d => typeof d.observationValue[0] === 'string')
       .x(d => xScale(d.date))
       .y(d => yScale(d.observationValue[1]))
   } else {
@@ -105,7 +127,9 @@ export default function LineChart({
         observationType={observationType}
       />
 
-      {observationType === 'bloodpressure' || observationType === 'fev1' ? (
+      {observationType === 'bloodpressure' ||
+      observationType === 'fev1' ||
+      observationType === 'urine' ? (
         <>
           <Line d={line1(observationValues)} />
           <Line d={line2(observationValues)} />
@@ -115,6 +139,7 @@ export default function LineChart({
       )}
       {observationType === 'bloodpressure' ||
         observationType === 'fev1' ||
+        observationType === 'urine' ||
         observationsWithoutUndefined.map(day => (
           <Circle
             key={day.date}

@@ -23,28 +23,51 @@ export default function YAxis({ yScale, chartInnerWidth, observationType }) {
 
   return (
     <>
-      {yScale.ticks(6).map(tickValue => (
-        <g
-          key={yScale(tickValue)}
-          transform={`translate(0,${yScale(tickValue)})`}
-        >
-          <line
-            x1={-4}
-            y1="0"
-            x2={chartInnerWidth + 4}
-            y2="0"
-            stroke="lightgrey"
-          />
-          <YAxisTickMarks
-            key={tickValue}
-            style={{ textAnchor: 'end' }}
-            x={-7}
-            dy=".32em"
-          >
-            {yAxisTickFormat(tickValue)}
-          </YAxisTickMarks>
-        </g>
-      ))}
+      {observationType === 'urine'
+        ? yScale.domain().map(tickValue => (
+            <g
+              key={yScale(tickValue)}
+              transform={`translate(0,${yScale(tickValue)})`}
+            >
+              <line
+                x1={-4}
+                y1="0"
+                x2={chartInnerWidth + 4}
+                y2="0"
+                stroke="lightgrey"
+              />
+              <YAxisTickMarks
+                key={tickValue}
+                style={{ textAnchor: 'end' }}
+                x={-7}
+                dy=".32em"
+              >
+                {tickValue}
+              </YAxisTickMarks>
+            </g>
+          ))
+        : yScale.ticks(6).map(tickValue => (
+            <g
+              key={yScale(tickValue)}
+              transform={`translate(0,${yScale(tickValue)})`}
+            >
+              <line
+                x1={-4}
+                y1="0"
+                x2={chartInnerWidth + 4}
+                y2="0"
+                stroke="lightgrey"
+              />
+              <YAxisTickMarks
+                key={tickValue}
+                style={{ textAnchor: 'end' }}
+                x={-7}
+                dy=".32em"
+              >
+                {yAxisTickFormat(tickValue)}
+              </YAxisTickMarks>
+            </g>
+          ))}
       <AxisLabel>{unit}</AxisLabel>
     </>
   )
