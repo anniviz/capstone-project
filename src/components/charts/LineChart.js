@@ -41,7 +41,6 @@ export default function LineChart({
   endDate,
   canvasRef,
 }) {
-  console.log(observationValues)
   const { width: chartWidth, height: chartHeight } = useWidthAndHeight(
     canvasRef
   )
