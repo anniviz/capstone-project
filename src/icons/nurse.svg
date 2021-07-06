@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.391" height="42.197" viewBox="0 0 30.391 42.197">
+  <defs>
+    <style>
+      .cls-4 {
+        fill: none;
+        stroke: inherit;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <g id="Icons_nurse" data-name="Icons/ nurse" transform="translate(1.697 1.5)">
+    <g id="Icons_nurse-2" data-name="Icons/ nurse">
+      <path id="Path" class="cls-4" d="M15,5.25A5.315,5.315,0,0,0,9.75,0,5.315,5.315,0,0,0,4.5,5.25,2.307,2.307,0,0,0,2.25,3,2.307,2.307,0,0,0,0,5.25V13.5a6,6,0,0,0,12,0V9h3Z" transform="translate(7.5)"/>
+      <path id="Path-2" data-name="Path" class="cls-4" d="M10.5,0V1.5A5.975,5.975,0,0,1,7.2,6.9l-3,1.5a6.208,6.208,0,0,0-3.15,4.5L0,20.25" transform="translate(0 18.75)"/>
+      <path id="Path-3" data-name="Path" class="cls-4" d="M0,.75H4.5" transform="translate(16.5 32.25)"/>
+      <path id="Path-4" data-name="Path" class="cls-4" d="M17.25,16.05,16.2,8.55a6.208,6.208,0,0,0-3.15-4.5L6.75.9l-3,1.65L0,0" transform="translate(9.75 22.95)"/>
+    </g>
+  </g>
+</svg>

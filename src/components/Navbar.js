@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import AddLink from './links/AddLink'
 import { ReactComponent as MedicationsIcon } from '../icons/pill.svg'
-import { ReactComponent as HospitalIcon } from '../icons/first-aid.svg'
+import { ReactComponent as ContactsIcon } from '../icons/nurse.svg'
 import { ReactComponent as ObservationsIcon } from '../icons/observations.svg'
 import { ReactComponent as ChartsIcon } from '../icons/heart.svg'
 
@@ -11,7 +11,7 @@ export default function Navbar({ isCharts }) {
 
   return (
     <Nav>
-      <ObservationIconWrapper>
+      <IconWrapper>
         <NavLink exact to="/observations">
           <ObservationsIconStyled
             $isActive={location.pathname.includes('observations')}
@@ -20,19 +20,19 @@ export default function Navbar({ isCharts }) {
         <NavLink exact to="/charts">
           <ChartsIconStyled $isActive={location.pathname.includes('charts')} />
         </NavLink>
-      </ObservationIconWrapper>
-      <ObservationIconWrapper>
+      </IconWrapper>
+      <IconWrapper>
         <NavLink exact to="/medications">
           <MedicationsIconStyled
             $isActive={location.pathname.includes('medications')}
           />
         </NavLink>
         <NavLink exact to="/contacts">
-          <HospitalIconStyled
+          <ContactsIconStyled
             $isActive={location.pathname.includes('contacts')}
           />
         </NavLink>
-      </ObservationIconWrapper>
+      </IconWrapper>
       <AddLink
         to={isCharts ? `/observations/form` : `${location.pathname}/form`}
       ></AddLink>
@@ -53,39 +53,40 @@ const Nav = styled.nav`
   gap: 60px;
 `
 
-const ObservationIconWrapper = styled.div`
+const IconWrapper = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: space-between;
   padding-left: 30px;
+  align-items: center;
 `
 
 const MedicationsIconStyled = styled(MedicationsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
+    prop.$isActive ? 'var(--color-gradient-2)' : 'var(--color-primary)'};
   width: 30px;
   height: 40px;
 `
 
-const HospitalIconStyled = styled(HospitalIcon)`
+const ContactsIconStyled = styled(ContactsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
+    prop.$isActive ? 'var(--color-gradient-2)' : 'var(--color-primary)'};
   width: 30px;
-  height: 40px;
+  height: 32px;
   stroke-width: 3px;
 `
 
 const ObservationsIconStyled = styled(ObservationsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
+    prop.$isActive ? 'var(--color-gradient-2)' : 'var(--color-primary)'};
   width: 30px;
-  height: 40px;
+  height: 32px;
 `
 
 const ChartsIconStyled = styled(ChartsIcon)`
   stroke: ${prop =>
-    prop.$isActive ? 'var(--color-quaternary)' : 'var(--color-primary)'};
+    prop.$isActive ? 'var(--color-gradient-2)' : 'var(--color-primary)'};
   width: 30px;
   height: 40px;
 `
