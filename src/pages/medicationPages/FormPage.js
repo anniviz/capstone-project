@@ -165,7 +165,8 @@ const Textarea = styled.textarea`
   border-radius: 16px;
   overflow: auto;
   color: var(--color-primary);
-  font-size: 1em;
+  font-family: inherit;
+  font-size: 0.9rem;
   line-height: 1.5em;
   resize: none;
   box-shadow: 34px 34px 89px var(--color-shadow-13);

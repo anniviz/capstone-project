@@ -39,7 +39,7 @@ export default function useFormValidation(inputs) {
           /^([1-9][0-9]|[1-9][0-9][0-9])\/([1-9][0-9]|[1-9][0-9][0-9])$/
         )
       case 'fev1':
-        return input.match(/^([1-9]),([0-9][0-9])$/)
+        return input.match(/^([0-9]),([0-9][0-9])$/)
       case 'bloodsugar':
         return input.match(/^([1-9]|[1-9][0-9]),([0-9])$/)
       default:

@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../../components/buttons/Button'
 import useFormValidation from '../../hooks/useFormValidation'
+import getObservationTypes from '../../services/getObservationTypes'
 import getCurrentTime from '../../utils/getCurrentTime'
 
 ObservationFormPageDefault.propTypes = {
@@ -15,13 +16,6 @@ ObservationFormPageDefault.propTypes = {
     name: PropTypes.string,
     observationValue: PropTypes.string,
   }).isRequired,
-  observationTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      unit: PropTypes.string,
-    }).isRequired
-  ),
   observationType: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
   setSelectedObservationId: PropTypes.func.isRequired,
@@ -29,11 +23,12 @@ ObservationFormPageDefault.propTypes = {
 
 export default function ObservationFormPageDefault({
   observation,
-  observationTypes,
   observationType,
   onSubmit,
   setSelectedObservationId,
 }) {
+  const observationTypes = getObservationTypes()
+
   const history = useHistory()
   const { name, type, unit, format } = observationTypes.find(
     element => element.type === observationType

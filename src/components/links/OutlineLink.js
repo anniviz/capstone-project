@@ -5,11 +5,11 @@ const OutlineLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 140px;
+  width: 160px;
   height: 52px;
-  border: 2px solid var(--color-tertiary);
+  border: 2px solid var(--color-quaternary);
   border-radius: 20px;
-  color: var(--color-tertiary);
+  color: var(--color-quaternary);
   font-weight: bold;
   text-decoration: none;
 `

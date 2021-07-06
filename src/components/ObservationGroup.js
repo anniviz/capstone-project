@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
+import getObservationTypes from '../services/getObservationTypes'
 import IconButton from './buttons/IconButton'
 
 ObservationGroup.propTypes = {
@@ -9,14 +10,6 @@ ObservationGroup.propTypes = {
   time: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  observationTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      unit: PropTypes.string,
-      format: PropTypes.string,
-    }).isRequired
-  ),
   editMode: PropTypes.bool,
   handleEditClick: PropTypes.func.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
@@ -27,11 +20,12 @@ export default function ObservationGroup({
   time,
   name,
   value,
-  observationTypes,
   editMode,
   handleEditClick,
   handleDeleteClick,
 }) {
+  const observationTypes = getObservationTypes()
+
   const { unit, type } = observationTypes.find(element => element.name === name)
 
   return (

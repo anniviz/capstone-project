@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
     --color-primary: #205072;
     --color-secondary: #e0ecde;
     --color-tertiary: #68b2a0;
+    --color-quaternary: #47CACC;
     --color-gradient-1: #7be495;
     --color-gradient-2: #329d9c;
     --color-shadow-13: rgba(50, 157, 156, 0.13);
@@ -23,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: var(--color-basis);
+    color: var(--color-primary)
   }
 
   input,
@@ -30,6 +32,6 @@ const GlobalStyles = createGlobalStyle`
   textarea {
     font-size: inherit;
   }
-`
+  `
 
 export default GlobalStyles
