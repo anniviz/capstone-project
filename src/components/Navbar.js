@@ -29,7 +29,7 @@ export default function Navbar({ isCharts }) {
         </NavLink>
         <NavLink exact to="/contacts">
           <HospitalIconStyled
-            $isActive={location.pathname.includes('hospital')}
+            $isActive={location.pathname.includes('contacts')}
           />
         </NavLink>
       </ObservationIconWrapper>
