@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import ContactGroup from '../../components/ContactGroup'
 
-export default function FirstAidPage() {
+export default function ContactsPage() {
   const contacts = [
     { id: '1', name: 'Kinderklinik', content: 'Tel: 01234-56789111' },
     { id: '2', name: 'Apotheke', content: 'Tel: 01234-787878' },

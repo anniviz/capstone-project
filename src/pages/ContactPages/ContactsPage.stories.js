@@ -1,9 +1,9 @@
 import React from 'react'
-import FirstAidPage from './FirstAidPage'
+import ContactsPage from './ContactsPage'
 
 export default {
   title: 'pages/first aid',
-  component: FirstAidPage,
+  component: ContactsPage,
   argTypes: {
     isDisabled: { type: 'boolean' },
   },
@@ -23,5 +23,5 @@ export default {
   ],
 }
 
-export const Default = args => <FirstAidPage {...args} />
+export const Default = args => <ContactsPage {...args} />
 Default.args = {}

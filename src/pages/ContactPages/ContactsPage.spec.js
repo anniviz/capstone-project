@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import FirstAidPage from './FirstAidPage'
+import ContactsPage from './ContactsPage'
 
 describe('FirstAidPage', () => {
   it('renders a List of ContactGroups', () => {
     render(
       <MemoryRouter>
-        <FirstAidPage />
+        <ContactsPage />
       </MemoryRouter>
     )
 

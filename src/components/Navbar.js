@@ -27,7 +27,7 @@ export default function Navbar({ isCharts }) {
             $isActive={location.pathname.includes('medications')}
           />
         </NavLink>
-        <NavLink exact to="/hoapital">
+        <NavLink exact to="/contacts">
           <HospitalIconStyled
             $isActive={location.pathname.includes('hospital')}
           />
