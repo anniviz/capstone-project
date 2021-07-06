@@ -20,6 +20,10 @@ export default function Header({ selectedDay }) {
             element => element.type === getLastSegmentOfUrl(location)
           ).name
   }
+
+  if (location.pathname.includes('contacts')) {
+    headerText = 'Kontakte'
+  }
   return <HeaderStyled>{headerText}</HeaderStyled>
 
   function formatDate(date) {
