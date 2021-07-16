@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import useMedications from './hooks/useMedications'
 import useObservations from './hooks/useObservations'
 import ChartPage from './pages/chartPages/ChartPage'
+import ContactsPage from './pages/ContactPages/ContactsPage'
 import FormPage from './pages/medicationPages/FormPage'
 import MedicationPage from './pages/medicationPages/MedicationPage'
 import ObservationFormPageDefault from './pages/observationPages/ObservationFormPageDefault'
@@ -126,6 +127,9 @@ export default function App() {
             observationsDiary={observationsDiary}
             observationType={getLastSegmentOfUrl(location)}
           />
+        </Route>
+        <Route exact path={'/contacts'}>
+          <ContactsPage />
         </Route>
       </Switch>
       {location.pathname.includes('form/') || (
