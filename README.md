@@ -18,7 +18,7 @@ The app is responsive, however it is best viewed on a mobile device.
 
 ## URL
 
-[capstone-project-bice.vercel.app](capstone-project-bice.vercel.app)
+[capstone-project-bice.vercel.app](https://capstone-project-bice.vercel.app/medications)
 
 ## Available Scripts
 
