@@ -1,0 +1,1223 @@
+[
+  {
+    "date": "2021-6-29",
+    "observations": [
+      {
+        "id": "bcc456b5-aeb7-4ee3-a534-8dc4bb9d53aa",
+        "time": "9:10",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,3"
+      },
+      {
+        "id": "ed30c7d9-97d9-4cc4-8524-b3d768c945b8",
+        "time": "9:11",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "37,1"
+      },
+      {
+        "id": "261537be-0bf8-4559-b1d3-97902c5f3cf6",
+        "time": "9:11",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "91/45"
+      },
+      {
+        "id": "742a6db1-093e-4104-8961-695faa11e906",
+        "time": "9:12",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "f69a4eca-7149-41f2-8ded-c68d5191396e",
+        "time": "20:12",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "0,98"
+      },
+      {
+        "id": "07b30134-6fa8-4234-83b1-0bc1fe23f875",
+        "time": "10:13",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,00"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-28",
+    "observations": [
+      {
+        "id": "0e3e6b23-1679-4323-9fb2-c75388db90fc",
+        "time": "9:14",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      },
+      {
+        "id": "cc2f40cf-6be0-4e19-bec0-1e061a5439cb",
+        "time": "9:15",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,6"
+      },
+      {
+        "id": "be96d5ef-cbff-4234-8b79-e0097dfb97e6",
+        "time": "9:15",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "90/45"
+      },
+      {
+        "id": "35adde60-3aff-4515-9be8-989e838cd347",
+        "time": "9:15",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "c6812b00-0bc0-4802-ab22-8cdb223df765",
+        "time": "20:16",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "0,99"
+      },
+      {
+        "id": "f0539738-417f-4a22-a718-d5e902192f6f",
+        "time": "10:16",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,11"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-27",
+    "observations": [
+      {
+        "id": "13babcbb-4732-49aa-ae09-ff56ebc52b82",
+        "time": "9:17",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      },
+      {
+        "id": "667fdd7b-25bb-4346-babc-b2ab4eeac7a1",
+        "time": "9:17",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,7"
+      },
+      {
+        "id": "c33c6629-08a0-4d8e-af2a-9505cbd2de3c",
+        "time": "9:18",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "94/45"
+      },
+      {
+        "id": "fa9c9f47-9e0b-463e-8981-e5ec5883540e",
+        "time": "9:00",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "9c463529-1eb2-4863-9ad8-96bbafba4bf7",
+        "time": "20:19",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,01"
+      },
+      {
+        "id": "761f3e80-4d2a-4773-b32c-88fb6bf43dcc",
+        "time": "10:19",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,06"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-26",
+    "observations": [
+      {
+        "id": "95f35c42-826a-4ce5-8a9e-59a419964d70",
+        "time": "9:19",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,6"
+      },
+      {
+        "id": "b3f73ac9-e876-4a3f-b4df-688d9a736ee8",
+        "time": "9:20",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,4"
+      },
+      {
+        "id": "39595753-e86e-4761-816d-f17f1ff036f4",
+        "time": "9:20",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "96/50"
+      },
+      {
+        "id": "0ff8ad5f-311d-4c99-a761-712a85505c50",
+        "time": "20:20",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "0,98"
+      },
+      {
+        "id": "b708c040-3b11-4b4b-826c-12269449171a",
+        "time": "10:21",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,05"
+      },
+      {
+        "id": "93e32b28-922e-45f4-8d7b-b9461bfbe4d5",
+        "time": "9:25",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      }
+    ]
+  },
+  {
+    "date": "2021-6-25",
+    "observations": [
+      {
+        "id": "d3c1d9ea-c1f0-49ac-80ec-7198b1e205c5",
+        "time": "8:21",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      },
+      {
+        "id": "943ab1bb-e6a8-46cd-8067-ee23d3176a28",
+        "time": "8:21",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,0"
+      },
+      {
+        "id": "d68c200c-2e35-4cc3-8b22-22b50341309f",
+        "time": "9:22",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "84/51"
+      },
+      {
+        "id": "784d9c67-b2eb-4495-b6cc-cc68981c9aea",
+        "time": "20:24",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,07"
+      },
+      {
+        "id": "b14aa057-173f-44d9-8115-cb5ee517643d",
+        "time": "10:24",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,00"
+      },
+      {
+        "id": "ac62aef2-7d1e-48a1-9056-3dee631873ea",
+        "time": "8:24",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      }
+    ]
+  },
+  {
+    "date": "2021-6-24",
+    "observations": [
+      {
+        "id": "b326fed7-0c30-4f64-951d-bbdaff27a190",
+        "time": "8:25",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      },
+      {
+        "id": "d30b4600-cc45-478b-a502-8871a77dd542",
+        "time": "8:26",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "81c9de7c-dcae-4cb7-b191-d4f21e20d3a0",
+        "time": "8:26",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,5"
+      },
+      {
+        "id": "720691f6-c583-4a22-8911-9060b5922911",
+        "time": "8:26",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "96/71"
+      },
+      {
+        "id": "e8814e72-6381-42c0-ae3e-7dd5793dc71d",
+        "time": "20:26",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "0,97"
+      },
+      {
+        "id": "209ce29f-76d7-452f-9e0d-3bf9075d6a3d",
+        "time": "10:27",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,02"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-23",
+    "observations": [
+      {
+        "id": "df4f252c-26db-4b42-91f0-05ec9ae62d8f",
+        "time": "8:27",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "7809735b-e389-4906-a46c-ea57f6db35f9",
+        "time": "8:27",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      },
+      {
+        "id": "83e38287-819d-40fe-bb45-8d211ed9ead9",
+        "time": "8:27",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,2"
+      },
+      {
+        "id": "a8a393b9-7891-4d57-b0c4-a89ad6d49909",
+        "time": "8:28",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "90/41"
+      },
+      {
+        "id": "d756cdaf-260d-4519-8f12-0b8b8459a838",
+        "time": "19:28",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,01"
+      },
+      {
+        "id": "96009042-b754-4c3e-acfc-b5d24ec8dbd5",
+        "time": "10:28",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,01"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-22",
+    "observations": [
+      {
+        "id": "79db8527-a8d8-4dfc-8b93-67330912dbe8",
+        "time": "8:29",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "921113e0-8564-4cfd-b9c9-80c25abf91ad",
+        "time": "8:29",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,7"
+      },
+      {
+        "id": "3315b7ca-7564-4947-a4fd-3f56ab1d2c16",
+        "time": "8:29",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,7"
+      },
+      {
+        "id": "62e7cbba-1a9f-412b-9f40-8f4638cb5878",
+        "time": "8:30",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "84/44"
+      },
+      {
+        "id": "6994881a-c373-4063-9122-3cee936445c4",
+        "time": "19:30",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,11"
+      },
+      {
+        "id": "095f312d-76ab-48e7-82c3-4239f47f4cd8",
+        "time": "10:30",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,11"
+      },
+      {
+        "id": "646ad027-4070-4545-952f-6ec0f14b4958",
+        "time": "8:31",
+        "type": "notes",
+        "name": "Notizen",
+        "observationValue": "Am Morgen Stuhl wieder besser (später wieder schlechter)"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-21",
+    "observations": [
+      {
+        "id": "f639862b-6688-40b3-a0ef-0e2ac6ed5ecd",
+        "time": "7:32",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "330c83c2-ee23-4d03-8112-6f89c8b06bc1",
+        "time": "9:34",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,7"
+      },
+      {
+        "id": "b99652f5-3c4c-4609-ad27-28698c0841e8",
+        "time": "9:34",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "94/41"
+      },
+      {
+        "id": "f133134b-3f64-4fc2-83f4-1292db5426da",
+        "time": "12:34",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,3"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-30",
+    "observations": [
+      {
+        "id": "2b1034ca-4d12-4069-b9d1-96e0b297ee35",
+        "time": "9:44",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      },
+      {
+        "id": "1b0204cd-6fc8-45e2-af0a-d943517d3fd0",
+        "time": "8:44",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "d7ba49e7-5a17-4ca4-ad66-f00901263527",
+        "time": "9:45",
+        "type": "temperature",
+        "name": "Temperatur",
+        "observationValue": "36,7"
+      },
+      {
+        "id": "477c8e6d-9f8f-4ea6-a1c5-5103f7f4feb3",
+        "time": "9:45",
+        "type": "bloodpressure",
+        "name": "Blutdruck",
+        "observationValue": "100/45"
+      },
+      {
+        "id": "c8981e9f-502b-4878-a677-a4dd45fa9eae",
+        "time": "10:45",
+        "type": "fev1",
+        "name": "FEV1",
+        "observationValue": "1,02"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-20",
+    "observations": [
+      {
+        "id": "ff99abf3-5937-4b58-8f79-0a43bf3a2dbd",
+        "time": "9:17",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,6"
+      },
+      {
+        "id": "243fbdd9-c4e3-484a-af1d-572c196e8475",
+        "time": "8:18",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      }
+    ]
+  },
+  {
+    "date": "2021-6-19",
+    "observations": [
+      {
+        "id": "8719493c-c148-438f-97ee-21b5572682dd",
+        "time": "9:26",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-18",
+    "observations": [
+      {
+        "id": "11491bdb-8903-47d8-9ca3-779351f9df0f",
+        "time": "9:27",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-17",
+    "observations": [
+      {
+        "id": "0dc963d6-ddae-48f3-9aa4-a504c674e1eb",
+        "time": "9:35",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-16",
+    "observations": [
+      {
+        "id": "a70d53f9-9f4c-48d7-8ab2-7449c5ac6ceb",
+        "time": "9:35",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-15",
+    "observations": [
+      {
+        "id": "b1c5104c-f2a1-4ccb-8660-0c6030b37afb",
+        "time": "9:37",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-14",
+    "observations": [
+      {
+        "id": "0977423d-40fa-42f6-8a5b-9be52d8311be",
+        "time": "9:37",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,3"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-13",
+    "observations": [
+      {
+        "id": "5a26de53-b4a4-4907-8b4f-e64d2009dd04",
+        "time": "9:37",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,3"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-12",
+    "observations": [
+      {
+        "id": "5577af49-f900-4718-9e32-7ac2ddd7f411",
+        "time": "9:38",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-11",
+    "observations": [
+      {
+        "id": "67dcba80-e544-4e65-bf2b-be385ce10257",
+        "time": "9:38",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-10",
+    "observations": [
+      {
+        "id": "23f45a15-5ff4-4037-b381-3f4a304b6702",
+        "time": "9:39",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-9",
+    "observations": [
+      {
+        "id": "afbb35dd-dc4a-44cb-ba3a-ee5243bcbc88",
+        "time": "9:39",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-8",
+    "observations": [
+      {
+        "id": "2cc3ca9c-4ae7-4d03-b670-2bb54436a7a9",
+        "time": "9:39",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-7",
+    "observations": [
+      {
+        "id": "bc01d3f2-5ca3-46a9-817f-a57256336453",
+        "time": "9:40",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-6",
+    "observations": [
+      {
+        "id": "11d1a331-dd60-42b5-9e95-c09dea4e43e6",
+        "time": "9:40",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-5",
+    "observations": [
+      {
+        "id": "42e1ea84-686a-4fe1-bc23-3bcbab58a908",
+        "time": "9:40",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-4",
+    "observations": [
+      {
+        "id": "14da8455-7634-4086-8361-297063e40c65",
+        "time": "9:40",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-3",
+    "observations": [
+      {
+        "id": "b7d6fbe8-ee59-4759-bc05-8b28639c59ce",
+        "time": "9:41",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-2",
+    "observations": [
+      {
+        "id": "a17ddd25-c8f5-4c69-bf9d-3bc9cefc5784",
+        "time": "9:41",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-6-1",
+    "observations": [
+      {
+        "id": "0fdf5411-7a7a-4245-82b5-5c224a11aa4e",
+        "time": "9:41",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-31",
+    "observations": [
+      {
+        "id": "2e2df07b-fb65-4116-bd58-851bcde38dd6",
+        "time": "9:42",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-30",
+    "observations": [
+      {
+        "id": "c20cf929-7d76-473e-b100-a106d5b43180",
+        "time": "9:42",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-29",
+    "observations": [
+      {
+        "id": "96f675f2-053f-4d4f-bdc0-f8b5009774cc",
+        "time": "9:42",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-28",
+    "observations": [
+      {
+        "id": "3315e5eb-f1e4-44d9-bed6-22a63d6c0648",
+        "time": "9:43",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-27",
+    "observations": [
+      {
+        "id": "30911b15-db46-4af8-8c74-e11c5310a042",
+        "time": "9:43",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-26",
+    "observations": [
+      {
+        "id": "9394733e-db00-48cf-b47e-76de9decc4ff",
+        "time": "9:44",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,4"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-25",
+    "observations": [
+      {
+        "id": "3cf4bb06-a41c-4996-bf4a-36177da87343",
+        "time": "9:44",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-24",
+    "observations": [
+      {
+        "id": "6f6bbe73-a644-43fb-8e7b-bbcd99112330",
+        "time": "9:45",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-23",
+    "observations": [
+      {
+        "id": "72889d8c-9f45-44b7-8b47-90e2560eb5ff",
+        "time": "9:45",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-22",
+    "observations": [
+      {
+        "id": "c862cbf3-15cd-494d-bfaa-39abf125dfdb",
+        "time": "9:45",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,95"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-21",
+    "observations": [
+      {
+        "id": "3925fded-408e-471e-b5b4-1f30adf82235",
+        "time": "9:45",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-20",
+    "observations": [
+      {
+        "id": "f883dd32-5d13-4c59-96aa-87ea7df81c71",
+        "time": "9:46",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-19",
+    "observations": [
+      {
+        "id": "add076c6-c5d8-47a0-912e-eb68efd39dc2",
+        "time": "9:46",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-18",
+    "observations": [
+      {
+        "id": "96152d2e-ff46-4de0-9555-0ce44e257557",
+        "time": "9:46",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-17",
+    "observations": [
+      {
+        "id": "206be7a3-5301-4612-9f41-13945cd17748",
+        "time": "9:46",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-16",
+    "observations": [
+      {
+        "id": "708c0fdb-4e2e-4c86-b19f-a6113f6f3d7a",
+        "time": "9:46",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-15",
+    "observations": [
+      {
+        "id": "b0cfdf85-66a7-48d9-9d00-1268f9003b3a",
+        "time": "9:47",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,25"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-14",
+    "observations": [
+      {
+        "id": "f8474e85-be0a-4296-83bd-ba12730c73ca",
+        "time": "9:47",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-13",
+    "observations": [
+      {
+        "id": "859cb3c9-0ee7-4f50-9b98-0777d50003e8",
+        "time": "9:47",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-12",
+    "observations": [
+      {
+        "id": "78ddc2b5-81fb-4358-ab82-254f53a96054",
+        "time": "9:47",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-11",
+    "observations": [
+      {
+        "id": "c902ac05-0108-4778-a69a-aa5f34f95810",
+        "time": "9:48",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-10",
+    "observations": [
+      {
+        "id": "c5c5f82d-6f0f-4bb1-a894-06de0d794fdf",
+        "time": "9:48",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-9",
+    "observations": [
+      {
+        "id": "db1c0f49-2176-47a4-8b38-0d0c746900e7",
+        "time": "9:48",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-8",
+    "observations": [
+      {
+        "id": "7e5dbd34-2633-4750-afcc-c0aab266875f",
+        "time": "9:48",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-7",
+    "observations": [
+      {
+        "id": "a23f508e-f42f-4734-a32a-c7f4fe4c8c5c",
+        "time": "9:49",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,95"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-6",
+    "observations": [
+      {
+        "id": "f0adfa37-52f6-4f62-aaeb-9ee8dab2cabe",
+        "time": "9:49",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-5",
+    "observations": [
+      {
+        "id": "2309454b-1353-4bd8-ac64-80b48a7008f9",
+        "time": "9:49",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-4",
+    "observations": [
+      {
+        "id": "003293d7-556b-48f9-8e1f-7fd47b700a9c",
+        "time": "9:49",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-3",
+    "observations": [
+      {
+        "id": "2b162856-61b5-4fd3-8e34-1c17d4350295",
+        "time": "9:54",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,15"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-2",
+    "observations": [
+      {
+        "id": "34b2c31a-ea60-4887-92d0-90f58f58fb08",
+        "time": "9:54",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-5-1",
+    "observations": [
+      {
+        "id": "b19cd6df-2f6b-48a3-a1e2-99a343808f11",
+        "time": "9:54",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,95"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-30",
+    "observations": [
+      {
+        "id": "e0aeb9c9-9ca3-4b7a-8f83-d19179d385ea",
+        "time": "9:55",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-7-1",
+    "observations": [
+      {
+        "id": "71a64fdd-69e7-4b20-b11c-305b5e24b568",
+        "time": "9:07",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      },
+      {
+        "id": "7aca2449-cf95-44ac-bdc0-5a5f2a3ff6ba",
+        "time": "9:07",
+        "type": "urine",
+        "name": "Urin",
+        "observationValue": "neg.\nneg."
+      },
+      {
+        "id": "f654db48-e8c1-451d-ac8d-bd7aa99b71c3",
+        "time": "9:07",
+        "type": "notes",
+        "name": "Notizen",
+        "observationValue": "mit Kopfschmerzen aufgewacht"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-29",
+    "observations": [
+      {
+        "id": "f2908612-2a36-42cd-8c34-4684f50a63f0",
+        "time": "8:58",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-28",
+    "observations": [
+      {
+        "id": "75e970ef-b006-4c81-a485-f6f7a4fcc6e3",
+        "time": "9:23",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-27",
+    "observations": [
+      {
+        "id": "7310179f-d97a-425b-93e2-39a5039b8531",
+        "time": "9:24",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,2"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-26",
+    "observations": [
+      {
+        "id": "c5ea060c-e45d-4d41-a597-c3a1d05aab38",
+        "time": "9:24",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,1"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-25",
+    "observations": [
+      {
+        "id": "de95b838-102d-4e25-8f7f-e486824e36c9",
+        "time": "9:24",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,0"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-24",
+    "observations": [
+      {
+        "id": "0abcc438-cbaa-4da9-8662-f865d1ca688f",
+        "time": "9:26",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "21,9"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-23",
+    "observations": [
+      {
+        "id": "4ef1c372-8aaa-4291-aab5-fa83ebb11a3b",
+        "time": "9:27",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,3"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-22",
+    "observations": [
+      {
+        "id": "e98838ee-64d4-4820-a066-c5adbbd3809a",
+        "time": "9:29",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,5"
+      }
+    ]
+  },
+  {
+    "date": "2021-4-21",
+    "observations": [
+      {
+        "id": "743d1a6d-736c-4a15-9661-0656c3cfd4b5",
+        "time": "17:29",
+        "type": "weight",
+        "name": "Gewicht",
+        "observationValue": "22,6"
+      }
+    ]
+  }
+]
