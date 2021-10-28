@@ -1,5 +1,5 @@
 {
-  "name": "capstone-project",
+  "name": "Patiententagebuch",
   "version": "1.0.0",
   "description": "Patiententagebuch is an app to keep track of your medications and body sign measurements. To have an overview you can see how those develop over time in different charts.",
   "main": "server.js",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/anniviz/capstone-project/issues"
   },
-  "homepage": "https://github.com/anniviz/capstone-project#readme"
+  "homepage": "https://github.com/anniviz/capstone-project#readme",
+  "dependencies": {
+    "mongoose": "^6.0.12"
+  }
 }
