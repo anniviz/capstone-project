@@ -4,7 +4,14 @@
   "description": "Patiententagebuch is an app to keep track of your medications and body sign measurements. To have an overview you can see how those develop over time in different charts.",
   "main": "server.js",
   "scripts": {
-    "test": "cd client && npm test"
+    "dev": "npm-run-all --parallel dev:client dev:server",
+    "dev:client": "cd client && npm start",
+    "dev:server": "nodemon server.js",
+    "test": "cd client && npm test",
+    "storybook": "cd client && npm run storybook",
+    "build": "cd client && npm run build",
+    "postinstall": "cd client && npm install",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
