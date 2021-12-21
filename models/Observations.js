@@ -9,7 +9,7 @@ const observationSchema = {
 }
 
 const observationsSchema = {
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   observations: [observationSchema],
 }
 
