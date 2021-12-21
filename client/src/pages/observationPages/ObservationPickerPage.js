@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import OutlineLink from '../../components/links/OutlineLink'
-import getObservationTypes from '../../services/getObservationTypes'
+import getObservationTypes from '../../utils/getObservationTypes'
 
 ObservationPickerPage.propTypes = {
   leadingPath: PropTypes.string.isRequired,

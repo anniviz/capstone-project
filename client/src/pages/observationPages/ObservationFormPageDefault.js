@@ -5,7 +5,7 @@ import styled from 'styled-components/macro'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '../../components/buttons/Button'
 import useFormValidation from '../../hooks/useFormValidation'
-import getObservationTypes from '../../services/getObservationTypes'
+import getObservationTypes from '../../utils/getObservationTypes'
 import getCurrentTime from '../../utils/getCurrentTime'
 
 ObservationFormPageDefault.propTypes = {

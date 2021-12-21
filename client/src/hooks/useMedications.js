@@ -1,7 +1,7 @@
 import produce from 'immer'
 import { useEffect, useState } from 'react'
 import { useImmer } from 'use-immer'
-import createDateString from '../services/createDayString'
+import createDateString from '../utils/createDayString'
 import { loadFromLocal, saveToLocal } from '../utils/localStorage'
 
 export default function useMedications(selectedDayString) {

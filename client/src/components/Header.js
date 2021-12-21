@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import getObservationTypes from '../services/getObservationTypes'
+import getObservationTypes from '../utils/getObservationTypes'
 import getLastSegmentOfUrl from '../utils/getLastSegmentOfUrl'
 
 Header.propTypes = {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import deleteIcon from '../icons/delete.svg'
 import editIcon from '../icons/edit.svg'
-import getObservationTypes from '../services/getObservationTypes'
+import getObservationTypes from '../utils/getObservationTypes'
 import IconButton from './buttons/IconButton'
 
 ObservationGroup.propTypes = {

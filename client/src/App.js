@@ -14,7 +14,7 @@ import ObservationFormPageNote from './pages/observationPages/ObservationFormPag
 import ObservationFormPageUrin from './pages/observationPages/ObservationFormPageUrin'
 import ObservationPage from './pages/observationPages/ObservationPage'
 import ObservationPickerPage from './pages/observationPages/ObservationPickerPage'
-import createDateString from './services/createDayString'
+import createDateString from './utils/createDayString'
 import getLastSegmentOfUrl from './utils/getLastSegmentOfUrl'
 
 export default function App() {
