@@ -13,4 +13,4 @@ const observationsSchema = {
   observations: [observationSchema],
 }
 
-module.exports = mongoose.model('Observation', observationsSchema)
+module.exports = mongoose.model('Observations', observationsSchema)
